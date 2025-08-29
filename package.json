@@ -8,7 +8,7 @@
     "test": "ng test",
     "build:styles-manifest": "node ./scripts/generate-styles-manifest.js",
     "build": "ng build && npm run build:styles-manifest",
-    "serve": "npm run build && serve -s dist/shared/browser -l 4202"
+    "serve": "npm run build && serve -s dist/user/browser -l 4204"
   },
   "prettier": {
     "overrides": [
