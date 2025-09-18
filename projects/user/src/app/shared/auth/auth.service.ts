@@ -14,7 +14,6 @@ export class AuthService {
   private async initRemote(): Promise<RemoteAuthService> {
     if (!this.remote) {
       const m = await loadRemoteModule({
-        remoteEntry: 'http://localhost:4205/remoteEntry.js',
         remoteName: 'auth',
         exposedModule: './AuthService'
       });
