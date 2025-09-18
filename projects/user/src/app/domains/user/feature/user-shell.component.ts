@@ -27,7 +27,6 @@ export class UsershellComponent {
         if (user) {
           this.name = user.displayName;
           this.photoURL = user.photoURL;
-          console.log("name", this.name, "photoURL", this.photoURL);
         }
       });
     });
