@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MeComponent } from "../ui/me.component";
 import { RecentComponent } from "../ui/recent.component";
+import { AuthService } from '@shared/auth/auth.service';
 
 @Component({
   selector: 'app-user-shell',
@@ -9,8 +10,28 @@ import { RecentComponent } from "../ui/recent.component";
   imports: [CommonModule, MeComponent, RecentComponent],
   template:`
   
-  <app-me></app-me>
+  <app-me [user]="{
+    name,
+    photoURL
+  }"></app-me>
   <app-recent></app-recent>
   `
 })
-export class UsershellComponent {}
+export class UsershellComponent {
+  name = '';
+  photoURL = '';
+
+  constructor(private auth: AuthService) {
+    this.auth.getUser$().then(user$ => {
+      user$.subscribe(user => {
+        if (user) {
+          this.name = user.displayName;
+          this.photoURL = user.photoURL;
+        }
+      });
+    });
+  }
+  
+}
+
+

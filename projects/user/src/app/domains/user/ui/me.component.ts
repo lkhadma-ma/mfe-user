@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SkillsComponent } from './skills.component';
 import { SaveIconComponent } from './save-icon.component';
@@ -26,14 +26,14 @@ import { SaveIconComponent } from './save-icon.component';
   <div class="flex items-center justify-center -mt-8">
     <img
       class="z-10 w-[4.5rem] h-[4.5rem] border-2 border-white rounded-full"
-      src="https://media.licdn.com/dms/image/v2/D4D03AQHsr6KATZEHSQ/profile-displayphoto-shrink_400_400/B4DZSaPw.bGcAg-/0/1737754612249?e=1759363200&v=beta&t=XBZY2xLo0pP4E9Ez_7uizDNtO8pMet-81spkwB3znBw"
+      [src]="user()?.photoURL"
       alt="Me"
     />
   </div>
 
   <!-- Name + Skills -->
   <div class="flex flex-col items-center justify-center px-4 py-5">
-    <h1 class="mb-1 font-semibold tracking-wide">Oussama Yaagoub</h1>
+    <h1 class="mb-1 font-semibold tracking-wide">{{user()?.name}}</h1>
     <app-skills></app-skills>
   </div>
 
@@ -74,4 +74,6 @@ import { SaveIconComponent } from './save-icon.component';
 
   `
 })
-export class MeComponent {}
+export class MeComponent {
+  user = input<{ name: string; photoURL: string }>();
+}
