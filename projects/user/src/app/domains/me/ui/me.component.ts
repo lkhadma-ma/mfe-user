@@ -5,17 +5,19 @@ import { AboutComponent } from "./about.component";
 import { ServiceComponent } from "./service.component";
 import { ExperienceComponent } from "./experience.component";
 import { Experience } from '../data-access/experience';
+import { EducationComponent } from "./education.component";
+import { Education } from '../data-access/education';
 
 
 @Component({
   selector: 'mfe-user-me',
   standalone: true,
-  imports: [CommonModule, SkillsComponent, AboutComponent, ServiceComponent, ExperienceComponent],
+  imports: [CommonModule, SkillsComponent, AboutComponent, ServiceComponent, ExperienceComponent, EducationComponent],
   host: {
     class: 'mfe-user-w-full mfe-user-flex mfe-user-flex-col mfe-user-space-y-4'
   },
   template: `
-  <div class="mfe-user-border mfe-user-rounded-lg mfe-user-bg-white">
+  <div class="mfe-user-border mfe-user-rounded-xl mfe-user-bg-white">
   <!-- Header background -->
   <div class="mfe-user-relative">
     <img
@@ -30,7 +32,7 @@ import { Experience } from '../data-access/experience';
   </div>
 
   <!-- Avatar -->
-  <div class="mfe-user-flex mfe-user-items-center mfe-user-justify-center max-sm:-mfe-user-mt-[2.5rem] -mfe-user-mt-[5rem] mfe-user-ml-[2rem] max-sm:mfe-user-w-[5rem] max-sm:mfe-user-h-[5rem] mfe-user-h-[130px] mfe-user-w-[130px] mfe-user-rounded-full">
+  <div class="mfe-user-flex mfe-user-items-center mfe-user-justify-center max-sm:-mfe-user-mt-[2.5rem] -mfe-user-mt-[6rem] mfe-user-ml-[2rem] max-sm:mfe-user-w-[5rem] max-sm:mfe-user-h-[5rem] mfe-user-h-[150px] mfe-user-w-[150px] mfe-user-rounded-full">
     <img
       class="mfe-user-z-10  mfe-user-w-full mfe-user-h-full mfe-user-border-white mfe-user-border-4 mfe-user-rounded-full"
       [src]="user()?.photoURL ?? 'https://media.licdn.com/dms/image/v2/D4D03AQHsr6KATZEHSQ/profile-displayphoto-shrink_400_400/B4DZSaPw.bGcAg-/0/1737754612249?e=1761177600&v=beta&t=xr4e3pKtdCOzu7RPkzfsmj8Nb61mngstVryeiZQRFdE'"
@@ -53,6 +55,7 @@ import { Experience } from '../data-access/experience';
 
   <mfe-user-experience [experiences]="experiences"></mfe-user-experience>
 
+  <mfe-user-education [educations]="educations"></mfe-user-education>
   `
 })
 export class MeComponent {
@@ -101,5 +104,39 @@ export class MeComponent {
       ]
     }
   ];
-
+  educations: Education[] = [
+    {
+      id: 1,
+      school: "Stanford University",
+      description: "Studied computer science with a focus on AI and distributed systems.",
+      activities: "AI Club, Programming Competitions, Research Assistant",
+      grade: 3.9,
+      startDate: new Date("2018-09-01"),
+      endDate: new Date("2022-06-15"),
+      fieldOfStudy: "Computer Science",
+      degree: "Bachelor of Science",
+      skills: [
+        { id: 101, name: "Java" },
+        { id: 102, name: "Spring Boot" },
+        { id: 103, name: "Machine Learning" }
+      ]
+    },
+    {
+      id: 2,
+      school: "MIT",
+      description: "Master’s degree in Software Engineering with emphasis on cloud systems.",
+      activities: "Cloud Computing Club, Teaching Assistant",
+      grade: 4.0,
+      startDate: new Date("2022-09-01"),
+      endDate: new Date("2024-06-30"),
+      fieldOfStudy: "Software Engineering",
+      degree: "Master of Science",
+      skills: [
+        { id: 201, name: "Docker" },
+        { id: 202, name: "Kubernetes" },
+        { id: 203, name: "TypeScript" }
+      ]
+    }
+  ];
+  
 }
