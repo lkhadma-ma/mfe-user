@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
   template: `
 <div class="mfe-user-border mfe-user-rounded-lg mfe-user-bg-white">
     <div class="mfe-user-px-4 mfe-user-py-4 mfe-user-space-y-2">
-      <h1 class="mfe-user-font-semibold mfe-user-tracking-wide sm:mfe-user-text-2xl">About</h1>
+      <h1 class="mfe-user-font-semibold mfe-user-tracking-wide sm:mfe-user-text-xl mfe-user-mb-7">About</h1>
       @if (showCaption) {
               <div>
                 <p [innerHTML]="description()"></p>
