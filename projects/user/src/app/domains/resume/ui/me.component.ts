@@ -41,11 +41,11 @@ import { SaveIconComponent } from './save-icon.component';
 
   <!-- Stats -->
   <div class="mfe-user-px-4 mfe-user-py-4">
-    <div class="mfe-user-flex mfe-user-justify-between mfe-user-mb-2 mfe-user-text-xs mfe-user-font-medium mfe-user-cursor-pointer hover:mfe-user-bg-gray-300">
+    <div class="mfe-user-p-2 mfe-user-rounded-lg mfe-user-flex mfe-user-justify-between mfe-user-mb-2 mfe-user-text-xs mfe-user-font-medium mfe-user-cursor-pointer hover:mfe-user-bg-gray-300">
       <p class="mfe-user-text-gray-600">Who viewed your profile</p>
       <p class="mfe-user-text-blue-600">224</p>
     </div>
-    <div class="mfe-user-flex mfe-user-justify-between mfe-user-text-xs mfe-user-font-medium mfe-user-cursor-pointer hover:mfe-user-bg-gray-300">
+    <div class="mfe-user-p-2 mfe-user-rounded-lg mfe-user-flex mfe-user-justify-between mfe-user-text-xs mfe-user-font-medium mfe-user-cursor-pointer hover:mfe-user-bg-gray-300">
       <p class="mfe-user-text-gray-600">Views of your post</p>
       <p class="mfe-user-text-blue-600">3624</p>
     </div>

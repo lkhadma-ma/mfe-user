@@ -12,7 +12,7 @@ import { LinkItemsComponent } from './link-items.component';
 <ng-template #hashtagIcon><i class="fa-solid fa-hashtag mfe-user-text-gray-500 mfe-user-text-sm"></i></ng-template>
 <ng-template #videoIcon><i class="fa-solid fa-video mfe-user-text-gray-500 mfe-user-text-sm"></i></ng-template>
 
-<div class="mfe-user-sticky mfe-user-pt-4 mfe-user-mt-2 mfe-user-text-gray-600 mfe-user-border mfe-user-rounded-md mfe-user-top-[65px] mfe-user-bg-primary">
+<div class="mfe-user-sticky mfe-user-pt-4 mfe-user-mt-2 mfe-user-text-gray-600 mfe-user-border mfe-user-rounded-md mfe-user-top-[65px] mfe-user-bg-white">
 
   <!-- Recent -->
   <div class="mfe-user-mb-5">
