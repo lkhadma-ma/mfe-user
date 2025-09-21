@@ -5,7 +5,7 @@ module.exports = withNativeFederation({
   name: 'user',
 
   exposes: {
-    './meRecent': './projects/user/src/app/domains/user/feature/user-shell.component.ts',
+    './meRecent': './projects/user/src/app/domains/resume/feature/resume-shell.component.ts',
   },
 
   shared: {
