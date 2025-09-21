@@ -1,20 +1,24 @@
 import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SkillsComponent } from './skills.component';
-import { SaveIconComponent } from './save-icon.component';
+import { AboutComponent } from "./about.component";
+
 
 @Component({
   selector: 'mfe-user-me',
   standalone: true,
-  imports: [CommonModule, SkillsComponent, SaveIconComponent],
+  imports: [CommonModule, SkillsComponent, AboutComponent],
+  host: {
+    class: 'mfe-user-w-full mfe-user-flex mfe-user-flex-col mfe-user-space-y-4'
+  },
   template: `
   <div class="mfe-user-border mfe-user-rounded-lg mfe-user-bg-white">
   <!-- Header background -->
   <div class="mfe-user-relative">
     <img
-      class="mfe-user-w-full mfe-user-h-14 mfe-user-border-t-4 mfe-user-rounded-t-md mfe-user-border-[#F8C77D]"
+      class="mfe-user-w-full mfe-user-bg-cover mfe-user-bg-center mfe-user-max-h-[201px] mfe-user-border-t-4 mfe-user-rounded-t-md mfe-user-border-[#F8C77D]"
       src="https://media.licdn.com/dms/image/v2/D4D16AQFU48bJCFCpeA/profile-displaybackgroundimage-shrink_350_1400/B4DZfEuh9cGgAc-/0/1751352221970?e=1759363200&v=beta&t=MkadpjZvTY5OqjSXddVBTtfH5isLMrrOfdt6wQe5eY0"
-      alt="Samuel"
+      alt="bg"
     />
     <p
       class="mfe-user-absolute mfe-user-text-xs mfe-user-font-medium mfe-user-tracking-widest mfe-user-text-gray-300 mfe-user-uppercase mfe-user-left-1 mfe-user-top-2">
@@ -23,57 +27,32 @@ import { SaveIconComponent } from './save-icon.component';
   </div>
 
   <!-- Avatar -->
-  <div class="mfe-user-flex mfe-user-items-center mfe-user-justify-center -mfe-user-mt-8">
+  <div class="mfe-user-flex mfe-user-items-center mfe-user-justify-center max-sm:-mfe-user-mt-[2.5rem] -mfe-user-mt-[5rem] mfe-user-ml-[2rem] max-sm:mfe-user-w-[5rem] max-sm:mfe-user-h-[5rem] mfe-user-h-[130px] mfe-user-w-[130px] mfe-user-rounded-full">
     <img
-      class="mfe-user-z-10 mfe-user-w-[4.5rem] mfe-user-h-[4.5rem] mfe-user-border-2 mfe-user-border-white mfe-user-rounded-full"
-      [src]="user()?.photoURL"
+      class="mfe-user-z-10  mfe-user-w-full mfe-user-h-full mfe-user-border-white mfe-user-border-4 mfe-user-rounded-full"
+      [src]="user()?.photoURL ?? 'https://media.licdn.com/dms/image/v2/D4D03AQHsr6KATZEHSQ/profile-displayphoto-shrink_400_400/B4DZSaPw.bGcAg-/0/1737754612249?e=1761177600&v=beta&t=xr4e3pKtdCOzu7RPkzfsmj8Nb61mngstVryeiZQRFdE'"
       alt="Me"
     />
   </div>
 
   <!-- Name + Skills -->
-  <div class="mfe-user-flex mfe-user-flex-col mfe-user-items-center mfe-user-justify-center mfe-user-px-4 mfe-user-py-5">
-    <h1 class="mfe-user-mb-1 mfe-user-font-semibold mfe-user-tracking-wide">{{user()?.name}}</h1>
+  <div class="mfe-user-flex mfe-user-flex-col mfe-user-px-4 mfe-user-py-3">
+    <h1 class="mfe-user-font-semibold mfe-user-tracking-wide sm:mfe-user-text-2xl">{{user()?.name ?? 'Oussama Yaagoub'}}</h1>
     <mfe-user-skills></mfe-user-skills>
   </div>
 
-  <hr class="mfe-user-h-[0.3px] mfe-user-bg-gray-300" />
-
-  <!-- Stats -->
-  <div class="mfe-user-px-4 mfe-user-py-4">
-    <div class="mfe-user-flex mfe-user-justify-between mfe-user-mb-2 mfe-user-text-xs mfe-user-font-medium mfe-user-cursor-pointer hover:mfe-user-bg-gray-300">
-      <p class="mfe-user-text-gray-600">Who viewed your profile</p>
-      <p class="mfe-user-text-blue-600">224</p>
-    </div>
-    <div class="mfe-user-flex mfe-user-justify-between mfe-user-text-xs mfe-user-font-medium mfe-user-cursor-pointer hover:mfe-user-bg-gray-300">
-      <p class="mfe-user-text-gray-600">Views of your post</p>
-      <p class="mfe-user-text-blue-600">3624</p>
-    </div>
-  </div>
-
-  <hr class="mfe-user-h-[0.3px] mfe-user-bg-gray-300" />
-
-  <!-- Premium features -->
-  <div class="mfe-user-py-4 mfe-user-cursor-pointer hover:mfe-user-bg-gray-200">
-    <div class="mfe-user-flex mfe-user-items-center mfe-user-px-4 mfe-user-space-x-2 mfe-user-text-xs">
-      <div class="mfe-user-h-3.5 mfe-user-w-3.5 mfe-user-rounded mfe-user-bg-[#E7A33E]"></div>
-      <p class="mfe-user-font-semibold">See all Premium features</p>
-    </div>
-  </div>
-
-  <hr class="mfe-user-h-[0.3px] mfe-user-bg-gray-300" />
-
-  <!-- My items -->
-  <div class="mfe-user-py-4 mfe-user-cursor-pointer hover:mfe-user-bg-gray-200">
-    <div class="mfe-user-flex mfe-user-items-center mfe-user-px-4 mfe-user-space-x-2 mfe-user-text-xs">
-      <mfe-user-save-icon></mfe-user-save-icon>
-      <p class="mfe-user-font-semibold">My items</p>
-    </div>
-  </div>
+  
 </div>
+
+  <mfe-user-about [description]="description"></mfe-user-about>
 
   `
 })
 export class MeComponent {
   user = input<{ name: string; photoURL: string }>();
+  showCaption = false;
+  description = `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Assumenda eveniet optio quidem molestiae minus labore quasi officia temporibus voluptates consectetur aliquam explicabo quibusdam beatae, est numquam, error enim in nostrum?
+  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Assumenda eveniet optio quidem molestiae minus labore quasi officia temporibus voluptates consectetur aliquam explicabo quibusdam beatae, est numquam, error enim in nostrum? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deserunt ipsam, quo doloribus rerum obcaecati beatae. Ducimus aliquid, laudantium, quos, dolores velit mollitia sint ullam sunt fuga rerum nesciunt accusantium molestiae? Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem. Quisquam, quidem. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem. Quisquam, quidem.`;
+
+
 }

@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <p class="mfe-user-text-xs mfe-user-text-center mfe-user-text-gray-500">
+    <p class="mfe-user-text-xs sm:mfe-user-text-base">
     Full-Stack Developer & Angular Architect
     </p>
 
