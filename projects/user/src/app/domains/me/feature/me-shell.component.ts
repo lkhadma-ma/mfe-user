@@ -1,17 +1,18 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { SectionComponent } from '@shared/ui/section/section.component';
+import { MeComponent } from "../ui/me.component";
 
 
 @Component({
-  selector: 'app-post-shell',
-  imports: [SectionComponent],
+  selector: 'mfe-user-post-shell',
+  imports: [SectionComponent, MeComponent],
   template: `
-    <app-section ngxClass="md:pt-[5rem]">
-      <div class="mb-40 md:space-x-6 md:flex ">
-        <div>
-hola
+    <app-section ngxClass="md:mfe-user-pt-[5rem]">
+      <div class="mfe-user-mb-40 md:mfe-user-space-x-6 md:mfe-user-flex ">
+        <div class="mfe-user-w-full mfe-user-bg-black">
+        <mfe-user-me></mfe-user-me>
         </div>
-        <div class="hidden w-[300px] lg:block">
+        <div class="mfe-user-hidden mfe-user-w-[300px] lg:mfe-user-block">
 
         </div>
       </div>

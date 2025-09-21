@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-save-icon',
+  selector: 'mfe-user-save-icon',
   standalone: true,
   template: `
     <svg

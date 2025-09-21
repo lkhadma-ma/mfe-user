@@ -3,20 +3,20 @@ import { CommonModule } from '@angular/common';
 import { LinkItemsComponent } from './link-items.component';
 
 @Component({
-  selector: 'app-recent',
+  selector: 'mfe-user-recent',
   standalone: true,
   imports: [CommonModule, LinkItemsComponent],
   template: `
   <!-- Icon templates -->
-<ng-template #usersIcon><i class="fa-solid fa-users text-gray-500 text-sm"></i></ng-template>
-<ng-template #hashtagIcon><i class="fa-solid fa-hashtag text-gray-500 text-sm"></i></ng-template>
-<ng-template #videoIcon><i class="fa-solid fa-video text-gray-500 text-sm"></i></ng-template>
+<ng-template #usersIcon><i class="fa-solid fa-users mfe-user-text-gray-500 mfe-user-text-sm"></i></ng-template>
+<ng-template #hashtagIcon><i class="fa-solid fa-hashtag mfe-user-text-gray-500 mfe-user-text-sm"></i></ng-template>
+<ng-template #videoIcon><i class="fa-solid fa-video mfe-user-text-gray-500 mfe-user-text-sm"></i></ng-template>
 
-<div class="sticky pt-4 mt-2 text-gray-600 border rounded-md top-[65px] bg-primary">
+<div class="mfe-user-sticky mfe-user-pt-4 mfe-user-mt-2 mfe-user-text-gray-600 mfe-user-border mfe-user-rounded-md mfe-user-top-[65px] mfe-user-bg-primary">
 
   <!-- Recent -->
-  <div class="mb-5">
-    <h1 class="px-4 mb-3 text-xs">Recent</h1>
+  <div class="mfe-user-mb-5">
+    <h1 class="mfe-user-px-4 mfe-user-mb-3 mfe-user-text-xs">Recent</h1>
     <app-link-items *ngFor="let item of recents"
       [name]="item.name"
       [icon]="item.icon === 'users' ? usersIcon : item.icon === 'hashtag' ? hashtagIcon : videoIcon">
@@ -24,8 +24,8 @@ import { LinkItemsComponent } from './link-items.component';
   </div>
 
   <!-- Groups (reuse icons) -->
-  <div class="mb-5">
-    <h1 class="px-4 font-semibold mb-3 text-[#0E65C2] text-xs">Groups</h1>
+  <div class="mfe-user-mb-5">
+    <h1 class="mfe-user-px-4 mfe-user-font-semibold mfe-user-mb-3 mfe-user-text-[#0E65C2] mfe-user-text-xs">Groups</h1>
     <app-link-items *ngFor="let item of recents"
       [name]="item.name"
       [icon]="item.icon === 'users' ? usersIcon : item.icon === 'hashtag' ? hashtagIcon : videoIcon">
@@ -33,8 +33,8 @@ import { LinkItemsComponent } from './link-items.component';
   </div>
 
   <!-- Events -->
-  <div class="mb-5">
-    <h1 class="px-4 font-semibold mb-3 text-[#0E65C2] text-xs">Events</h1>
+  <div class="mfe-user-mb-5">
+    <h1 class="mfe-user-px-4 mfe-user-font-semibold mfe-user-mb-3 mfe-user-text-[#0E65C2] mfe-user-text-xs">Events</h1>
     <app-link-items *ngFor="let item of recents"
       [name]="item.name"
       [icon]="item.icon === 'users' ? usersIcon : item.icon === 'hashtag' ? hashtagIcon : videoIcon">
@@ -43,7 +43,7 @@ import { LinkItemsComponent } from './link-items.component';
 
   <hr />
 
-  <div class="flex items-center justify-center py-2 text-xs hover:bg-gray-300 rounded-b-md">
+  <div class="mfe-user-flex mfe-user-items-center mfe-user-justify-center mfe-user-py-2 mfe-user-text-xs hover:mfe-user-bg-gray-300 mfe-user-rounded-b-md">
     <button class="font-bold">Discover more</button>
   </div>
 </div>

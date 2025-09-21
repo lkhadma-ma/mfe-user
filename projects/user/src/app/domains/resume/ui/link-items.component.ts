@@ -6,10 +6,10 @@ import { Component, Input, TemplateRef } from '@angular/core';
   standalone: true,
   imports: [NgTemplateOutlet],
   template: `
-    <button class='block w-full py-1 hover:bg-gray-300'>
-      <div class='flex items-center px-4 space-x-3'>
+    <button class='mfe-user-block mfe-user-w-full mfe-user-py-1 hover:mfe-user-bg-gray-300'>
+      <div class='mfe-user-flex mfe-user-items-center mfe-user-px-4 mfe-user-space-x-3'>
       <ng-container *ngTemplateOutlet="icon"></ng-container>
-        <p class='text-xs font-semibold text-gray-500'>{{name}}</p>
+        <p class='mfe-user-text-xs mfe-user-font-semibold mfe-user-text-gray-500'>{{name}}</p>
       </div>
     </button>
   `

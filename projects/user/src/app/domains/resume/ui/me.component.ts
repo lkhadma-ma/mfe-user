@@ -4,70 +4,70 @@ import { SkillsComponent } from './skills.component';
 import { SaveIconComponent } from './save-icon.component';
 
 @Component({
-  selector: 'app-me',
+  selector: 'mfe-user-me',
   standalone: true,
   imports: [CommonModule, SkillsComponent, SaveIconComponent],
   template: `
-  <div class="border rounded-lg bg-white">
+  <div class="mfe-user-border mfe-user-rounded-lg mfe-user-bg-white">
   <!-- Header background -->
-  <div class="relative">
+  <div class="mfe-user-relative">
     <img
-      class="w-full h-14 border-t-4 rounded-t-md border-[#F8C77D]"
+      class="mfe-user-w-full mfe-user-h-14 mfe-user-border-t-4 mfe-user-rounded-t-md mfe-user-border-[#F8C77D]"
       src="https://media.licdn.com/dms/image/v2/D4D16AQFU48bJCFCpeA/profile-displaybackgroundimage-shrink_350_1400/B4DZfEuh9cGgAc-/0/1751352221970?e=1759363200&v=beta&t=MkadpjZvTY5OqjSXddVBTtfH5isLMrrOfdt6wQe5eY0"
       alt="Samuel"
     />
     <p
-      class="absolute text-xs font-medium tracking-widest text-gray-300 uppercase left-1 top-2">
+      class="mfe-user-absolute mfe-user-text-xs mfe-user-font-medium mfe-user-tracking-widest mfe-user-text-gray-300 mfe-user-uppercase mfe-user-left-1 mfe-user-top-2">
       premium
     </p>
   </div>
 
   <!-- Avatar -->
-  <div class="flex items-center justify-center -mt-8">
+  <div class="mfe-user-flex mfe-user-items-center mfe-user-justify-center -mfe-user-mt-8">
     <img
-      class="z-10 w-[4.5rem] h-[4.5rem] border-2 border-white rounded-full"
+      class="mfe-user-z-10 mfe-user-w-[4.5rem] mfe-user-h-[4.5rem] mfe-user-border-2 mfe-user-border-white mfe-user-rounded-full"
       [src]="user()?.photoURL"
       alt="Me"
     />
   </div>
 
   <!-- Name + Skills -->
-  <div class="flex flex-col items-center justify-center px-4 py-5">
-    <h1 class="mb-1 font-semibold tracking-wide">{{user()?.name}}</h1>
-    <app-skills></app-skills>
+  <div class="mfe-user-flex mfe-user-flex-col mfe-user-items-center mfe-user-justify-center mfe-user-px-4 mfe-user-py-5">
+    <h1 class="mfe-user-mb-1 mfe-user-font-semibold mfe-user-tracking-wide">{{user()?.name}}</h1>
+    <mfe-user-skills></mfe-user-skills>
   </div>
 
-  <hr class="h-[0.3px] bg-gray-300" />
+  <hr class="mfe-user-h-[0.3px] mfe-user-bg-gray-300" />
 
   <!-- Stats -->
-  <div class="px-4 py-4">
-    <div class="flex justify-between mb-2 text-xs font-medium cursor-pointer hover:bg-gray-300">
-      <p class="text-gray-600">Who viewed your profile</p>
-      <p class="text-blue-600">224</p>
+  <div class="mfe-user-px-4 mfe-user-py-4">
+    <div class="mfe-user-flex mfe-user-justify-between mfe-user-mb-2 mfe-user-text-xs mfe-user-font-medium mfe-user-cursor-pointer hover:mfe-user-bg-gray-300">
+      <p class="mfe-user-text-gray-600">Who viewed your profile</p>
+      <p class="mfe-user-text-blue-600">224</p>
     </div>
-    <div class="flex justify-between text-xs font-medium cursor-pointer hover:bg-gray-300">
-      <p class="text-gray-600">Views of your post</p>
-      <p class="text-blue-600">3624</p>
+    <div class="mfe-user-flex mfe-user-justify-between mfe-user-text-xs mfe-user-font-medium mfe-user-cursor-pointer hover:mfe-user-bg-gray-300">
+      <p class="mfe-user-text-gray-600">Views of your post</p>
+      <p class="mfe-user-text-blue-600">3624</p>
     </div>
   </div>
 
-  <hr class="h-[0.3px] bg-gray-300" />
+  <hr class="mfe-user-h-[0.3px] mfe-user-bg-gray-300" />
 
   <!-- Premium features -->
-  <div class="py-4 cursor-pointer hover:bg-gray-200">
-    <div class="flex items-center px-4 space-x-2 text-xs">
-      <div class="h-3.5 w-3.5 rounded bg-[#E7A33E]"></div>
-      <p class="font-semibold">See all Premium features</p>
+  <div class="mfe-user-py-4 mfe-user-cursor-pointer hover:mfe-user-bg-gray-200">
+    <div class="mfe-user-flex mfe-user-items-center mfe-user-px-4 mfe-user-space-x-2 mfe-user-text-xs">
+      <div class="mfe-user-h-3.5 mfe-user-w-3.5 mfe-user-rounded mfe-user-bg-[#E7A33E]"></div>
+      <p class="mfe-user-font-semibold">See all Premium features</p>
     </div>
   </div>
 
-  <hr class="h-[0.3px] bg-gray-300" />
+  <hr class="mfe-user-h-[0.3px] mfe-user-bg-gray-300" />
 
   <!-- My items -->
-  <div class="py-4 cursor-pointer hover:bg-gray-200">
-    <div class="flex items-center px-4 space-x-2 text-xs">
-      <app-save-icon></app-save-icon>
-      <p class="font-semibold">My items</p>
+  <div class="mfe-user-py-4 mfe-user-cursor-pointer hover:mfe-user-bg-gray-200">
+    <div class="mfe-user-flex mfe-user-items-center mfe-user-px-4 mfe-user-space-x-2 mfe-user-text-xs">
+      <mfe-user-save-icon></mfe-user-save-icon>
+      <p class="mfe-user-font-semibold">My items</p>
     </div>
   </div>
 </div>

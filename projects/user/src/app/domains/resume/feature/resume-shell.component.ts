@@ -5,16 +5,16 @@ import { RecentComponent } from "../ui/recent.component";
 import { AuthService } from '@shared/auth/auth.service';
 
 @Component({
-  selector: 'app-user-shell',
+  selector: 'mfe-user-shell',
   standalone: true,
   imports: [CommonModule, MeComponent, RecentComponent],
   template:`
   
-  <app-me [user]="{
+  <mfe-user-me [user]="{
     name,
     photoURL
-  }"></app-me>
-  <app-recent></app-recent>
+  }"></mfe-user-me>
+  <mfe-user-recent></mfe-user-recent>
   `
 })
 export class UsershellComponent {
