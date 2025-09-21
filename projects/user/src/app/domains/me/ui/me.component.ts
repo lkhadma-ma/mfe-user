@@ -2,12 +2,15 @@ import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SkillsComponent } from './skills.component';
 import { AboutComponent } from "./about.component";
+import { ServiceComponent } from "./service.component";
+import { ExperienceComponent } from "./experience.component";
+import { Experience } from '../data-access/experience';
 
 
 @Component({
   selector: 'mfe-user-me',
   standalone: true,
-  imports: [CommonModule, SkillsComponent, AboutComponent],
+  imports: [CommonModule, SkillsComponent, AboutComponent, ServiceComponent, ExperienceComponent],
   host: {
     class: 'mfe-user-w-full mfe-user-flex mfe-user-flex-col mfe-user-space-y-4'
   },
@@ -46,13 +49,57 @@ import { AboutComponent } from "./about.component";
 
   <mfe-user-about [description]="description"></mfe-user-about>
 
+  <mfe-user-service [services]="serviceline"></mfe-user-service>
+
+  <mfe-user-experience [experiences]="experiences"></mfe-user-experience>
+
   `
 })
 export class MeComponent {
   user = input<{ name: string; photoURL: string }>();
   showCaption = false;
+  serviceline = `Web Development, Mobile Development, Cloud Solutions, DevOps, Consulting`;
   description = `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Assumenda eveniet optio quidem molestiae minus labore quasi officia temporibus voluptates consectetur aliquam explicabo quibusdam beatae, est numquam, error enim in nostrum?
   Lorem ipsum dolor sit amet consectetur, adipisicing elit. Assumenda eveniet optio quidem molestiae minus labore quasi officia temporibus voluptates consectetur aliquam explicabo quibusdam beatae, est numquam, error enim in nostrum? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deserunt ipsam, quo doloribus rerum obcaecati beatae. Ducimus aliquid, laudantium, quos, dolores velit mollitia sint ullam sunt fuga rerum nesciunt accusantium molestiae? Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem. Quisquam, quidem. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quidem. Quisquam, quidem.`;
-
+  experiences: Experience[] = [
+    {
+      id: '1',
+      position: 'Senior Software Engineer',
+      company: 'Satec',
+      employmentType: 'Full-time',
+      startDate: new Date('2021-06-01'),
+      endDate: null,
+      currently: true,
+      location: 'Casablanca, Morocco',
+      locationType: 'On-site',
+      description: `Leading the development of scalable web applications using Angular and Node.js. Collaborating with cross-functional teams to design and implement new features. Mentoring junior developers and conducting code reviews to ensure code quality.`,
+      skills: [
+        { id: 1, name: 'Angular' },
+        { id: 2, name: 'Node.js' },
+        { id: 3, name: 'TypeScript' },
+        { id: 4, name: 'RESTful APIs' },
+        { id: 5, name: 'Agile Methodologies' }
+      ]
+    },
+    {
+      id: '2',
+      position: 'Software Engineer',
+      company: 'Tech Solutions',
+      employmentType: 'Full-time',
+      startDate: new Date('2019-01-01'),
+      endDate: new Date('2021-05-31'),
+      currently: false,
+      location: 'Rabat, Morocco',
+      locationType: 'Remote',
+      description: `Developed and maintained web applications using React and Express.js. Worked closely with designers to implement user-friendly interfaces. Participated in sprint planning and contributed to continuous improvement initiatives.`,
+      skills: [
+        { id: 6, name: 'React' },
+        { id: 7, name: 'Express.js' },
+        { id: 8, name: 'JavaScript' },
+        { id: 9, name: 'MongoDB' },
+        { id: 10, name: 'Git' }
+      ]
+    }
+  ];
 
 }

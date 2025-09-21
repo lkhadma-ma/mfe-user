@@ -18,8 +18,8 @@ export class AuthService {
         exposedModule: './AuthService'
       });
 
-      // Ejecuta la creación del servicio remoto dentro de un contexto de inyección
-      this.remote = runInInjectionContext(this.injector, () => new m.AuthService()) as RemoteAuthService;
+      this.remote = runInInjectionContext(this.injector, 
+        () => new m.AuthService()) as RemoteAuthService;
     }
     return this.remote;
   }
