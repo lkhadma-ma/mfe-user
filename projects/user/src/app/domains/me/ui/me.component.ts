@@ -7,12 +7,14 @@ import { ExperienceComponent } from "./experience.component";
 import { Experience } from '../data-access/experience';
 import { EducationComponent } from "./education.component";
 import { Education } from '../data-access/education';
+import { Certification } from '../data-access/certification';
+import { CertificationComponent } from "./certification.component";
 
 
 @Component({
   selector: 'mfe-user-me',
   standalone: true,
-  imports: [CommonModule, SkillsComponent, AboutComponent, ServiceComponent, ExperienceComponent, EducationComponent],
+  imports: [CommonModule, SkillsComponent, AboutComponent, ServiceComponent, ExperienceComponent, EducationComponent, CertificationComponent],
   host: {
     class: 'mfe-user-w-full mfe-user-flex mfe-user-flex-col mfe-user-space-y-4'
   },
@@ -56,6 +58,8 @@ import { Education } from '../data-access/education';
   <mfe-user-experience [experiences]="experiences"></mfe-user-experience>
 
   <mfe-user-education [educations]="educations"></mfe-user-education>
+
+  <mfe-user-certification [certifications]="certifications"></mfe-user-certification>
   `
 })
 export class MeComponent {
@@ -138,5 +142,33 @@ export class MeComponent {
       ]
     }
   ];
+  certifications: Certification[] = [
+    {
+      id: 1,
+      name: 'AWS Certified Solutions Architect – Associate',
+      organization: 'Amazon Web Services (AWS)',
+      url: 'https://aws.amazon.com/certification/certified-solutions-architect-associate/',
+      issueDate: new Date('2022-05-15'),
+      expirationDate: new Date('2025-05-15'),
+      skills: [
+        { id: 1, name: 'AWS' },
+        { id: 2, name: 'Cloud Architecture' },
+        { id: 3, name: 'Security' }
+      ]
+    },
+    {
+      id: 2,
+      name: 'Certified Kubernetes Administrator (CKA)',
+      organization: 'Cloud Native Computing Foundation (CNCF)',
+      url: 'https://www.cncf.io/certification/cka/',
+      issueDate: new Date('2023-03-10'),
+      expirationDate: null,
+      skills: [
+        { id: 4, name: 'Kubernetes' },
+        { id: 5, name: 'Containerization' },
+        { id: 6, name: 'DevOps' }
+      ]
+    }
+  ]
   
 }
