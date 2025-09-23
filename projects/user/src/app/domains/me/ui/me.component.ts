@@ -9,12 +9,14 @@ import { EducationComponent } from "./education.component";
 import { Education } from '../data-access/education';
 import { Certification } from '../data-access/certification';
 import { CertificationComponent } from "./certification.component";
+import { ProjectComponent } from "./project.component";
+import { Project } from '../data-access/project';
 
 
 @Component({
   selector: 'mfe-user-me',
   standalone: true,
-  imports: [CommonModule, SkillsComponent, AboutComponent, ServiceComponent, ExperienceComponent, EducationComponent, CertificationComponent],
+  imports: [CommonModule, SkillsComponent, AboutComponent, ServiceComponent, ExperienceComponent, EducationComponent, CertificationComponent, ProjectComponent],
   host: {
     class: 'mfe-user-w-full mfe-user-flex mfe-user-flex-col mfe-user-space-y-4'
   },
@@ -60,6 +62,8 @@ import { CertificationComponent } from "./certification.component";
   <mfe-user-education [educations]="educations"></mfe-user-education>
 
   <mfe-user-certification [certifications]="certifications"></mfe-user-certification>
+
+  <mfe-user-project [projects]="projects"></mfe-user-project>
   `
 })
 export class MeComponent {
@@ -170,5 +174,28 @@ export class MeComponent {
       ]
     }
   ]
-  
+  projects:Project[] = [
+    {
+      id: 1,
+      name: 'E-Commerce Platform',
+      description: 'Developed a full-featured e-commerce platform with user authentication, product management, and payment integration using Angular and Node.js.',
+      url: 'https://www.example.com/ecommerce',
+      skills: [
+        { id: 1, name: 'Angular' },
+        { id: 2, name: 'Node.js' },
+        { id: 3, name: 'TypeScript' }
+      ]
+    },
+    {
+      id: 2,
+      name: 'Social Media App',
+      description: 'Created a social media application with real-time chat, photo sharing, and user profiles using React and Firebase.',
+      url: 'https://www.example.com/socialmedia',
+      skills: [
+        { id: 4, name: 'React' },
+        { id: 5, name: 'Firebase' },
+        { id: 6, name: 'JavaScript' }
+      ]
+    }
+  ]
 }
