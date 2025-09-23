@@ -1,6 +1,5 @@
 import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SkillsComponent } from './skills.component';
 import { AboutComponent } from "./about.component";
 import { ServiceComponent } from "./service.component";
 import { ExperienceComponent } from "./experience.component";
@@ -11,12 +10,15 @@ import { Certification } from '../data-access/certification';
 import { CertificationComponent } from "./certification.component";
 import { ProjectComponent } from "./project.component";
 import { Project } from '../data-access/project';
+import { Skill } from '../data-access/skill';
+import { SkillComponent } from "./skill.component";
+import { SkillsComponent } from "./skills.component";
 
 
 @Component({
   selector: 'mfe-user-me',
   standalone: true,
-  imports: [CommonModule, SkillsComponent, AboutComponent, ServiceComponent, ExperienceComponent, EducationComponent, CertificationComponent, ProjectComponent],
+  imports: [CommonModule, AboutComponent, ServiceComponent, ExperienceComponent, EducationComponent, CertificationComponent, ProjectComponent, SkillComponent, SkillsComponent],
   host: {
     class: 'mfe-user-w-full mfe-user-flex mfe-user-flex-col mfe-user-space-y-4'
   },
@@ -64,6 +66,8 @@ import { Project } from '../data-access/project';
   <mfe-user-certification [certifications]="certifications"></mfe-user-certification>
 
   <mfe-user-project [projects]="projects"></mfe-user-project>
+
+  <mfe-user-skill [skills]="skills"></mfe-user-skill>
   `
 })
 export class MeComponent {
@@ -197,5 +201,24 @@ export class MeComponent {
         { id: 6, name: 'JavaScript' }
       ]
     }
+  ]
+  skills:Skill[] = [
+    { id: 1, name: 'Angular' },
+    { id: 2, name: 'Node.js' },
+    { id: 3, name: 'TypeScript' },
+    { id: 4, name: 'React' },
+    { id: 5, name: 'Firebase' },
+    { id: 6, name: 'JavaScript' },
+    { id: 7, name: 'Docker' },
+    { id: 8, name: 'Kubernetes' },
+    { id: 9, name: 'AWS' },
+    { id: 10, name: 'Git' },
+    { id: 11, name: 'MongoDB' },
+    { id: 12, name: 'Express.js' },
+    { id: 13, name: 'RESTful APIs' },
+    { id: 14, name: 'Agile Methodologies' },
+    { id: 15, name: 'Java' },
+    { id: 16, name: 'Spring Boot' },
+    { id: 17, name: 'Machine Learning' }
   ]
 }
