@@ -1,4 +1,4 @@
-import { Injectable, EnvironmentInjector, inject, runInInjectionContext } from '@angular/core';
+import { Injectable, EnvironmentInjector, runInInjectionContext } from '@angular/core';
 import { loadRemoteModule } from '@angular-architects/native-federation';
 import type { AuthService as RemoteAuthService, StoredUser } from 'auth/AuthService';
 import { Observable } from 'rxjs';

@@ -13,12 +13,13 @@ import { Project } from '../data-access/project';
 import { Skill } from '../data-access/skill';
 import { SkillComponent } from "./skill.component";
 import { SkillsComponent } from "./skills.component";
+import { RecommendationsTabComponent } from "./recommendation.component";
 
 
 @Component({
   selector: 'mfe-user-me',
   standalone: true,
-  imports: [CommonModule, AboutComponent, ServiceComponent, ExperienceComponent, EducationComponent, CertificationComponent, ProjectComponent, SkillComponent, SkillsComponent],
+  imports: [CommonModule, AboutComponent, ServiceComponent, ExperienceComponent, EducationComponent, CertificationComponent, ProjectComponent, SkillComponent, SkillsComponent, RecommendationsTabComponent],
   host: {
     class: 'mfe-user-w-full mfe-user-flex mfe-user-flex-col mfe-user-space-y-4'
   },
@@ -68,6 +69,8 @@ import { SkillsComponent } from "./skills.component";
   <mfe-user-project [projects]="projects"></mfe-user-project>
 
   <mfe-user-skill [skills]="skills"></mfe-user-skill>
+
+  <mfe-user-recommendation></mfe-user-recommendation>
   `
 })
 export class MeComponent {
