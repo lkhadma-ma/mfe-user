@@ -12,7 +12,7 @@ import { MeComponent } from "../ui/me.component";
         <div class="mfe-user-w-full">
         <mfe-user-me></mfe-user-me>
         </div>
-        <div class="mfe-user-hidden mfe-user-w-[400px] lg:mfe-user-block mfe-user-bg-slate-600">
+        <div class="mfe-user-hidden mfe-user-w-[400px] lg:mfe-user-block">
 
         </div>
       </div>
