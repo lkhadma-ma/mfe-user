@@ -14,6 +14,7 @@ import { Skill } from '../data-access/skill';
 import { SkillComponent } from "./skill.component";
 import { SkillsComponent } from "./skills.component";
 import { RecommendationsTabComponent } from "./recommendation.component";
+import { Recommendation } from '../data-access/recommendation';
 
 
 @Component({
@@ -70,7 +71,7 @@ import { RecommendationsTabComponent } from "./recommendation.component";
 
   <mfe-user-skill [skills]="skills"></mfe-user-skill>
 
-  <mfe-user-recommendation></mfe-user-recommendation>
+  <mfe-user-recommendation [givenRecommendations]="givenRecommendation" [receivedRecommendations]="recievedRecommendation"></mfe-user-recommendation>
   `
 })
 export class MeComponent {
@@ -224,4 +225,82 @@ export class MeComponent {
     { id: 16, name: 'Spring Boot' },
     { id: 17, name: 'Machine Learning' }
   ]
+
+  givenRecommendation: Recommendation[] = [
+    {
+      id: 1,
+      user: {
+        username: 'oussama.yaagoub',
+        name: 'Oussama Yaagoub',
+        headline: 'Senior Software Engineer',
+        photoURL: 'https://media.licdn.com/dms/image/v2/D4D03AQHsr6KATZEHSQ/profile-displayphoto-shrink_100_100/B4DZSaPw.bGcAU-/0/1737754612249?e=1761782400&v=beta&t=mm5YHzEItHl1P4ZhrjFXay1H619TS0NhfozbYgV09X0'
+      },
+      relationship: {
+        username: 'jane.smith',
+        name: 'Jane Smith',
+        headline: 'Project Manager at Tech Solutions',
+        photoURL: 'https://media.licdn.com/dms/image/v2/D4E03AQF_e63Ei7ggZQ/profile-displayphoto-scale_100_100/B4EZkRBVVCIUAg-/0/1756927198989?e=1761782400&v=beta&t=r17dv6HxHzdthR2QPz507pvj4NqBDdv3giWQH7NZB8s'   
+      },
+      recommendation: 'Jane is an exceptional project manager who excels at coordinating teams and ensuring timely delivery of projects. Her leadership and communication skills are top-notch.',
+      position: 'Software Engineer',
+      createdAt: new Date('2022-11-15')
+    },
+    {
+      id: 2,
+      user: {
+        username: 'oussama.yaagoub',
+        name: 'Oussama Yaagoub',
+        headline: 'Senior Software Engineer',
+        photoURL: 'https://media.licdn.com/dms/image/v2/D4D03AQHsr6KATZEHSQ/profile-displayphoto-shrink_100_100/B4DZSaPw.bGcAU-/0/1737754612249?e=1761782400&v=beta&t=mm5YHzEItHl1P4ZhrjFXay1H619TS0NhfozbYgV09X0'
+      },
+      relationship: {
+        username: 'john.doe',
+        name: 'John Doe',
+        headline: 'CTO at Innovative Apps',
+        photoURL: 'https://media.licdn.com/dms/image/v2/D4D03AQHigBNGVqRnOA/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1723639491706?e=1761782400&v=beta&t=DnOLUvajdJf8761Cbsj-gJ8f01dFAJ4ck-Jqpfs7YK0'   
+      },
+      recommendation: 'John is a visionary CTO who drives innovation and fosters a culture of excellence. His strategic thinking and technical expertise have been instrumental in the success of our company.',
+      position: 'Senior Software Engineer at Innovative Apps',
+      createdAt: new Date('2023-06-20')
+    }
+  ]
+  recievedRecommendation: Recommendation[] = [
+    {
+      id: 1,
+      user: {
+        username: 'jane.smith',
+        name: 'Jane Smith',
+        headline: 'Project Manager at Tech Solutions',
+        photoURL: 'https://media.licdn.com/dms/image/v2/D4E03AQF_e63Ei7ggZQ/profile-displayphoto-scale_100_100/B4EZkRBVVCIUAg-/0/1756927198989?e=1761782400&v=beta&t=r17dv6HxHzdthR2QPz507pvj4NqBDdv3giWQH7NZB8s'   
+      },
+      relationship: {
+        username: 'oussama.yaagoub',
+        name: 'Oussama Yaagoub',
+        headline: 'Senior Software Engineer',
+        photoURL: 'https://media.licdn.com/dms/image/v2/D4D03AQHsr6KATZEHSQ/profile-displayphoto-shrink_100_100/B4DZSaPw.bGcAU-/0/1737754612249?e=1761782400&v=beta&t=mm5YHzEItHl1P4ZhrjFXay1H619TS0NhfozbYgV09X0'
+      },
+      recommendation: 'Oussama is a highly skilled software engineer with a strong work ethic. He consistently delivers high-quality code and is a great team player.',
+      position: 'Software Engineer at Tech Solutions',
+      createdAt: new Date('2022-11-15')
+    },
+    {
+      id: 2,
+      user: {
+        username: 'john.doe',
+        name: 'John Doe',
+        headline: 'CTO at Innovative Apps',
+        photoURL: 'https://media.licdn.com/dms/image/v2/D4D03AQHigBNGVqRnOA/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1723639491706?e=1761782400&v=beta&t=DnOLUvajdJf8761Cbsj-gJ8f01dFAJ4ck-Jqpfs7YK0'   
+      },
+      relationship: {
+        username: 'oussama.yaagoub',
+        name: 'Oussama Yaagoub',
+        headline: 'Senior Software Engineer',
+        photoURL: 'https://media.licdn.com/dms/image/v2/D4D03AQHsr6KATZEHSQ/profile-displayphoto-shrink_100_100/B4DZSaPw.bGcAU-/0/1737754612249?e=1761782400&v=beta&t=mm5YHzEItHl1P4ZhrjFXay1H619TS0NhfozbYgV09X0' 
+      },
+      recommendation: 'Oussama is a visionary software engineer who consistently pushes the boundaries of what is possible. His innovative solutions have had a significant impact on our projects.',
+      position: 'Senior Software Engineer at Innovative Apps',
+      createdAt: new Date('2023-06-20')
+    }
+  ]
+
 }

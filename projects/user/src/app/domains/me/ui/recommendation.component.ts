@@ -1,6 +1,8 @@
 
-import { Component, Input } from '@angular/core';
+import { Component, Input, input } from '@angular/core';
 import { DescriptionComponent } from "./description.component";
+import { Recommendation } from '../data-access/recommendation';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'mfe-user-recommendation',
@@ -30,30 +32,54 @@ import { DescriptionComponent } from "./description.component";
         @if(activeTab === 'received'){
             <div class="mfe-user-space-y-4">
               <!-- Received Recommendations Content -->
-              <div class="mfe-user-border mfe-user-rounded-lg mfe-user-p-4 mfe-user-bg-gray-50">
-                <div class="mfe-user-flex mfe-user-space-x-4 mfe-user-mt-4">
-                <img class="mfe-user-w-14 mfe-user-h-14 mfe-user-rounded-full" src="https://media.licdn.com/dms/image/v2/C4D03AQGXgbwLJS0Z_A/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1516579520249?e=1761782400&v=beta&t=2YqXKjISzEW4PNJySEHYeMAXA5c-AbgVxzSM2Cj_fq8" alt="">
-                  <div>
-                    <h3 class="mfe-user-font-medium mfe-user-text-gray-900">Lorenzo Flores Sánchez</h3>
-                    <p class="mfe-user-text-sm mfe-user-text-gray-600">Responsable de la Unidad de Desarrollo y Mejora continua en DGSD-ATD | Ingeniería Informática</p>
-                    <p class="mfe-user-text-xs mfe-user-text-gray-500">July 1, 2024, Lorenzo managed Oussama directly</p>
+              @for (recommendation of receivedRecommendations(); track $index) {
+                <div class="mfe-user-border mfe-user-rounded-lg mfe-user-p-4 mfe-user-bg-gray-50">
+                  <div class="mfe-user-flex mfe-user-space-x-4 mfe-user-mt-4">
+                  <img class="mfe-user-w-14 mfe-user-h-14 mfe-user-rounded-full" [src]="recommendation.user.photoURL" alt="">
+                    <div>
+                      <h3 class="mfe-user-font-medium mfe-user-text-gray-900">{{ recommendation.user.name }}</h3>
+                      <p class="mfe-user-text-sm mfe-user-text-gray-600">{{ recommendation.user.headline }}</p>
+                      <p class="mfe-user-text-xs mfe-user-text-gray-500">{{ recommendation.createdAt | date:'MMM yyyy' }}, {{ recommendation.user.name.split(' ')[0] }} managed {{ recommendation.relationship.name.split(' ')[0] }} directly on role {{ recommendation.position }}</p>
+                    </div>
+                  </div>
+                  <div class="mfe-user-mt-3">
+                      <mfe-user-description class="mfe-user-mb-2" [description]="recommendation.recommendation"></mfe-user-description>
                   </div>
                 </div>
-                <div class="mfe-user-mt-3">
-                    <mfe-user-description class="mfe-user-mb-2" [description]="description"></mfe-user-description>
+              } @empty {
+                <div class="mfe-user-text-center mfe-user-py-8 mfe-user-text-gray-500">
+                  <p>No recommendations received yet.</p>
                 </div>
-              </div>
+              }
               
               <!-- Add more received recommendations as needed -->
             </div>
         }
         @if(activeTab === 'given'){
             <div class="mfe-user-space-y-4">
-              <!-- Given Recommendations Content -->
-              <div class="mfe-user-text-center mfe-user-py-8 mfe-user-text-gray-500">
-                <p>No recommendations given yet.</p>
-              </div>
-              <!-- Add given recommendations content here when available -->
+               <!-- Given Recommendations Content -->
+                @for (recommendation of givenRecommendations(); track $index) {
+                  <div class="mfe-user-border mfe-user-rounded-lg mfe-user-p-4 mfe-user-bg-gray-50">
+                    <div class="mfe-user-flex mfe-user-space-x-4 mfe-user-mt-4">
+                    <img class="mfe-user-w-14 mfe-user-h-14 mfe-user-rounded-full" [src]="recommendation.relationship.photoURL" alt="">
+                      <div>
+                        <h3 class="mfe-user-font-medium mfe-user-text-gray-900">{{ recommendation.relationship.name }}</h3>
+                        <p class="mfe-user-text-sm mfe-user-text-gray-600">{{ recommendation.relationship.headline }}</p>
+                        <p class="mfe-user-text-xs mfe-user-text-gray-500">{{ recommendation.createdAt | date:'MMM yyyy' }}, {{ recommendation.user.name.split(' ')[0] }} managed {{ recommendation.relationship.name.split(' ')[0] }} directly on role {{ recommendation.position }}</p>
+                      </div>
+                    </div>
+                    <div class="mfe-user-mt-3">
+                        <mfe-user-description class="mfe-user-mb-2" [description]="recommendation.recommendation"></mfe-user-description>
+                    </div>
+                  </div>
+                } @empty {
+                  <div class="mfe-user-text-center mfe-user-py-8 mfe-user-text-gray-500">
+                    <p>No recommendations given yet.</p>
+                  </div>
+                }
+                
+                <!-- Add more given recommendations as needed -->  
+
             </div>
         }
     </div>
@@ -65,12 +91,11 @@ import { DescriptionComponent } from "./description.component";
   
   
   `,
-  imports: [DescriptionComponent]
+  imports: [DescriptionComponent, CommonModule]
 })
 export class RecommendationsTabComponent {
-  @Input() receivedRecommendations: any[] = [];
-  @Input() givenRecommendations: any[] = [];
-  
+  givenRecommendations =  input<Recommendation[]>();
+  receivedRecommendations =  input<Recommendation[]>();
   activeTab: string = 'received';
   
   selectTab(tab: string): void {
