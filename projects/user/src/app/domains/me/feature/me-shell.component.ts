@@ -1,6 +1,7 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, OnInit, inject } from '@angular/core';
 import { SectionComponent } from '@shared/ui/section/section.component';
 import { MeComponent } from "../ui/me.component";
+import { MeService } from '../data-access/me.service';
 
 
 @Component({
@@ -19,10 +20,15 @@ import { MeComponent } from "../ui/me.component";
     </app-section>
   `,
 })
-export class MeShellComponent implements AfterViewInit  {
+export class MeShellComponent implements OnInit  {
 
-  async ngAfterViewInit() {
+  meService: MeService = inject(MeService);
 
-    
-  } 
+  ngOnInit(): void {
+    this.meService.getMe().subscribe((me) => {
+      console.log(me);
+    });
+  }
+
+
 }

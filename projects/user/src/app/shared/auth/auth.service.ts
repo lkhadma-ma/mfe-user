@@ -34,7 +34,7 @@ export class AuthService {
     return remote.logout();
   }
 
-  async authorizationHeader(): Promise<string | null> {
+  async authorizationHeader(): Promise<string> {
     const remote = await this.initRemote();
     return remote.authorizationHeader();
   }

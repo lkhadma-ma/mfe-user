@@ -35,7 +35,7 @@ import { CommonModule } from '@angular/common';
               @for (recommendation of receivedRecommendations(); track $index) {
                 <div class="mfe-user-border mfe-user-rounded-lg mfe-user-p-4 mfe-user-bg-gray-50">
                   <div class="mfe-user-flex mfe-user-space-x-4 mfe-user-mt-4">
-                  <img class="mfe-user-w-14 mfe-user-h-14 mfe-user-rounded-full" [src]="recommendation.user.photoURL" alt="">
+                  <img class="mfe-user-w-14 mfe-user-h-14 mfe-user-rounded-full" [src]="recommendation.user.avatar" alt="">
                     <div>
                       <h3 class="mfe-user-font-medium mfe-user-text-gray-900">{{ recommendation.user.name }}</h3>
                       <p class="mfe-user-text-sm mfe-user-text-gray-600">{{ recommendation.user.headline }}</p>
@@ -61,7 +61,7 @@ import { CommonModule } from '@angular/common';
                 @for (recommendation of givenRecommendations(); track $index) {
                   <div class="mfe-user-border mfe-user-rounded-lg mfe-user-p-4 mfe-user-bg-gray-50">
                     <div class="mfe-user-flex mfe-user-space-x-4 mfe-user-mt-4">
-                    <img class="mfe-user-w-14 mfe-user-h-14 mfe-user-rounded-full" [src]="recommendation.relationship.photoURL" alt="">
+                    <img class="mfe-user-w-14 mfe-user-h-14 mfe-user-rounded-full" [src]="recommendation.relationship.avatar" alt="">
                       <div>
                         <h3 class="mfe-user-font-medium mfe-user-text-gray-900">{{ recommendation.relationship.name }}</h3>
                         <p class="mfe-user-text-sm mfe-user-text-gray-600">{{ recommendation.relationship.headline }}</p>
