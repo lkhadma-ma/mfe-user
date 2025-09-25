@@ -7,7 +7,8 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   template: `
     <p class="mfe-user-text-xs sm:mfe-user-text-base">
-    Full-Stack Developer & Angular Architect
+    <ng-content></ng-content>
+    
     </p>
 
   ` 

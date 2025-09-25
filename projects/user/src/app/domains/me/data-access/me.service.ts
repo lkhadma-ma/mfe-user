@@ -1,19 +1,23 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { UserComplated } from './user';
 import { Observable } from 'rxjs';
+import { AuthService } from '@shared/auth/auth.service';
+import { httpFetch } from '@shared/util/http-fetch';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class MeService {
-  
   baseUrl = 'http://localhost:8080/mbe-user/api/v1';
+  private http: AuthService = inject(AuthService);
+  private meCache?: UserComplated;
 
-  constructor(private http: HttpClient) { }
-
-  getMe(): Observable<UserComplated> {
-    return this.http.get<UserComplated>(`${this.baseUrl}/me`);
+  async getMe(forceRefresh = false): Promise<UserComplated> {
+    if (this.meCache && !forceRefresh) return this.meCache;
+  
+    const header = await this.http.authorizationHeader();
+    this.meCache = await httpFetch<UserComplated>(`${this.baseUrl}/me`, {
+      method: 'GET',
+      headers: { Authorization: header }
+    });
+    return this.meCache;
   }
-
 }

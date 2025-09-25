@@ -18,11 +18,15 @@ export interface UserComplated {
     headline: string;
     name: string;
     bg: string;
+    about: string;
     certifications: Certification[];
     recommendations: Recommendation[];
     educations: Education[];
     experiences: Experience[];
     projects: Project[];
     servicesHeadline: string;
-    skills: string[];
+    skills: {
+        id: number;
+        name: string;
+    }[];
 }
