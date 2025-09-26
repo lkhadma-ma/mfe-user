@@ -13,7 +13,7 @@ import { Education } from '../data-access/education';
   template: `
 <div class="mfe-user-border mfe-user-rounded-lg mfe-user-bg-white">
     <div class="mfe-user-px-4 mfe-user-py-4 mfe-user-space-y-2">
-      <h1 class="mfe-user-font-semibold mfe-user-tracking-wide sm:mfe-user-text-xl mfe-user-mb-7">Experience</h1>
+      <h1 class="mfe-user-font-semibold mfe-user-tracking-wide sm:mfe-user-text-xl mfe-user-mb-7">Education</h1>
         @for (education of educations(); track $index) {
             <div class="mfe-user-flex mfe-user-space-x-4 mfe-user-mt-4">
               <img class="mfe-user-w-14 mfe-user-h-14" src="https://media.licdn.com/dms/image/v2/C4D0BAQFEzJhL1rYMEw/company-logo_100_100/company-logo_100_100/0/1663664586696/ies_juan_bosco_logo?e=1761177600&v=beta&t=6Ot7MuTDrD0Tu0SmsLet15ZLY9XRg25LU3NU6c3k5U0" alt="">
@@ -70,6 +70,10 @@ import { Education } from '../data-access/education';
 
               </div>
             </div>
+        }@empty {
+          <div class="mfe-user-text-center mfe-user-py-8 mfe-user-text-gray-500">
+            <p>No education details available.</p>
+          </div>
         }
     </div>
 </div>

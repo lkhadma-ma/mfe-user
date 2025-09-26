@@ -68,6 +68,10 @@ import { Certification } from '../data-access/certification';
 
               </div>
             </div>
+        }@empty {
+          <div class="mfe-user-text-center mfe-user-py-8 mfe-user-text-gray-500">
+            <p>No certification details available.</p>
+          </div>
         }
     </div>
 </div>
