@@ -4,13 +4,6 @@ import { Experience } from "./experience";
 import { Project } from "./project";
 import { Recommendation } from "./recommendation";
 
-export interface User {
-    name: string;
-    headline: string;
-    avatar: string;
-    username: string;
-}
-
 export interface UserComplated {
     username: string;
     address: string;
@@ -30,3 +23,6 @@ export interface UserComplated {
         name: string;
     }[];
 }
+
+export type UserRecomandation = Pick<UserComplated, 'name' | 'headline' | 'avatar' | 'username'>;
+export type UserHeader = Pick<UserComplated, 'name' | 'headline' | 'avatar' | 'bg'>;

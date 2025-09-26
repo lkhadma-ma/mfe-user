@@ -8,5 +8,6 @@ export const ME_ROUTES: Routes = [
       import('./me-shell.component').then((c) => c.MeShellComponent),
     title: 'Me'
   },
+  
 ];
 

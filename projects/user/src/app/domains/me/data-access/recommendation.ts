@@ -1,9 +1,9 @@
-import { User } from "./user";
+import { UserRecomandation } from "./user";
 
 export interface Recommendation {
     id: number;
-    relationship: User;
-    user: User;
+    relationship: UserRecomandation;
+    user: UserRecomandation;
     position: string;
     recommendation: string;
     createdAt: Date;

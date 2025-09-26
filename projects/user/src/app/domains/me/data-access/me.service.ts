@@ -1,6 +1,5 @@
 import { Injectable, inject } from '@angular/core';
 import { UserComplated } from './user';
-import { Observable } from 'rxjs';
 import { AuthService } from '@shared/auth/auth.service';
 import { httpFetch } from '@shared/util/http-fetch';
 

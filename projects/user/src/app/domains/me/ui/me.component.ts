@@ -18,12 +18,13 @@ import { Recommendation } from '../data-access/recommendation';
 import { Observable } from 'rxjs';
 import { UserComplated } from '../data-access/user';
 import { HttpResourceRef } from '@angular/common/http';
+import { HeaderComponent } from "./header.component";
 
 
 @Component({
   selector: 'mfe-user-me',
   standalone: true,
-  imports: [CommonModule, AboutComponent, ServiceComponent, ExperienceComponent, EducationComponent, CertificationComponent, ProjectComponent, SkillComponent, SkillsComponent, RecommendationsTabComponent],
+  imports: [CommonModule, AboutComponent, ServiceComponent, ExperienceComponent, EducationComponent, CertificationComponent, ProjectComponent, SkillComponent, RecommendationsTabComponent, HeaderComponent],
   host: {
     class: 'mfe-user-w-full mfe-user-flex mfe-user-flex-col mfe-user-space-y-4'
   },
@@ -31,38 +32,9 @@ import { HttpResourceRef } from '@angular/common/http';
   @let user = me();
 
   @if(user){
-    <div  class="mfe-user-border mfe-user-rounded-xl mfe-user-bg-white">
-    <!-- Header background -->
-    <div class="mfe-user-relative">
-      <img
-        class="mfe-user-w-full mfe-user-bg-cover mfe-user-bg-center mfe-user-max-h-[201px] mfe-user-border-t-4 mfe-user-rounded-t-md mfe-user-border-[#F8C77D]"
-        [src]="user.bg"
-        alt="bg"
-      />
-      <p
-        class="mfe-user-absolute mfe-user-text-xs mfe-user-font-medium mfe-user-tracking-widest mfe-user-text-gray-300 mfe-user-uppercase mfe-user-left-1 mfe-user-top-2">
-        premium
-      </p>
-    </div>
-  
-    <!-- Avatar -->
-    <div class="mfe-user-flex mfe-user-items-center mfe-user-justify-center max-sm:-mfe-user-mt-[2.5rem] -mfe-user-mt-[6rem] mfe-user-ml-[2rem] max-sm:mfe-user-w-[5rem] max-sm:mfe-user-h-[5rem] mfe-user-h-[150px] mfe-user-w-[150px] mfe-user-rounded-full">
-      <img
-        class="mfe-user-z-10  mfe-user-w-full mfe-user-h-full mfe-user-border-white mfe-user-border-4 mfe-user-rounded-full"
-        [src]="user.avatar"
-        alt="Me"
-      />
-    </div>
-  
-    <!-- Name + Skills -->
-    <div class="mfe-user-flex mfe-user-flex-col mfe-user-px-4 mfe-user-py-3">
-      <h1 class="mfe-user-font-semibold mfe-user-tracking-wide sm:mfe-user-text-2xl">{{user.name}}</h1>
-      <mfe-user-skills>{{user.headline}}</mfe-user-skills>
-    </div>
-  
+   
+    <mfe-user-header [user]="user"></mfe-user-header>
     
-    </div>
-  
     <mfe-user-about [description]="user.about"></mfe-user-about>
   
     <mfe-user-service [services]="user.servicesHeadline"></mfe-user-service>
@@ -81,7 +53,7 @@ import { HttpResourceRef } from '@angular/common/http';
   }
   `
 })
-export class MeComponent {
+export class MeComponent { 
   me = input<UserComplated | undefined>();
   showCaption = false;
   serviceline = `Web Development, Mobile Development, Cloud Solutions, DevOps, Consulting`;
