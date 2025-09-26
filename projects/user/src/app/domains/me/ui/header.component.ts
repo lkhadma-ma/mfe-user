@@ -44,7 +44,7 @@ import { UserHeader } from '../data-access/user';
         >
           {{ user()?.name }}
         </h1>
-        <mfe-user-skills>{{ user()?.headline }}</mfe-user-skills>
+        <mfe-user-skills>{{ user()?.headline ?? 'No headline details available.' }}</mfe-user-skills>
       </div>
     </div>
   `,
