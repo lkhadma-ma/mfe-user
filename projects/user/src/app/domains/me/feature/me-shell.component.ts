@@ -26,7 +26,7 @@ import { RecommendationsTabComponent } from "../ui/recommendation.component";
           @if(user){
             <mfe-user-header [user]="user"></mfe-user-header>
             
-            <mfe-user-about [description]="user.about"></mfe-user-about>
+            <mfe-user-about [description]="user.about" (update)="updateAbout($event)"></mfe-user-about>
 
             <mfe-user-service [services]="user.servicesHeadline"></mfe-user-service>
 
@@ -68,5 +68,9 @@ export class MeShellComponent implements OnInit {
       default:
         return [];
     }
+  }
+
+  updateAbout(about: string) {
+    this.userStore.updateAbout(about);
   }
 }
