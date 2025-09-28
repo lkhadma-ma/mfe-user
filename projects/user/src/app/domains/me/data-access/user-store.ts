@@ -1,6 +1,7 @@
 import { Injectable, inject, signal } from "@angular/core";
 import { UserComplated } from "./user";
 import { AuthHttpService } from "@shared/auth/auth-http.service";
+import { AlertService } from "@shared/commun/alert.service";
 
 
 
@@ -8,6 +9,7 @@ import { AuthHttpService } from "@shared/auth/auth-http.service";
 export class UserStore {
     // Inject
     private http = inject(AuthHttpService);
+    private alert = inject(AlertService);
 
     // Constants
     private readonly baseUrl = 'http://localhost:8080/mbe-user/api/v1';
@@ -34,6 +36,7 @@ export class UserStore {
             ...current,
             about,
           });
+          this.alert.show('About updated successfully', 'success', 3000);
         });
     }
 
