@@ -22,7 +22,7 @@ import { MarkdownEditorComponent } from "@shared/ui/markdown-editor/markdown-edi
       @let descriptionView = description();
       @if (descriptionView) {
         <mfe-user-description [description]="descriptionView"></mfe-user-description>
-      }@else {
+      } @else {
         <div class="mfe-user-text-center mfe-user-py-8 mfe-user-text-gray-500">
           <p>No description details available.</p>
         </div>
