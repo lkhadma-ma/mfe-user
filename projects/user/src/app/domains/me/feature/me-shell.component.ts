@@ -1,6 +1,5 @@
 import { Component, OnInit, signal, inject, WritableSignal } from '@angular/core';
 import { SectionComponent } from '@shared/ui/section/section.component';
-import { MeComponent } from "../ui/me.component";
 import { UserComplated } from '../data-access/user';
 import { UserStore } from '../data-access/user-store';
 import { HeaderComponent } from "../ui/header.component";
@@ -28,7 +27,7 @@ import { RecommendationsTabComponent } from "../ui/recommendation.component";
             
             <mfe-user-about [description]="user.about" (update)="updateAbout($event)"></mfe-user-about>
 
-            <mfe-user-service [services]="user.servicesHeadline"></mfe-user-service>
+            <mfe-user-service (update)="updateServicesHeadline($event)" [service]="user?.service?.headline"></mfe-user-service>
 
             <mfe-user-experience [experiences]="user.experiences"></mfe-user-experience>
 
@@ -72,5 +71,9 @@ export class MeShellComponent implements OnInit {
 
   updateAbout(about: string) {
     this.userStore.updateAbout(about);
+  }
+
+  updateServicesHeadline(servicesHeadline: string) {
+    this.userStore.updateServicesHeadline(servicesHeadline);
   }
 }

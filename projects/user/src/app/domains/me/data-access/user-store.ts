@@ -36,7 +36,23 @@ export class UserStore {
             ...current,
             about,
           });
-          this.alert.show('About updated successfully', 'success', 3000);
+          this.alert.show('About section updated successfully', 'success');
+        });
+    }
+
+    updateServicesHeadline(servicesHeadline: string) {
+        this.http.put<void>(`${this.baseUrl}/service/headline`, { headline : servicesHeadline }).subscribe(() => {
+          const current = this.userSignal();
+          if (!current) return;
+      
+          this.userSignal.set({
+            ...current,
+            service: {
+                ...current.service,
+                headline: servicesHeadline,
+            }
+          });
+          this.alert.show('Services headline updated successfully', 'success');
         });
     }
 

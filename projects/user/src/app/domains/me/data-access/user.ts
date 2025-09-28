@@ -17,7 +17,10 @@ export interface UserComplated {
     educations: Education[];
     experiences: Experience[];
     projects: Project[];
-    servicesHeadline: string;
+    service: {
+        id: number;
+        headline: string;
+    };
     skills: {
         id: number;
         name: string;
