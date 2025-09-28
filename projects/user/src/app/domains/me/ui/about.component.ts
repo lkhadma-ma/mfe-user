@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, EventEmitter, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DescriptionComponent } from "./description.component";
 
@@ -13,7 +13,9 @@ import { DescriptionComponent } from "./description.component";
   template: `
 <div class="mfe-user-border mfe-user-rounded-lg mfe-user-bg-white">
     <div class="mfe-user-px-4 mfe-user-py-4 mfe-user-space-y-2">
-      <h1 class="mfe-user-font-semibold mfe-user-tracking-wide sm:mfe-user-text-xl mfe-user-mb-7">About</h1>
+      <h1 class="mfe-user-font-semibold mfe-user-tracking-wide sm:mfe-user-text-xl mfe-user-mb-7 mfe-user-flex mfe-user-justify-between">About
+      <i (click)="update.emit('sad')" class="fa-solid fa-pencil mfe-user-cursor-pointer hover:mfe-user-scale-105"></i>
+      </h1>
       @let descriptionView = description();
       @if (descriptionView) {
         <mfe-user-description [description]="descriptionView"></mfe-user-description>
@@ -29,6 +31,8 @@ import { DescriptionComponent } from "./description.component";
 export class AboutComponent {
 
   description = input<string | null>();
+  update = output<string>();
+
   showCaption = false;
 
   toggleCaption() {

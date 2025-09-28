@@ -12,12 +12,9 @@ import { ProjectComponent } from "./project.component";
 import { Project } from '../data-access/project';
 import { Skill } from '../data-access/skill';
 import { SkillComponent } from "./skill.component";
-import { SkillsComponent } from "./skills.component";
 import { RecommendationsTabComponent } from "./recommendation.component";
 import { Recommendation } from '../data-access/recommendation';
-import { Observable } from 'rxjs';
 import { UserComplated } from '../data-access/user';
-import { HttpResourceRef } from '@angular/common/http';
 import { HeaderComponent } from "./header.component";
 
 

@@ -18,10 +18,28 @@ export class UserStore {
     // Methods
     user = this.userSignal.asReadonly();
 
+    // Actions
     loadUser(username: string) {
         this.http.get<UserComplated>(`${this.baseUrl}/users/${username}`).subscribe(user => {
             this.userSignal.set(user);
         });
     }
+
+    updateAbout(about: string) {
+        this.http.put<void>(`${this.baseUrl}/users/about`, { about }).subscribe(() => {
+          const current = this.userSignal();
+          if (!current) return;
+      
+          this.userSignal.set({
+            ...current,
+            about,
+          });
+        });
+    }
+
+
+      
+
+
 
 }
