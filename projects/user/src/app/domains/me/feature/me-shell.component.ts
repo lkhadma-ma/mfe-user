@@ -11,6 +11,7 @@ import { CertificationComponent } from "../ui/certification.component";
 import { ProjectComponent } from "../ui/project.component";
 import { SkillComponent } from "../ui/skill.component";
 import { RecommendationsTabComponent } from "../ui/recommendation.component";
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -52,10 +53,12 @@ import { RecommendationsTabComponent } from "../ui/recommendation.component";
 })
 export class MeShellComponent implements OnInit {
   private userStore = inject(UserStore);
+  private route = inject(ActivatedRoute);
   userInStore = this.userStore.user;
 
   ngOnInit() {
-    this.userStore.loadUser('johndoe');
+    const username = this.route.snapshot.paramMap.get('username')!;
+    this.userStore.loadUser(username);
   }
 
   recommendation(type: 'given' | 'received') {
