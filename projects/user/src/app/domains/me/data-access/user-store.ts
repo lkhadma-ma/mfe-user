@@ -16,19 +16,25 @@ export class UserStore {
     
     // Signals
     private userSignal = signal<UserComplated | null>(null);
+    private isCurrentUserSignal = signal<boolean>(false);
 
     // Methods
     user = this.userSignal.asReadonly();
+    isCurrentUser = this.isCurrentUserSignal.asReadonly();
 
     // Actions
     loadUser(username: string) {
-        this.http.get<UserComplated>(`${this.baseUrl}/users/${username}`).subscribe(user => {
-            this.userSignal.set(user);
+        this.http.get<{
+          search: UserComplated,
+          current: string
+        }>(`${this.baseUrl}/users/${username}`).subscribe(user => {
+            this.userSignal.set(user.search);
+            this.isCurrentUserSignal.set(user.current === user.search.username);
         });
     }
 
-    updateAbout(about: string) {
-        this.http.put<void>(`${this.baseUrl}/users/about`, { about }).subscribe(() => {
+    updateAbout(aboutIn: string) {
+        this.http.put<{ about: string }>(`${this.baseUrl}/users/about`, { about: aboutIn }).subscribe(({ about }) => {
           const current = this.userSignal();
           if (!current) return;
       
@@ -41,7 +47,7 @@ export class UserStore {
     }
 
     updateServicesHeadline(servicesHeadline: string) {
-        this.http.put<void>(`${this.baseUrl}/service/headline`, { headline : servicesHeadline }).subscribe(() => {
+        this.http.put<{ headline: string }>(`${this.baseUrl}/service/headline`, { headline : servicesHeadline }).subscribe(({ headline }) => {
           const current = this.userSignal();
           if (!current) return;
       
@@ -49,7 +55,7 @@ export class UserStore {
             ...current,
             service: {
                 ...current.service,
-                headline: servicesHeadline,
+                headline,
             }
           });
           this.alert.show('Services headline updated successfully', 'success');

@@ -23,12 +23,13 @@ import { ActivatedRoute } from '@angular/router';
         <div class="mfe-user-w-full">
           <div class="mfe-user-w-full mfe-user-flex mfe-user-flex-col mfe-user-space-y-4">
           @let user = userInStore();
+          @let isCurrentUser = isCurrentUserInStore();
           @if(user){
             <mfe-user-header [user]="user"></mfe-user-header>
             
-            <mfe-user-about [description]="user.about" (update)="updateAbout($event)"></mfe-user-about>
+            <mfe-user-about [description]="user.about" [isCurrentUser]="isCurrentUser" (update)="updateAbout($event)"></mfe-user-about>
 
-            <mfe-user-service (update)="updateServicesHeadline($event)" [service]="user?.service?.headline"></mfe-user-service>
+            <mfe-user-service (update)="updateServicesHeadline($event)" [isCurrentUser]="isCurrentUser" [service]="user?.service?.headline"></mfe-user-service>
 
             <mfe-user-experience [experiences]="user.experiences"></mfe-user-experience>
 
@@ -55,6 +56,7 @@ export class MeShellComponent implements OnInit {
   private userStore = inject(UserStore);
   private route = inject(ActivatedRoute);
   userInStore = this.userStore.user;
+  isCurrentUserInStore  = this.userStore.isCurrentUser;
 
   ngOnInit() {
     const username = this.route.snapshot.paramMap.get('username')!;

@@ -16,7 +16,9 @@ import { MarkdownEditorComponent } from "@shared/ui/markdown-editor/markdown-edi
   <div class="mfe-user-px-4 mfe-user-py-4 mfe-user-space-y-2">
     <h1 class="mfe-user-font-semibold mfe-user-tracking-wide sm:mfe-user-text-xl mfe-user-mb-7 mfe-user-flex mfe-user-justify-between">
       About
-      <i (click)="toggleUpdate()" class="fa-solid fa-pencil mfe-user-cursor-pointer hover:mfe-user-scale-105"></i>
+      @if(isCurrentUser()){
+        <i (click)="toggleUpdate()" class="fa-solid fa-pencil mfe-user-cursor-pointer hover:mfe-user-scale-105"></i>
+      }
     </h1>
     @if(!showUpdate){
       @let descriptionView = description();
@@ -28,7 +30,9 @@ import { MarkdownEditorComponent } from "@shared/ui/markdown-editor/markdown-edi
         </div>
       }
     } @else {
-      <markdown-editor [control]="control" (leaveEvent)="save()"></markdown-editor>
+      @if(isCurrentUser()){
+        <markdown-editor [control]="control" (leaveEvent)="save()"></markdown-editor>
+      }
     }
   </div>
 </div>
@@ -37,6 +41,7 @@ import { MarkdownEditorComponent } from "@shared/ui/markdown-editor/markdown-edi
 export class AboutComponent {
 
   description = input<string | null>();
+  isCurrentUser = input<boolean>();
   update = output<string>();
 
   control = new FormControl<string>('', { nonNullable: true });
