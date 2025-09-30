@@ -31,7 +31,7 @@ import { ActivatedRoute } from '@angular/router';
 
             <mfe-user-service (update)="updateServicesHeadline($event)" [isCurrentUser]="isCurrentUser" [service]="user?.service?.headline"></mfe-user-service>
 
-            <mfe-user-experience [experiences]="user.experiences"></mfe-user-experience>
+            <mfe-user-experience [isCurrentUser]="isCurrentUser" [experiences]="user.experiences"></mfe-user-experience>
 
             <mfe-user-education [educations]="user.educations"></mfe-user-education>
 

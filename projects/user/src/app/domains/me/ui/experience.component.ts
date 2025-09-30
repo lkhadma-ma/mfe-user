@@ -2,18 +2,23 @@ import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Experience } from '../data-access/experience';
 import { DescriptionComponent } from "./description.component";
+import { ExperiencesComponent } from "@shared/ui/dynamic-form/mfe-user-experience";
 
 @Component({
   selector: 'mfe-user-experience',
   standalone: true,
-  imports: [CommonModule, DescriptionComponent],
+  imports: [CommonModule, DescriptionComponent, ExperiencesComponent],
   host: {
     class: 'mfe-user-w-full'
   },
   template: `
 <div class="mfe-user-border mfe-user-rounded-lg mfe-user-bg-white">
     <div class="mfe-user-px-4 mfe-user-py-4 mfe-user-space-y-2">
-      <h1 class="mfe-user-font-semibold mfe-user-tracking-wide sm:mfe-user-text-xl mfe-user-mb-7">Experience</h1>
+      <h1 class="mfe-user-font-semibold mfe-user-tracking-wide sm:mfe-user-text-xl mfe-user-mb-7 mfe-user-flex mfe-user-justify-between">Experience
+      @if(isCurrentUser()) {
+        <i class="fa-solid fa-plus mfe-user-cursor-pointer hover:mfe-user-scale-105"></i>
+      }
+      </h1>
         @for (experience of experiences(); track $index) {
             <div class="mfe-user-flex mfe-user-space-x-4 mfe-user-mt-4">
               <img class="mfe-user-w-14 mfe-user-h-14" src="https://media.licdn.com/dms/image/v2/D4D0BAQEmsC7uLFcGtw/company-logo_100_100/company-logo_100_100/0/1734610939743/satec_logo?e=1761177600&v=beta&t=Gqr6mDGfjQucih24uZRMxPd4zxDjcOv89e-IoEh1CqE" alt="">
@@ -77,11 +82,14 @@ import { DescriptionComponent } from "./description.component";
         }
     </div>
 </div>
+<mfe-experience></mfe-experience>
+  
   `
 })
 export class ExperienceComponent {
 
   experiences = input<Experience[]>();
+  isCurrentUser = input<boolean>(false);
   showCaption = false;
 
   toggleCaption() {
