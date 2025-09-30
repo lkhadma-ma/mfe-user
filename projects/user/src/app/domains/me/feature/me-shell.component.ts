@@ -59,8 +59,10 @@ export class MeShellComponent implements OnInit {
   isCurrentUserInStore  = this.userStore.isCurrentUser;
 
   ngOnInit() {
-    const username = this.route.snapshot.paramMap.get('username')!;
-    this.userStore.loadUser(username);
+    this.route.paramMap.subscribe(params => {
+      const username = params.get('username')!;
+      this.userStore.loadUser(username);
+    });
   }
 
   recommendation(type: 'given' | 'received') {
