@@ -5,10 +5,10 @@ import { DynamicFormComponent, FormConfig } from '@shared/ui/dynamic-form/dynami
   selector: 'mfe-user-form-education',
   template: `
     <mfe-user-dynamic-form
-      [config]="experienceFormConfig"
-      [initialData]="initialExperienceData"
-      [isOpen]="isExperienceModalOpen"
-      (submitted)="onExperienceSubmit($event)"
+      [config]="educationFormConfig"
+      [initialData]="initialeducationData"
+      [isOpen]="iseducationModalOpen"
+      (submitted)="onEducationSubmit($event)"
       (closed)="onModalClosed()"
     >
     </mfe-user-dynamic-form>
@@ -16,48 +16,42 @@ import { DynamicFormComponent, FormConfig } from '@shared/ui/dynamic-form/dynami
   imports: [DynamicFormComponent],
 })
 export class FormEducationComponent {
-  isExperienceModalOpen = false;
-  initialExperienceData = {};
+  iseducationModalOpen = false;
+  initialeducationData = {};
 
-  experienceFormConfig: FormConfig = {
-    id: 'add-experience',
-    title: 'Add experience',
-    subtitle: 'Notify network - Turn on to modify your network of key profile changes',
+  educationFormConfig: FormConfig = {
+    id: 'add-education',
+    title: 'Add Education',
+    subtitle: 'Add education to show your academic background',
     sections: [
       {
-        title: 'Basic Information',
+        title: 'Information',
         fields: [
           {
-            key: 'title',
-            label: 'Title',
+            key: 'school',
+            label: 'School',
             type: 'text',
             required: true,
-            placeholder: 'e.g. Retail Sales Manager'
+            placeholder: 'e.g. University of Oxford'
           },
           {
-            key: 'employmentType',
-            label: 'Employment type',
-            type: 'select',
-            required: true,
-            placeholder: 'Please select',
-            options: [
-              { value: 'full-time', label: 'Full-time' },
-              { value: 'part-time', label: 'Part-time' },
-              { value: 'contract', label: 'Contract' },
-              { value: 'freelance', label: 'Freelance' }
-            ]
-          },
-          {
-            key: 'company',
-            label: 'Company or organization',
+            key: 'degree',
+            label: 'Degree',
             type: 'text',
             required: true,
-            placeholder: 'e.g. Microsoft'
-          }
+            placeholder: 'e.g. Bachelor of Science'
+          },
+          {
+            key: 'fieldOfStudy',
+            label: 'Field of study',
+            type: 'text',
+            required: true,
+            placeholder: 'e.g. Computer Science'
+          },
         ]
       },
       {
-        title: 'Employment Period',
+        title: 'Education Period',
         columns: 2,
         fields: [
           {
@@ -72,41 +66,26 @@ export class FormEducationComponent {
             type: 'date',
             required: false
           },
-          {
-            key: 'currentRole',
-            label: 'I am currently working in this role',
-            type: 'checkbox',
-            required: false
-          }
         ]
       },
       {
-        title: 'Location',
+        title: 'More Details',
         fields: [
           {
-            key: 'location',
-            label: 'Location',
-            type: 'text',
+            key: 'grade',
+            label: 'Grade',
+            type: 'number',
             required: false,
-            placeholder: 'e.g. London, United Kingdom'
+            placeholder: 'e.g. 3.8'
           },
           {
-            key: 'locationType',
-            label: 'Location type',
-            type: 'select',
+            key: 'activities',
+            label: 'Activities and societies',
+            type: 'textarea',
             required: false,
-            placeholder: 'Please select',
-            options: [
-              { value: 'onsite', label: 'On-site' },
-              { value: 'hybrid', label: 'Hybrid' },
-              { value: 'remote', label: 'Remote' }
-            ]
-          }
-        ]
-      },
-      {
-        title: 'Description',
-        fields: [
+            placeholder: 'e.g. Student Union, Football Club'
+            
+          },
           {
             key: 'description',
             label: 'Description',
@@ -115,22 +94,23 @@ export class FormEducationComponent {
             placeholder: 'List your major duties and successes. Highlight specific projects.'
           }
         ]
-      }
+      },
+     
     ],
     submitText: 'Save',
     cancelText: 'Cancel'
   };
 
-  openExperienceModal() {
-    this.isExperienceModalOpen = true;
+  openEducationModal() {
+    this.iseducationModalOpen = true;
   }
 
-  onExperienceSubmit(experienceData: any) {
-    console.log('Experience data submitted:', experienceData);
+  onEducationSubmit(educationData: any) {
+    console.log('education data submitted:', educationData);
     // TODO: call API or update state
   }
 
   onModalClosed() {
-    this.isExperienceModalOpen = false;
+    this.iseducationModalOpen = false;
   }
 }

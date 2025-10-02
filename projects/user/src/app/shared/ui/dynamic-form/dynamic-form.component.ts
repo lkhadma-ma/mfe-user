@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 export interface FormFieldConfig {
   key: string;
   label: string;
-  type: 'text' | 'email' | 'password' | 'select' | 'textarea' | 'checkbox' | 'date' | 'radio' | 'file';
+  type: 'text' | 'email' | 'password' | 'select' | 'textarea' | 'checkbox' | 'date' | 'radio' | 'file' | 'number';
   required?: boolean;
   placeholder?: string;
   options?: { value: any; label: string }[];
@@ -98,6 +98,24 @@ export interface FormConfig {
                         {{ getFieldError(field) }}
                       </div>
                     </div>
+                    <!-- Number Input -->
+                    <div *ngIf="field.type === 'number'">
+                      <label [for]="field.key" class="mfe-user-block mfe-user-text-sm mfe-user-font-medium mfe-user-text-gray-700">
+                        {{ field.label }}
+                        <span *ngIf="field.required" class="mfe-user-text-red-500">*</span>
+                      </label>
+                      <input
+                        [id]="field.key"
+                        type="number"
+                        [formControlName]="field.key"
+                        [placeholder]="field.placeholder || ''"
+                        [class.mfe-user-border-red-300]="isFieldInvalid(field)"
+                        class="mfe-user-w-full mfe-user-px-3 mfe-user-py-2 mfe-user-border mfe-user-border-gray-300 mfe-user-rounded-md mfe-user-shadow-sm focus:mfe-user-outline-none focus:mfe-user-ring-2 focus:mfe-user-ring-blue-500 focus:mfe-user-border-blue-500">
+                      <div *ngIf="isFieldInvalid(field)" class="mfe-user-text-sm mfe-user-text-red-600">
+                        {{ getFieldError(field) }}
+                      </div>
+                    </div>
+
 
                     <!-- Textarea -->
                     <div *ngIf="field.type === 'textarea'">
