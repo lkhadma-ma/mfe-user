@@ -1,14 +1,21 @@
-// components/experience/experience.component.ts
-import { Component } from '@angular/core';
-import { DynamicFormComponent, FormConfig } from './dynamic-form.component';
+import { Component, OnInit } from '@angular/core';
+import { DynamicFormComponent, FormConfig } from '@shared/ui/dynamic-form/dynamic-form.component';
 
 @Component({
-  selector: 'mfe-experience',
-  standalone: true,
+  selector: 'mfe-user-form-education',
+  template: `
+    <mfe-user-dynamic-form
+      [config]="experienceFormConfig"
+      [initialData]="initialExperienceData"
+      [isOpen]="isExperienceModalOpen"
+      (submitted)="onExperienceSubmit($event)"
+      (closed)="onModalClosed()"
+    >
+    </mfe-user-dynamic-form>
+  `,
   imports: [DynamicFormComponent],
-  templateUrl: './experience.component.html'
 })
-export class ExperiencesComponent {
+export class FormEducationComponent {
   isExperienceModalOpen = false;
   initialExperienceData = {};
 

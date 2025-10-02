@@ -1,19 +1,24 @@
-import { Component, input } from '@angular/core';
+import { Component, input, viewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DescriptionComponent } from "./description.component";
 import { Education } from '../data-access/education';
+import { FormEducationComponent } from "./form-education.component";
 
 @Component({
   selector: 'mfe-user-education',
   standalone: true,
-  imports: [CommonModule, DescriptionComponent],
+  imports: [CommonModule, DescriptionComponent, FormEducationComponent],
   host: {
     class: 'mfe-user-w-full'
   },
   template: `
 <div class="mfe-user-border mfe-user-rounded-lg mfe-user-bg-white">
     <div class="mfe-user-px-4 mfe-user-py-4 mfe-user-space-y-2">
-      <h1 class="mfe-user-font-semibold mfe-user-tracking-wide sm:mfe-user-text-xl mfe-user-mb-7">Education</h1>
+      <h1 class="mfe-user-font-semibold mfe-user-tracking-wide sm:mfe-user-text-xl mfe-user-mb-7 mfe-user-flex mfe-user-justify-between">Education
+      @if(isCurrentUser()) {
+        <i class="fa-solid fa-plus mfe-user-cursor-pointer hover:mfe-user-scale-105" (click)="form()?.openExperienceModal()"></i>
+      }
+      </h1>
         @for (education of educations(); track $index) {
             <div class="mfe-user-flex mfe-user-space-x-4 mfe-user-mt-4">
               <img class="mfe-user-w-14 mfe-user-h-14" src="https://media.licdn.com/dms/image/v2/C4D0BAQFEzJhL1rYMEw/company-logo_100_100/company-logo_100_100/0/1663664586696/ies_juan_bosco_logo?e=1761177600&v=beta&t=6Ot7MuTDrD0Tu0SmsLet15ZLY9XRg25LU3NU6c3k5U0" alt="">
@@ -77,11 +82,13 @@ import { Education } from '../data-access/education';
         }
     </div>
 </div>
+  <mfe-user-form-education></mfe-user-form-education>
   `
 })
 export class EducationComponent {
-
+  isCurrentUser = input<boolean>(false);
   educations = input<Education[]>();
+  form = viewChild(FormEducationComponent);
   showCaption = false;
 
   toggleCaption() {

@@ -2,12 +2,11 @@ import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Experience } from '../data-access/experience';
 import { DescriptionComponent } from "./description.component";
-import { ExperiencesComponent } from "@shared/ui/dynamic-form/mfe-user-experience";
 
 @Component({
   selector: 'mfe-user-experience',
   standalone: true,
-  imports: [CommonModule, DescriptionComponent, ExperiencesComponent],
+  imports: [CommonModule, DescriptionComponent],
   host: {
     class: 'mfe-user-w-full'
   },
@@ -82,8 +81,6 @@ import { ExperiencesComponent } from "@shared/ui/dynamic-form/mfe-user-experienc
         }
     </div>
 </div>
-<mfe-experience></mfe-experience>
-  
   `
 })
 export class ExperienceComponent {

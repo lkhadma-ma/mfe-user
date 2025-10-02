@@ -33,7 +33,7 @@ import { ActivatedRoute } from '@angular/router';
 
             <mfe-user-experience [isCurrentUser]="isCurrentUser" [experiences]="user.experiences"></mfe-user-experience>
 
-            <mfe-user-education [educations]="user.educations"></mfe-user-education>
+            <mfe-user-education [isCurrentUser]="isCurrentUser" [educations]="user.educations"></mfe-user-education>
 
             <mfe-user-certification [certifications]="user.certifications"></mfe-user-certification>
 
