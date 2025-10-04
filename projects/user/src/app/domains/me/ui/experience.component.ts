@@ -59,14 +59,14 @@ import { DescriptionComponent } from "./description.component";
                 <!-- Skills -->
                 @if (experience.skills.length > 2) {
                   <small>
-                    {{ experience.skills[0].name }},
-                    {{ experience.skills[1].name }}
+                    {{ experience.skills[0].label }},
+                    {{ experience.skills[1].label }}
                     and +{{ experience.skills.length - 2 }} skills
                   </small>
                 } @else {
                   @for (skill of experience.skills; track $index) {
                     <small>
-                      {{ skill.name }}{{ $index < experience.skills.length - 1 ? ', ' : '' }}
+                      {{ skill.label }}{{ $index < experience.skills.length - 1 ? ', ' : '' }}
                     </small>
                   }
                 }

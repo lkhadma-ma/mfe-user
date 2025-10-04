@@ -31,9 +31,9 @@ import { ActivatedRoute } from '@angular/router';
 
             <mfe-user-service (update)="updateServicesHeadline($event)" [isCurrentUser]="isCurrentUser" [service]="user?.service?.headline"></mfe-user-service>
 
-            <mfe-user-experience [isCurrentUser]="isCurrentUser" [experiences]="user.experiences"></mfe-user-experience>
+            <mfe-user-experience  [isCurrentUser]="isCurrentUser" [experiences]="user.experiences"></mfe-user-experience>
 
-            <mfe-user-education [isCurrentUser]="isCurrentUser" [educations]="user.educations"></mfe-user-education>
+            <mfe-user-education (update)="updateEducation($event)" [isCurrentUser]="isCurrentUser" [educations]="user.educations"></mfe-user-education>
 
             <mfe-user-certification [certifications]="user.certifications"></mfe-user-certification>
 
@@ -82,5 +82,9 @@ export class MeShellComponent implements OnInit {
 
   updateServicesHeadline(servicesHeadline: string) {
     this.userStore.updateServicesHeadline(servicesHeadline);
+  }
+
+  updateEducation(education: object) {
+   console.log('Education updated:', education);
   }
 }

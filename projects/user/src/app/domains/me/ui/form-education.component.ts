@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, input, output, signal } from '@angular/core';
 import { DynamicFormComponent, FormConfig } from '@shared/ui/dynamic-form/dynamic-form.component';
 
 @Component({
@@ -6,7 +6,7 @@ import { DynamicFormComponent, FormConfig } from '@shared/ui/dynamic-form/dynami
   template: `
     <mfe-user-dynamic-form
       [config]="educationFormConfig"
-      [initialData]="initialeducationData"
+      [initialData]="initialData()"
       [isOpen]="iseducationModalOpen"
       (submitted)="onEducationSubmit($event)"
       (closed)="onModalClosed()"
@@ -17,7 +17,8 @@ import { DynamicFormComponent, FormConfig } from '@shared/ui/dynamic-form/dynami
 })
 export class FormEducationComponent {
   iseducationModalOpen = false;
-  initialeducationData = {};
+  initialData = input<object>({});
+  onSubmit = output<object>();
 
   educationFormConfig: FormConfig = {
     id: 'add-education',
@@ -27,6 +28,12 @@ export class FormEducationComponent {
       {
         title: 'Information',
         fields: [
+          {
+            key: 'id',
+            label: 'id',
+            type: 'hidden',
+            required: false,
+          },
           {
             key: 'school',
             label: 'School',
@@ -92,7 +99,24 @@ export class FormEducationComponent {
             type: 'textarea',
             required: false,
             placeholder: 'List your major duties and successes. Highlight specific projects.'
-          }
+          },
+          {
+            key: 'skills',
+            label: 'Skills',
+            type: 'multiselect',
+            required: true,
+            placeholder: 'Select your skills...',
+            mode: 'tags',
+            searchable: true,
+            options: [
+              { value: 1, label: 'Angular' },
+              { value: 2, label: 'React' },
+              { value: 3, label: 'Vue.js' },
+              { value: 4, label: 'TypeScript' },
+              { value: 5, label: 'JavaScript' },
+              { value: 6, label: 'Node.js' }
+            ]
+          },
         ]
       },
      
@@ -106,8 +130,7 @@ export class FormEducationComponent {
   }
 
   onEducationSubmit(educationData: any) {
-    console.log('education data submitted:', educationData);
-    // TODO: call API or update state
+    this.onSubmit.emit(educationData);
   }
 
   onModalClosed() {

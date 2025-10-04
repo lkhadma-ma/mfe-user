@@ -53,14 +53,14 @@ import { Project } from '../data-access/project';
                 <!-- Skills -->
                 @if (project.skills.length > 2) {
                   <small>
-                    {{ project.skills[0].name }},
-                    {{ project.skills[1].name }}
+                    {{ project.skills[0].label }},
+                    {{ project.skills[1].label }}
                     and +{{ project.skills.length - 2 }} skills
                   </small>
                 } @else {
                   @for (skill of project.skills; track $index) {
                     <small>
-                      {{ skill.name }}{{ $index < project.skills.length - 1 ? ', ' : '' }}
+                      {{ skill.label }}{{ $index < project.skills.length - 1 ? ', ' : '' }}
                     </small>
                   }
                 }

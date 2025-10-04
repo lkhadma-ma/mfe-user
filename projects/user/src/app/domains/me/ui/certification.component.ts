@@ -53,14 +53,14 @@ import { Certification } from '../data-access/certification';
                 <!-- Skills -->
                 @if (certification.skills.length > 2) {
                   <small>
-                    {{ certification.skills[0].name }},
-                    {{ certification.skills[1].name }}
+                    {{ certification.skills[0].label }},
+                    {{ certification.skills[1].label }}
                     and +{{ certification.skills.length - 2 }} skills
                   </small>
                 } @else {
                   @for (skill of certification.skills; track $index) {
                     <small>
-                      {{ skill.name }}{{ $index < certification.skills.length - 1 ? ', ' : '' }}
+                      {{ skill.label }}{{ $index < certification.skills.length - 1 ? ', ' : '' }}
                     </small>
                   }
                 }

@@ -2,6 +2,7 @@ import { Injectable, inject, signal } from "@angular/core";
 import { UserComplated } from "./user";
 import { AuthHttpService } from "@shared/auth/auth-http.service";
 import { AlertService } from "@shared/commun/alert.service";
+import { Education } from "./education";
 
 
 
@@ -62,7 +63,31 @@ export class UserStore {
         });
     }
 
+    updateEducation(education: Education) {
+        this.http.put<Education>(`${this.baseUrl}/educations`, education).subscribe((updatedEducation) => {
+          const current = this.userSignal();
+          if (!current) return;
 
+          let educations:any;
+          const educationExists = current.educations.find(edu => edu.id === updatedEducation.id);
+          
+          if(educationExists){
+            educations = current.educations.map(edu =>
+              edu.id === updatedEducation.id ? updatedEducation : edu
+            );
+          }else {
+            educations = [...current.educations, updatedEducation];
+          }
+      
+          this.userSignal.set({
+            ...current,
+            educations,
+          });
+
+          this.alert.show('Education updated successfully', 'success');
+        });
+        
+    }
       
 
 

@@ -1,4 +1,4 @@
-import { Component, input, viewChild } from '@angular/core';
+import { Component, input, output, signal, viewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DescriptionComponent } from "./description.component";
 import { Education } from '../data-access/education';
@@ -20,7 +20,10 @@ import { FormEducationComponent } from "./form-education.component";
       }
       </h1>
         @for (education of educations(); track $index) {
-            <div class="mfe-user-flex mfe-user-space-x-4 mfe-user-mt-4">
+            <div class="mfe-user-flex mfe-user-space-x-4 mfe-user-mt-4 mfe-user-relative">
+              @if(isCurrentUser()) {
+                <i (click)="setCurrentEducation(education)" class="fa-solid fa-pencil mfe-user-cursor-pointer mfe-user-absolute mfe-user-top-0 mfe-user-right-0 hover:mfe-user-scale-105"></i>
+              }
               <img class="mfe-user-w-14 mfe-user-h-14" src="https://media.licdn.com/dms/image/v2/C4D0BAQFEzJhL1rYMEw/company-logo_100_100/company-logo_100_100/0/1663664586696/ies_juan_bosco_logo?e=1761177600&v=beta&t=6Ot7MuTDrD0Tu0SmsLet15ZLY9XRg25LU3NU6c3k5U0" alt="">
               <div>
                 <h2 class="mfe-user-font-semibold mfe-user-tracking-wide">{{ education.school }}</h2>
@@ -60,14 +63,14 @@ import { FormEducationComponent } from "./form-education.component";
                 <!-- Skills -->
                 @if (education.skills.length > 2) {
                   <small>
-                    {{ education.skills[0].name }},
-                    {{ education.skills[1].name }}
+                    {{ education.skills[0].label }},
+                    {{ education.skills[1].label }}
                     and +{{ education.skills.length - 2 }} skills
                   </small>
                 } @else {
                   @for (skill of education.skills; track $index) {
                     <small>
-                      {{ skill.name }}{{ $index < education.skills.length - 1 ? ', ' : '' }}
+                      {{ skill.label }}{{ $index < education.skills.length - 1 ? ', ' : '' }}
                     </small>
                   }
                 }
@@ -82,16 +85,23 @@ import { FormEducationComponent } from "./form-education.component";
         }
     </div>
 </div>
-  <mfe-user-form-education></mfe-user-form-education>
+  <mfe-user-form-education (onSubmit)="update.emit($event)" [initialData]="currentEducation" ></mfe-user-form-education>
   `
 })
 export class EducationComponent {
   isCurrentUser = input<boolean>(false);
   educations = input<Education[]>();
+  currentEducation = signal<Education | any>({});
   form = viewChild(FormEducationComponent);
+  update = output<object>();
   showCaption = false;
 
   toggleCaption() {
     this.showCaption = true;
+  }
+
+  setCurrentEducation(education: Education) {
+    this.currentEducation.set(education);
+    this.form()?.openEducationModal();
   }
 }

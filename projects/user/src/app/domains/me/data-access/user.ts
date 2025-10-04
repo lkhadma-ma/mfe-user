@@ -22,8 +22,8 @@ export interface UserComplated {
         headline: string;
     };
     skills: {
-        id: number;
-        name: string;
+        value: number;
+        label: string;
     }[];
 }
 
