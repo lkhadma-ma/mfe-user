@@ -85,6 +85,6 @@ export class MeShellComponent implements OnInit {
   }
 
   updateEducation(education: object) {
-   console.log('Education updated:', education);
+    this.userStore.updateEducation(education as any);
   }
 }
