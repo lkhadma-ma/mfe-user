@@ -1,5 +1,5 @@
 // dynamic-form.component.ts
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, SimpleChanges } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -189,8 +189,8 @@ export interface FormConfig {
                     <!-- Number and hidden Input -->
                     <div
                       *ngIf="field.type === 'number' || field.type === 'hidden'"
-                      [class.hidden]="
-                        field.type === 'hidden' && !form.get(field.key)?.value
+                      [class.mfe-user-hidden]="
+                        field.type === 'hidden'
                       "
                     >
                       <label
@@ -417,6 +417,24 @@ export class DynamicFormComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
+    this.patchFormValues();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['initialData'] && this.form) {
+      this.createForm();
+      this.patchFormValues();
+    }
+  }
+
+  private patchFormValues() {
+    if (!this.form || !this.initialData) return;
+
+    Object.keys(this.initialData).forEach((key) => {
+      if (this.form.get(key)) {
+        this.form.get(key)!.setValue(this.initialData[key]);
+      }
+    });
   }
 
   private createForm() {

@@ -1,12 +1,13 @@
 import { Component, input, output, signal } from '@angular/core';
 import { DynamicFormComponent, FormConfig } from '@shared/ui/dynamic-form/dynamic-form.component';
+import { Education } from '../data-access/education';
 
 @Component({
   selector: 'mfe-user-form-education',
   template: `
     <mfe-user-dynamic-form
       [config]="educationFormConfig"
-      [initialData]="initialData()"
+      [initialData]="initialData() || {}"
       [isOpen]="iseducationModalOpen"
       (submitted)="onEducationSubmit($event)"
       (closed)="onModalClosed()"
@@ -17,7 +18,7 @@ import { DynamicFormComponent, FormConfig } from '@shared/ui/dynamic-form/dynami
 })
 export class FormEducationComponent {
   iseducationModalOpen = false;
-  initialData = input<object>({});
+  initialData = input<Education | null>();
   onSubmit = output<object>();
 
   educationFormConfig: FormConfig = {
