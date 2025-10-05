@@ -22,7 +22,8 @@ import { FormEducationComponent } from "./form-education.component";
         @for (education of educations(); track $index) {
             <div class="mfe-user-flex mfe-user-space-x-4 mfe-user-mt-4 mfe-user-relative">
               @if(isCurrentUser()) {
-                <i (click)="setCurrentEducation(education)" class="fa-solid fa-pencil mfe-user-cursor-pointer mfe-user-absolute mfe-user-top-0 mfe-user-right-0 hover:mfe-user-scale-105"></i>
+                <i (click)="deleteEducation(education.id)" class="fa-solid fa-trash mfe-user-cursor-pointer mfe-user-absolute mfe-user-top-0 mfe-user-right-0 hover:mfe-user-scale-105"></i>
+                <i (click)="setCurrentEducation(education)" class="fa-solid fa-pencil mfe-user-cursor-pointer mfe-user-absolute mfe-user-top-0 mfe-user-right-10 hover:mfe-user-scale-105"></i>
               }
               <img class="mfe-user-w-14 mfe-user-h-14" src="https://media.licdn.com/dms/image/v2/C4D0BAQFEzJhL1rYMEw/company-logo_100_100/company-logo_100_100/0/1663664586696/ies_juan_bosco_logo?e=1761177600&v=beta&t=6Ot7MuTDrD0Tu0SmsLet15ZLY9XRg25LU3NU6c3k5U0" alt="">
               <div>
@@ -30,7 +31,9 @@ import { FormEducationComponent } from "./form-education.component";
                 <h3 class="mfe-user-tracking-wide mfe-user-text-sm">{{ education.degree }}, {{ education.fieldOfStudy }}</h3>
                 <p class="mfe-user-tracking-wide mfe-user-text-sm mfe-user-text-gray-700">{{ education.startDate | date:'yyyy' }} - {{ education.endDate ? (education.endDate | date:'yyyy') : 'Present' }}</p>
                 <p class="mfe-user-tracking-wide mfe-user-text-sm mfe-user-pb-3 mfe-user-text-gray-700">Grade: {{ education.grade }}</p>
-                <mfe-user-description class="mfe-user-mb-2" [description]="education.description"></mfe-user-description>
+                @if(education?.description) {
+                  <mfe-user-description class="mfe-user-mb-2" [description]="education.description"></mfe-user-description>
+                }
                 <a href="#" class="mfe-user-mt-4 mfe-user-font-semibold mfe-user-flex mfe-user-items-center">
                 <!-- Diamond icon -->
                 <span class="mfe-user-mr-1">
@@ -91,6 +94,7 @@ import { FormEducationComponent } from "./form-education.component";
 export class EducationComponent {
   isCurrentUser = input<boolean>(false);
   educations = input<Education[]>();
+  delete = output<string | number>();
   currentEducation = signal<Education | null>(null);
   form = viewChild(FormEducationComponent);
   update = output<object>();
@@ -103,5 +107,9 @@ export class EducationComponent {
   setCurrentEducation(education: Education) {
     this.currentEducation.set(education);
     this.form()?.openEducationModal();
+  }
+
+  deleteEducation(id: string | number) {
+    this.delete.emit(id);
   }
 }

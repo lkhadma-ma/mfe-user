@@ -88,7 +88,19 @@ export class UserStore {
         });
         
     }
+    
+    deleteEducation(id: string | number) {
+        this.http.delete<void>(`${this.baseUrl}/educations/${id}`).subscribe(() => {
+          const current = this.userSignal();
+          if (!current) return;
       
+          this.userSignal.set({
+            ...current,
+            educations: current.educations.filter(edu => edu.id !== id),
+          });
+          this.alert.show('Education deleted successfully', 'success');
+        });
+    }
 
 
 
