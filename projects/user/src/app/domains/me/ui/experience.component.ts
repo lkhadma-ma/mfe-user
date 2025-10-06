@@ -1,12 +1,13 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output, signal, viewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Experience } from '../data-access/experience';
 import { DescriptionComponent } from "./description.component";
+import { FormExperienceComponent } from "./form-experience.component";
 
 @Component({
   selector: 'mfe-user-experience',
   standalone: true,
-  imports: [CommonModule, DescriptionComponent],
+  imports: [CommonModule, DescriptionComponent, FormExperienceComponent],
   host: {
     class: 'mfe-user-w-full'
   },
@@ -15,12 +16,16 @@ import { DescriptionComponent } from "./description.component";
     <div class="mfe-user-px-4 mfe-user-py-4 mfe-user-space-y-2">
       <h1 class="mfe-user-font-semibold mfe-user-tracking-wide sm:mfe-user-text-xl mfe-user-mb-7 mfe-user-flex mfe-user-justify-between">Experience
       @if(isCurrentUser()) {
-        <i class="fa-solid fa-plus mfe-user-cursor-pointer hover:mfe-user-scale-105"></i>
+        <i class="fa-solid fa-plus mfe-user-cursor-pointer hover:mfe-user-scale-105" (click)="form()?.openEducationModal()"></i>
       }
       </h1>
         @for (experience of experiences(); track $index) {
             <div class="mfe-user-flex mfe-user-space-x-4 mfe-user-mt-4">
-              <img class="mfe-user-w-14 mfe-user-h-14" src="https://media.licdn.com/dms/image/v2/D4D0BAQEmsC7uLFcGtw/company-logo_100_100/company-logo_100_100/0/1734610939743/satec_logo?e=1761177600&v=beta&t=Gqr6mDGfjQucih24uZRMxPd4zxDjcOv89e-IoEh1CqE" alt="">
+            @if(isCurrentUser()) {
+                <i (click)="deleteExperience(experience.id)" class="fa-solid fa-trash mfe-user-cursor-pointer mfe-user-absolute mfe-user-top-0 mfe-user-right-0 hover:mfe-user-scale-105"></i>
+                <i (click)="setCurrentExperience(experience)" class="fa-solid fa-pencil mfe-user-cursor-pointer mfe-user-absolute mfe-user-top-0 mfe-user-right-10 hover:mfe-user-scale-105"></i>
+              }  
+            <img class="mfe-user-w-14 mfe-user-h-14" src="https://media.licdn.com/dms/image/v2/D4D0BAQEmsC7uLFcGtw/company-logo_100_100/company-logo_100_100/0/1734610939743/satec_logo?e=1761177600&v=beta&t=Gqr6mDGfjQucih24uZRMxPd4zxDjcOv89e-IoEh1CqE" alt="">
               <div>
                 <h2 class="mfe-user-font-semibold mfe-user-tracking-wide">{{ experience.position }}</h2>
                 <h3 class="mfe-user-tracking-wide mfe-user-text-sm">{{ experience.company }} . {{ experience.employmentType }}</h3>
@@ -81,15 +86,31 @@ import { DescriptionComponent } from "./description.component";
         }
     </div>
 </div>
+
+  @if(isCurrentUser()) {
+    <mfe-user-form-experience (onSubmit)="update.emit($event)" [initialData]="currentEducation()" ></mfe-user-form-experience>
+  }
   `
 })
 export class ExperienceComponent {
-
+  delete = output<string | number>();
+  currentEducation = signal<Experience | null>(null);
+  form = viewChild(FormExperienceComponent);
+  update = output<object>();
   experiences = input<Experience[]>();
   isCurrentUser = input<boolean>(false);
   showCaption = false;
 
   toggleCaption() {
     this.showCaption = true;
+  }
+
+  setCurrentExperience(education: Experience) {
+    this.currentEducation.set(education);
+    this.form()?.openEducationModal();
+  }
+
+  deleteExperience(id: string | number) {
+    this.delete.emit(id);
   }
 }

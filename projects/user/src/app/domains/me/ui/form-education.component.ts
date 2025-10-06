@@ -110,12 +110,7 @@ export class FormEducationComponent {
             mode: 'tags',
             searchable: true,
             options: [
-              { value: 1, label: 'Angular' },
-              { value: 2, label: 'React' },
-              { value: 3, label: 'Vue.js' },
-              { value: 4, label: 'TypeScript' },
-              { value: 5, label: 'JavaScript' },
-              { value: 6, label: 'Node.js' }
+
             ]
           },
         ]

@@ -3,6 +3,7 @@ import { UserComplated } from "./user";
 import { AuthHttpService } from "@shared/auth/auth-http.service";
 import { AlertService } from "@shared/commun/alert.service";
 import { Education } from "./education";
+import { Experience } from "./experience";
 
 
 
@@ -102,6 +103,42 @@ export class UserStore {
         });
     }
 
+    updateExperience(experience: Experience) {
+        this.http.put<Experience>(`${this.baseUrl}/experiences`, experience).subscribe((updatedExperience) => {
+          const current = this.userSignal();
+          if (!current) return;
 
+          let experiences:any;
+          const experienceExists = current.experiences.find(exp => exp.id === updatedExperience.id);
+          
+          if(experienceExists){
+            experiences = current.experiences.map(exp =>
+              exp.id === updatedExperience.id ? updatedExperience : exp
+            );
+          }else {
+            experiences = [...current.experiences, updatedExperience];
+          }
+      
+          this.userSignal.set({
+            ...current,
+            experiences,
+          });
+
+          this.alert.show('Experience updated successfully', 'success');
+        });
+    }
+
+    deleteExperience(id: string | number) {
+        this.http.delete<void>(`${this.baseUrl}/experiences/${id}`).subscribe(() => {
+          const current = this.userSignal();
+          if (!current) return;
+      
+          this.userSignal.set({
+            ...current,
+            experiences: current.experiences.filter(exp => exp.id !== id),
+          });
+          this.alert.show('Experience deleted successfully', 'success');
+        });
+    }
 
 }

@@ -88,16 +88,18 @@ import { FormEducationComponent } from "./form-education.component";
         }
     </div>
 </div>
-  <mfe-user-form-education (onSubmit)="update.emit($event)" [initialData]="currentEducation()" ></mfe-user-form-education>
+  @if(isCurrentUser()) {
+    <mfe-user-form-education (onSubmit)="update.emit($event)" [initialData]="currentEducation()" ></mfe-user-form-education>
+  }
   `
 })
 export class EducationComponent {
-  isCurrentUser = input<boolean>(false);
-  educations = input<Education[]>();
   delete = output<string | number>();
   currentEducation = signal<Education | null>(null);
   form = viewChild(FormEducationComponent);
   update = output<object>();
+  isCurrentUser = input<boolean>(false);
+  educations = input<Education[]>();
   showCaption = false;
 
   toggleCaption() {

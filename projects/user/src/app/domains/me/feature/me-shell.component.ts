@@ -31,7 +31,7 @@ import { ActivatedRoute } from '@angular/router';
 
             <mfe-user-service (update)="updateServicesHeadline($event)" [isCurrentUser]="isCurrentUser" [service]="user?.service?.headline"></mfe-user-service>
 
-            <mfe-user-experience  [isCurrentUser]="isCurrentUser" [experiences]="user.experiences"></mfe-user-experience>
+            <mfe-user-experience (delete)="deleteExperience($event)" (update)="updateExperience($event)"  [isCurrentUser]="isCurrentUser" [experiences]="user.experiences"></mfe-user-experience>
 
             <mfe-user-education (delete)="deleteEducation($event)" (update)="updateEducation($event)" [isCurrentUser]="isCurrentUser" [educations]="user.educations"></mfe-user-education>
 
@@ -90,5 +90,13 @@ export class MeShellComponent implements OnInit {
 
   deleteEducation(id: string | number) {
     this.userStore.deleteEducation(id);
+  }
+
+  updateExperience(experience: object) {
+    this.userStore.updateExperience(experience as any);
+  }
+
+  deleteExperience(id: string | number) {
+    this.userStore.deleteExperience(id);
   }
 }
