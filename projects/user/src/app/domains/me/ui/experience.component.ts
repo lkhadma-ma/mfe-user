@@ -20,12 +20,12 @@ import { FormExperienceComponent } from "./form-experience.component";
       }
       </h1>
         @for (experience of experiences(); track $index) {
-            <div class="mfe-user-flex mfe-user-space-x-4 mfe-user-mt-4">
-            @if(isCurrentUser()) {
-                <i (click)="deleteExperience(experience.id)" class="fa-solid fa-trash mfe-user-cursor-pointer mfe-user-absolute mfe-user-top-0 mfe-user-right-0 hover:mfe-user-scale-105"></i>
-                <i (click)="setCurrentExperience(experience)" class="fa-solid fa-pencil mfe-user-cursor-pointer mfe-user-absolute mfe-user-top-0 mfe-user-right-10 hover:mfe-user-scale-105"></i>
-              }  
-            <img class="mfe-user-w-14 mfe-user-h-14" src="https://media.licdn.com/dms/image/v2/D4D0BAQEmsC7uLFcGtw/company-logo_100_100/company-logo_100_100/0/1734610939743/satec_logo?e=1761177600&v=beta&t=Gqr6mDGfjQucih24uZRMxPd4zxDjcOv89e-IoEh1CqE" alt="">
+            <div class="mfe-user-flex mfe-user-space-x-4 mfe-user-mt-4 mfe-user-relative">
+              @if(isCurrentUser()) {
+                  <i (click)="deleteExperience(experience.id)" class="fa-solid fa-trash mfe-user-cursor-pointer mfe-user-absolute mfe-user-top-0 mfe-user-right-0 hover:mfe-user-scale-105"></i>
+                  <i (click)="setCurrentExperience(experience)" class="fa-solid fa-pencil mfe-user-cursor-pointer mfe-user-absolute mfe-user-top-0 mfe-user-right-10 hover:mfe-user-scale-105"></i>
+                }  
+              <img class="mfe-user-w-14 mfe-user-h-14" src="https://media.licdn.com/dms/image/v2/D4D0BAQEmsC7uLFcGtw/company-logo_100_100/company-logo_100_100/0/1734610939743/satec_logo?e=1761177600&v=beta&t=Gqr6mDGfjQucih24uZRMxPd4zxDjcOv89e-IoEh1CqE" alt="">
               <div>
                 <h2 class="mfe-user-font-semibold mfe-user-tracking-wide">{{ experience.title }}</h2>
                 <h3 class="mfe-user-tracking-wide mfe-user-text-sm">{{ experience.company }} . {{ getValueOptionEmploymentType(experience.employmentType) }}</h3>
