@@ -23,7 +23,7 @@ export class FormExperienceComponent {
 
   experienceFormConfig: FormConfig = {
     id: 'add-experience',
-    title: 'Add Education',
+    title: 'Add Experience',
     subtitle: 'Add experience to show your academic background',
     sections: [
       {
