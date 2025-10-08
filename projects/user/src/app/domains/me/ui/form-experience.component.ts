@@ -48,7 +48,7 @@ export class FormExperienceComponent {
             type: 'select',
             required: false,
             options: [
-              { value: 'FULL_TIME', label: 'Full-time' },
+              { value: 'FULL_TIME', label: 'Full-time', selected: true },
               { value: 'PART_TIME', label: 'Part-time' },
               { value: 'SELF_EMPLOYED', label: 'Self-employed' },
               { value: 'FREELANCE', label: 'Freelance' },
@@ -113,7 +113,7 @@ export class FormExperienceComponent {
             options: [
               { value: 'REMOTE', label: 'Remote' },
               { value: 'HYBRID', label: 'Hybrid' },
-              { value: 'ON_SITE', label: 'On-site' }
+              { value: 'ON_SITE', label: 'On-site', selected: true}
             ]
             
           },

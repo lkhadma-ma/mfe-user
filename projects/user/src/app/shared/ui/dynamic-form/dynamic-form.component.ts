@@ -269,14 +269,15 @@ export interface FormConfig {
                         [class.mfe-user-border-red-300]="isFieldInvalid(field)"
                         class="mfe-user-w-full mfe-user-px-3 mfe-user-py-2 mfe-user-border mfe-user-border-gray-300 mfe-user-rounded-md mfe-user-shadow-sm focus:mfe-user-outline-none focus:mfe-user-ring-2 focus:mfe-user-ring-blue-500 focus:mfe-user-border-blue-500"
                       >
-                      @if(hasAnySelectedOption(field.options)){
-                        <option class="mfe-user-text-gray-600" value="">
+                      @if(!hasAnySelectedOption(field.options)){
+                        <option class="mfe-user-text-gray-600" value="" selected>
                           {{ field.placeholder || 'Please select' }}
                         </option>
                       }
                         <option
                           *ngFor="let option of field.options"
                           [value]="option.value"
+                          [selected]="option.selected"
                         >
                           {{ option.label }}
                         </option>
