@@ -277,7 +277,6 @@ export interface FormConfig {
                         <option
                           *ngFor="let option of field.options"
                           [value]="option.value"
-                          [selected]="option.selected"
                         >
                           {{ option.label }}
                         </option>
@@ -446,10 +445,17 @@ export class DynamicFormComponent implements OnInit {
     this.config.sections.forEach((section) => {
       section.fields.forEach((field) => {
         const validators = this.getValidators(field);
-        const value =
+        let value =
           this.initialData[field.key] ||
           (field.type === 'checkbox' ? false : '');
-
+        if (
+          !this.initialData[field.key] &&  
+          field.type === 'select' &&
+          field.options?.some(opt => opt.selected)
+        ) {
+          const selectedOption = field.options.find(opt => opt.selected);
+          value = selectedOption ? selectedOption.value : value;
+        }
         formControls[field.key] = [value, validators];
       });
     });
