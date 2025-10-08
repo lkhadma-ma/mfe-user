@@ -27,11 +27,15 @@ import { FormExperienceComponent } from "./form-experience.component";
               }  
             <img class="mfe-user-w-14 mfe-user-h-14" src="https://media.licdn.com/dms/image/v2/D4D0BAQEmsC7uLFcGtw/company-logo_100_100/company-logo_100_100/0/1734610939743/satec_logo?e=1761177600&v=beta&t=Gqr6mDGfjQucih24uZRMxPd4zxDjcOv89e-IoEh1CqE" alt="">
               <div>
-                <h2 class="mfe-user-font-semibold mfe-user-tracking-wide">{{ experience.position }}</h2>
-                <h3 class="mfe-user-tracking-wide mfe-user-text-sm">{{ experience.company }} . {{ experience.employmentType }}</h3>
+                <h2 class="mfe-user-font-semibold mfe-user-tracking-wide">{{ experience.title }}</h2>
+                <h3 class="mfe-user-tracking-wide mfe-user-text-sm">{{ experience.company }} . {{ getValueOptionEmploymentType(experience.employmentType) }}</h3>
                 <p class="mfe-user-tracking-wide mfe-user-text-sm mfe-user-text-gray-700">{{ experience.startDate | date:'MMM yyyy' }} - {{ experience.endDate ? (experience.endDate | date:'MMM yyyy') : 'Present' }}</p>
-                <p class="mfe-user-tracking-wide mfe-user-text-sm mfe-user-pb-3 mfe-user-text-gray-700">{{ experience.location }} . {{ experience.locationType }}</p>
-                <mfe-user-description class="mfe-user-mb-2" [description]="experience.description"></mfe-user-description>
+                <p class="mfe-user-tracking-wide mfe-user-text-sm mfe-user-pb-3 mfe-user-text-gray-700">{{ experience.location }} . {{ getValueOptionLocalType(experience.locationType) }}</p>
+                
+                @if(experience.description){
+                  <mfe-user-description class="mfe-user-mb-2" [description]="experience.description"></mfe-user-description>
+                }
+
                 <a href="#" class="mfe-user-mt-4 mfe-user-font-semibold mfe-user-flex mfe-user-items-center">
                 <!-- Diamond icon -->
                 <span class="mfe-user-mr-1">
@@ -100,6 +104,36 @@ export class ExperienceComponent {
   experiences = input<Experience[]>();
   isCurrentUser = input<boolean>(false);
   showCaption = false;
+
+  optionsEmploymentType = [
+    { value: 'FULL_TIME', label: 'Full-time' },
+    { value: 'PART_TIME', label: 'Part-time' },
+    { value: 'SELF_EMPLOYED', label: 'Self-employed' },
+    { value: 'FREELANCE', label: 'Freelance' },
+    { value: 'CONTRACT', label: 'Contract' },
+    { value: 'INTERNSHIP', label: 'Internship' },
+    { value: 'APPRENTICESHIP', label: 'Apprenticeship' },
+    { value: 'TEMPORARY_CIVIL_SERVANT', label: 'Temporary civil servant' },
+    { value: 'DIRECT_CONTRACT', label: 'Direct contract' },
+    { value: 'LIFETIME_CIVIL_SERVANT', label: 'Lifetime civil servant' },
+    { value: 'CO_OP', label: 'Co-op' }
+  ]
+
+  optionsLocalType = [
+    { value: 'REMOTE', label: 'Remote' },
+    { value: 'HYBRID', label: 'Hybrid' },
+    { value: 'ON_SITE', label: 'On-site'}
+  ]
+
+  getValueOptionEmploymentType(value: string) {
+    const option = this.optionsEmploymentType.find(option => option.value === value);
+    return option ? option.label : value;
+  }
+
+  getValueOptionLocalType(value: string) {
+    const option = this.optionsLocalType.find(option => option.value === value);
+    return option ? option.label : value;
+  }
 
   toggleCaption() {
     this.showCaption = true;
