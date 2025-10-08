@@ -108,7 +108,7 @@ export class FormExperienceComponent {
           {
             key: 'locationType',
             label: 'Location type',
-            type: 'textarea',
+            type: 'select',
             required: false,
             options: [
               { value: 'REMOTE', label: 'Remote' },

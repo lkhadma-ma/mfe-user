@@ -28,7 +28,7 @@ export interface FormFieldConfig {
     | 'multiselect'; // Add 'multiselect'
   required?: boolean;
   placeholder?: string;
-  options?: { value: any; label: string }[];
+  options?: { value: any; label: string, selected?: boolean }[];
   validation?: {
     minLength?: number;
     maxLength?: number;
@@ -269,9 +269,11 @@ export interface FormConfig {
                         [class.mfe-user-border-red-300]="isFieldInvalid(field)"
                         class="mfe-user-w-full mfe-user-px-3 mfe-user-py-2 mfe-user-border mfe-user-border-gray-300 mfe-user-rounded-md mfe-user-shadow-sm focus:mfe-user-outline-none focus:mfe-user-ring-2 focus:mfe-user-ring-blue-500 focus:mfe-user-border-blue-500"
                       >
+                      @if(hasAnySelectedOption(field.options)){
                         <option class="mfe-user-text-gray-600" value="">
                           {{ field.placeholder || 'Please select' }}
                         </option>
+                      }
                         <option
                           *ngFor="let option of field.options"
                           [value]="option.value"
@@ -534,6 +536,11 @@ export class DynamicFormComponent implements OnInit {
   isFieldInvalid(field: FormFieldConfig): boolean {
     const control = this.form.get(field.key);
     return !!(control?.invalid && control.touched);
+  }
+
+  hasAnySelectedOption(options: { value: any; label: string, selected?: boolean }[] | undefined ): boolean {
+    if (!options || options.length === 0) return false;
+    return options.some(option => option.selected);
   }
 
   getGridClass(columns: number): string {
