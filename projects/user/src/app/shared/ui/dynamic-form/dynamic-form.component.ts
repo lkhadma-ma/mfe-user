@@ -24,6 +24,7 @@ export interface FormFieldConfig {
     | 'radio'
     | 'file'
     | 'number'
+    | 'url'
     | 'hidden'
     | 'multiselect'; // Add 'multiselect'
   required?: boolean;
@@ -157,7 +158,8 @@ export interface FormConfig {
                       *ngIf="
                         field.type === 'text' ||
                         field.type === 'email' ||
-                        field.type === 'password'
+                        field.type === 'password' ||
+                        field.type === 'url'
                       "
                     >
                       <label

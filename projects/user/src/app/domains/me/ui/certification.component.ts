@@ -1,26 +1,35 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output, signal, viewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Certification } from '../data-access/certification';
+import { FormCertificationComponent } from "./form-certification.component";
 
 @Component({
   selector: 'mfe-user-certification',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormCertificationComponent],
   host: {
     class: 'mfe-user-w-full'
   },
   template: `
 <div class="mfe-user-border mfe-user-rounded-lg mfe-user-bg-white">
     <div class="mfe-user-px-4 mfe-user-py-4 mfe-user-space-y-2">
-      <h1 class="mfe-user-font-semibold mfe-user-tracking-wide sm:mfe-user-text-xl mfe-user-mb-7">Licenses & certifications</h1>
+      <h1 class="mfe-user-font-semibold mfe-user-tracking-wide sm:mfe-user-text-xl mfe-user-mb-7 mfe-user-flex mfe-user-justify-between">Licenses & certifications
+      @if(isCurrentUser()) {
+        <i class="fa-solid fa-plus mfe-user-cursor-pointer hover:mfe-user-scale-105" (click)="form()?.openEducationModal()"></i>
+      }
+      </h1>
         @for (certification of certifications(); track $index) {
-            <div class="mfe-user-flex mfe-user-space-x-4 mfe-user-mt-4">
+            <div class="mfe-user-flex mfe-user-space-x-4 mfe-user-mt-4 mfe-user-relative">
+              @if(isCurrentUser()) {
+                <i (click)="deleteEducation(certification.id)" class="fa-solid fa-trash mfe-user-cursor-pointer mfe-user-absolute mfe-user-top-0 mfe-user-right-0 hover:mfe-user-scale-105"></i>
+                <i (click)="setCurrentEducation(certification)" class="fa-solid fa-pencil mfe-user-cursor-pointer mfe-user-absolute mfe-user-top-0 mfe-user-right-10 hover:mfe-user-scale-105"></i>
+              }
               <img class="mfe-user-w-14 mfe-user-h-14" src="https://cdn-icons-png.flaticon.com/512/7238/7238706.png" alt="">
               <div>
                 <h2 class="mfe-user-font-semibold mfe-user-tracking-wide">{{ certification.name }}</h2>
                 <h3 class="mfe-user-tracking-wide mfe-user-text-sm">{{ certification.organization }}</h3>
                 <p class="mfe-user-tracking-wide mfe-user-text-sm mfe-user-text-gray-700 mfe-user-mb-4">issued on {{ certification.issueDate | date:'MMM yyyy' }}  {{ certification.expirationDate ? ('expired on ' + (certification.expirationDate | date:'MMM yyyy')) : '' }}</p>
-                <a [href]="certification.url" class="mfe-user-tracking-wide mfe-user-text-sm mfe-user-text-gray-900 mfe-user-rounded-3xl mfe-user-border mfe-user-border-black mfe-user-p-1.5 mfe-user-mt-6 mfe-user-px-4">Show certificate</a>
+                <a [href]="certification.url" target="_blank" class="mfe-user-tracking-wide mfe-user-text-sm mfe-user-text-gray-900 mfe-user-rounded-3xl mfe-user-border mfe-user-border-black mfe-user-p-1.5 mfe-user-mt-6 mfe-user-px-4">Show certificate</a>
                 <a href="#" class="mfe-user-mt-4 mfe-user-font-semibold mfe-user-flex mfe-user-items-center">
                 <!-- Diamond icon -->
                 <span class="mfe-user-mr-1">
@@ -75,14 +84,30 @@ import { Certification } from '../data-access/certification';
         }
     </div>
 </div>
+  @if(isCurrentUser()) {
+    <mfe-user-form-certification (onSubmit)="update.emit($event)" [initialData]="currentEducation()" ></mfe-user-form-certification>
+  }
   `
 })
 export class CertificationComponent {
-
+  delete = output<string | number>();
+  currentEducation = signal<Certification | null>(null);
+  form = viewChild(FormCertificationComponent);
+  update = output<object>();
+  isCurrentUser = input<boolean>(false);
   certifications = input<Certification[]>();
   showCaption = false;
 
   toggleCaption() {
     this.showCaption = true;
+  }
+
+  setCurrentEducation(education: Certification) {
+    this.currentEducation.set(education);
+    this.form()?.openEducationModal();
+  }
+
+  deleteEducation(id: string | number) {
+    this.delete.emit(id);
   }
 }

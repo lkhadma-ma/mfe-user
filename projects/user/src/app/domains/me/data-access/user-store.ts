@@ -4,6 +4,7 @@ import { AuthHttpService } from "@shared/auth/auth-http.service";
 import { AlertService } from "@shared/commun/alert.service";
 import { Education } from "./education";
 import { Experience } from "./experience";
+import { Certification } from "./certification";
 
 
 
@@ -32,7 +33,13 @@ export class UserStore {
         }>(`${this.baseUrl}/users/${username}`).subscribe(user => {
             this.userSignal.set(user.search);
             this.isCurrentUserSignal.set(user.current === user.search.username);
-        });
+        },
+        () => {
+            this.userSignal.set(null);
+            this.isCurrentUserSignal.set(false);
+            this.alert.show("We couldn't load user", 'error');
+        }
+        );
     }
 
     updateAbout(aboutIn: string) {
@@ -45,7 +52,11 @@ export class UserStore {
             about,
           });
           this.alert.show('About section updated successfully', 'success');
-        });
+        },
+        () => {
+          this.alert.show("We couldn't update about section", 'error');
+        }
+        );
     }
 
     updateServicesHeadline(servicesHeadline: string) {
@@ -61,7 +72,11 @@ export class UserStore {
             }
           });
           this.alert.show('Services headline updated successfully', 'success');
-        });
+        },
+        () => {
+          this.alert.show("We couldn't update services headline", 'error');
+        }
+        );
     }
 
     updateEducation(education: Education) {
@@ -86,7 +101,11 @@ export class UserStore {
           });
 
           this.alert.show('Education updated successfully', 'success');
-        });
+        },
+        () => {
+          this.alert.show("We couldn't update education", 'error');
+        }
+        );
         
     }
     
@@ -100,7 +119,11 @@ export class UserStore {
             educations: current.educations.filter(edu => edu.id !== id),
           });
           this.alert.show('Education deleted successfully', 'success');
-        });
+        },
+        ()=> {
+          this.alert.show("We couldn't delete education", 'error');
+        }
+        );
     }
 
     updateExperience(experience: Experience) {
@@ -125,7 +148,11 @@ export class UserStore {
           });
 
           this.alert.show('Experience updated successfully', 'success');
-        });
+        },
+        ()=> {
+          this.alert.show("We couldn't update experience", 'error');
+        }
+        );
     }
 
     deleteExperience(id: string | number) {
@@ -138,7 +165,53 @@ export class UserStore {
             experiences: current.experiences.filter(exp => exp.id !== id),
           });
           this.alert.show('Experience deleted successfully', 'success');
+        },
+        ()=> {
+          this.alert.show("We couldn't delete experience", 'error');
         });
+    }
+
+    deleteCertification(id: string | number) {
+      this.http.delete<void>(`${this.baseUrl}/certifications/${id}`).subscribe(() => {
+        const current = this.userSignal();
+        if (!current) return;
+    
+        this.userSignal.set({
+          ...current,
+          certifications: current.certifications.filter(cert => cert.id !== id),
+        });
+        this.alert.show('Certification deleted successfully', 'success');
+      },
+      ()=> {
+        this.alert.show("We couldn't delete certification", 'error');
+      });
+
+    }
+    updateCertification(certificate: Certification) {
+      this.http.put<any>(`${this.baseUrl}/certifications`, certificate).subscribe((updatedCertification) => {
+        const current = this.userSignal();
+        if (!current) return;
+
+        let certifications:any;
+        const certificationExists = current.certifications.find((cert: { id: any; }) => cert.id === updatedCertification.id);
+        
+        if(certificationExists){
+          certifications = current.certifications.map((cert: { id: any; }) =>
+            cert.id === updatedCertification.id ? updatedCertification : cert
+          );
+        }else {
+          certifications = [...current.certifications, updatedCertification];
+        }
+    
+        this.userSignal.set({
+          ...current,
+          certifications,
+        });
+        this.alert.show('Certification updated successfully', 'success');
+      },
+      ()=> {
+        this.alert.show("We couldn't update certification", 'error');
+      });
     }
 
 }
