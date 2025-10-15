@@ -53,10 +53,12 @@ import { FormSkillComponent } from './form-skill.component';
                   }
                 </div>
               </div>
-              <button class="mfe-user-absolute mfe-user-bottom-0 mfe-user-right-1 mfe-user-text-gray-500 mfe-user-bg-white hover:mfe-user-underline hover:mfe-user-text-blue-500"
-                      (click)="toggleCaption()">
-                  ...see more
-              </button>
+              @if(skillsHasValues()){
+                <button class="mfe-user-absolute mfe-user-bottom-0 mfe-user-right-1 mfe-user-text-gray-500 mfe-user-bg-white hover:mfe-user-underline hover:mfe-user-text-blue-500"
+                        (click)="toggleCaption()">
+                    ...see more
+                </button>
+              }
           </div>
       }
     </div>
@@ -87,4 +89,7 @@ export class SkillComponent {
     this.delete.emit(id);
   }
 
+  skillsHasValues() {
+    return this.skills() && this.skills()!.length > 0;
+  }
 }
