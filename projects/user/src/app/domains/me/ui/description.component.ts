@@ -20,10 +20,12 @@ import { MarkdownPipe } from '@shared/pipe/markdown.pipe';
         <div class="mfe-user-text-sm mfe-user-line-clamp-3 prose">
           <p class="prose" [innerHTML]="safeDescription() | markdown"></p>
         </div>
-        <button class="mfe-user-absolute mfe-user-bottom-0 mfe-user-right-1 mfe-user-text-gray-500 mfe-user-bg-white hover:mfe-user-underline hover:mfe-user-text-blue-500"
+        @if(descriptionHasValues()){
+          <button class="mfe-user-absolute mfe-user-bottom-0 mfe-user-right-1 mfe-user-text-gray-500 mfe-user-bg-white hover:mfe-user-underline hover:mfe-user-text-blue-500"
                 (click)="toggleCaption()">
           ...see more
         </button>
+        }
       </div>
     }
   `
@@ -41,5 +43,9 @@ export class DescriptionComponent {
 
   toggleCaption() {
     this.showCaption = true;
+  }
+
+  descriptionHasValues() {
+    return (this.description() ?? '').length > 200;
   }
 }

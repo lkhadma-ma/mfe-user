@@ -31,7 +31,7 @@ import { FormProjectComponent } from './form-project.component';
                 @if(project.description){
                   <mfe-user-description class="mfe-user-mb-4 mfe-user-flex" [description]="project.description"></mfe-user-description>
                 }
-                <a [href]="project.url" class="mfe-user-tracking-wide mfe-user-text-sm mfe-user-text-gray-900 mfe-user-rounded-3xl mfe-user-border mfe-user-border-black mfe-user-p-1.5 mfe-user-mt-6 mfe-user-px-4">Show project</a>
+                <a [href]="project.url" target="_blank" class="mfe-user-tracking-wide mfe-user-text-sm mfe-user-text-gray-900 mfe-user-rounded-3xl mfe-user-border mfe-user-border-black mfe-user-p-1.5 mfe-user-mt-6 mfe-user-px-4">Show project</a>
                 <a href="#" class="mfe-user-mt-4 mfe-user-font-semibold mfe-user-flex mfe-user-items-center">
                 <!-- Diamond icon -->
                 <span class="mfe-user-mr-1">
