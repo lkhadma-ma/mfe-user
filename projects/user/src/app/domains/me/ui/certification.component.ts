@@ -15,7 +15,7 @@ import { FormCertificationComponent } from "./form-certification.component";
     <div class="mfe-user-px-4 mfe-user-py-4 mfe-user-space-y-2">
       <h1 class="mfe-user-font-semibold mfe-user-tracking-wide sm:mfe-user-text-xl mfe-user-mb-7 mfe-user-flex mfe-user-justify-between">Licenses & certifications
       @if(isCurrentUser()) {
-        <i class="fa-solid fa-plus mfe-user-cursor-pointer hover:mfe-user-scale-105" (click)="form()?.openCertificationModal()"></i>
+        <i class="fa-solid fa-plus mfe-user-cursor-pointer hover:mfe-user-scale-105" (click)="form()?.openCertificationModal();currentCertification.set(null)"></i>
       }
       </h1>
         @for (certification of certifications(); track $index) {

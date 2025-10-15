@@ -39,7 +39,7 @@ import { ActivatedRoute } from '@angular/router';
 
             <mfe-user-project (delete)="deleteProject($event)" (update)="updateProject($event)" [isCurrentUser]="isCurrentUser" [projects]="user.projects"></mfe-user-project>
 
-            <mfe-user-skill [skills]="user.skills"></mfe-user-skill>
+            <mfe-user-skill (delete)="deleteSkill($event)" (update)="updateSkill($event)" [isCurrentUser]="isCurrentUser" [skills]="user.skills"></mfe-user-skill>
 
             <mfe-user-recommendation [givenRecommendations]="recommendation('given')" [receivedRecommendations]="recommendation('received')"></mfe-user-recommendation>
           }
@@ -114,5 +114,13 @@ export class MeShellComponent implements OnInit {
 
   updateProject(project: object) {
     this.userStore.updateProject(project as any);
+  }
+
+  updateSkill(skill: object) {
+    this.userStore.updateSkill(skill as any);
+  }
+
+  deleteSkill(id: string | number) {
+    this.userStore.deleteSkill(id);
   }
 }

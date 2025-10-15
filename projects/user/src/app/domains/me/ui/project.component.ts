@@ -16,7 +16,7 @@ import { FormProjectComponent } from './form-project.component';
     <div class="mfe-user-px-4 mfe-user-py-4 mfe-user-space-y-2">
       <h1 class="mfe-user-font-semibold mfe-user-tracking-wide sm:mfe-user-text-xl mfe-user-mb-7 mfe-user-flex mfe-user-justify-between">Projects
       @if(isCurrentUser()) {
-        <i class="fa-solid fa-plus mfe-user-cursor-pointer hover:mfe-user-scale-105" (click)="form()?.openProjectModal()"></i>
+        <i class="fa-solid fa-plus mfe-user-cursor-pointer hover:mfe-user-scale-105" (click)="form()?.openProjectModal();this.currentProject.set(null)"></i>
       }
       </h1>
         @for (project of projects(); track $index) {
@@ -28,7 +28,9 @@ import { FormProjectComponent } from './form-project.component';
               <img class="mfe-user-w-14 mfe-user-h-14" src="https://cdn-icons-png.freepik.com/512/4946/4946348.png" alt="">
               <div>
                 <h2 class="mfe-user-font-semibold mfe-user-tracking-wide">{{ project.name }}</h2>
-                <mfe-user-description class="mfe-user-mb-4 mfe-user-flex" [description]="project.description"></mfe-user-description>
+                @if(project.description){
+                  <mfe-user-description class="mfe-user-mb-4 mfe-user-flex" [description]="project.description"></mfe-user-description>
+                }
                 <a [href]="project.url" class="mfe-user-tracking-wide mfe-user-text-sm mfe-user-text-gray-900 mfe-user-rounded-3xl mfe-user-border mfe-user-border-black mfe-user-p-1.5 mfe-user-mt-6 mfe-user-px-4">Show project</a>
                 <a href="#" class="mfe-user-mt-4 mfe-user-font-semibold mfe-user-flex mfe-user-items-center">
                 <!-- Diamond icon -->

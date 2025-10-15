@@ -6,6 +6,7 @@ import { Education } from "./education";
 import { Experience } from "./experience";
 import { Certification } from "./certification";
 import { Project } from "./project";
+import { Skill } from "./skill";
 
 
 
@@ -241,6 +242,7 @@ export class UserStore {
         this.alert.show("We couldn't update project", 'error');
       });
     }
+
     deleteProject(id: string | number) {
       this.http.delete<void>(`${this.baseUrl}/projects/${id}`).subscribe(() => {
         const current = this.userSignal();
@@ -257,4 +259,46 @@ export class UserStore {
       });
     }
 
+    deleteSkill(id: string | number) {
+      this.http.delete<void>(`${this.baseUrl}/skills/${id}`).subscribe(() => {
+        const current = this.userSignal();
+        if (!current) return;
+    
+        this.userSignal.set({
+          ...current,
+          skills: current.skills.filter(skill => skill.value !== id),
+        });
+        this.alert.show('Skill deleted successfully', 'success');
+      },
+      (error)=> {
+        this.alert.show(error.error.error, 'error');
+      });
+    }
+    updateSkill(skill: Skill) {
+      this.http.put<any>(`${this.baseUrl}/skills`, skill).subscribe((updatedSkill) => {
+        const current = this.userSignal();
+        if (!current) return;
+
+        let skills:any;
+        const skillExists = current.skills.find((sk: { value: any; }) => sk.value === updatedSkill.value);
+        
+        if(skillExists){
+          skills = current.skills.map((sk: { value: any; }) =>
+            sk.value === updatedSkill.value ? updatedSkill : sk
+          );
+        }else {
+          skills = [...current.skills, updatedSkill];
+        }
+    
+        this.userSignal.set({
+          ...current,
+          skills,
+        });
+        this.alert.show('Skill updated successfully', 'success');
+      },
+      ()=> {
+        this.alert.show("We couldn't update skill", 'error');
+      });
+      
+    }
 }
