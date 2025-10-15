@@ -1,21 +1,30 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output, signal, viewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DescriptionComponent } from "./description.component";
 import { Project } from '../data-access/project';
+import { FormProjectComponent } from './form-project.component';
 
 @Component({
   selector: 'mfe-user-project',
   standalone: true,
-  imports: [CommonModule, DescriptionComponent],
+  imports: [CommonModule, DescriptionComponent, FormProjectComponent],
   host: {
     class: 'mfe-user-w-full'
   },
   template: `
 <div class="mfe-user-border mfe-user-rounded-lg mfe-user-bg-white">
     <div class="mfe-user-px-4 mfe-user-py-4 mfe-user-space-y-2">
-      <h1 class="mfe-user-font-semibold mfe-user-tracking-wide sm:mfe-user-text-xl mfe-user-mb-7">Projects</h1>
+      <h1 class="mfe-user-font-semibold mfe-user-tracking-wide sm:mfe-user-text-xl mfe-user-mb-7 mfe-user-flex mfe-user-justify-between">Projects
+      @if(isCurrentUser()) {
+        <i class="fa-solid fa-plus mfe-user-cursor-pointer hover:mfe-user-scale-105" (click)="form()?.openProjectModal()"></i>
+      }
+      </h1>
         @for (project of projects(); track $index) {
-            <div class="mfe-user-flex mfe-user-space-x-4 mfe-user-mt-4">
+            <div class="mfe-user-flex mfe-user-space-x-4 mfe-user-mt-4 mfe-user-relative">
+              @if(isCurrentUser()) {
+                <i (click)="deleteProject(project.id)" class="fa-solid fa-trash mfe-user-cursor-pointer mfe-user-absolute mfe-user-top-0 mfe-user-right-0 hover:mfe-user-scale-105"></i>
+                <i (click)="setCurrentProject(project)" class="fa-solid fa-pencil mfe-user-cursor-pointer mfe-user-absolute mfe-user-top-0 mfe-user-right-10 hover:mfe-user-scale-105"></i>
+              }
               <img class="mfe-user-w-14 mfe-user-h-14" src="https://cdn-icons-png.freepik.com/512/4946/4946348.png" alt="">
               <div>
                 <h2 class="mfe-user-font-semibold mfe-user-tracking-wide">{{ project.name }}</h2>
@@ -75,14 +84,30 @@ import { Project } from '../data-access/project';
         }
     </div>
 </div>
+  @if(isCurrentUser()) {
+    <mfe-user-form-project (onSubmit)="update.emit($event)" [initialData]="currentProject()" ></mfe-user-form-project>
+  }
   `
 })
 export class ProjectComponent {
-
+  delete = output<string | number>();
+  currentProject = signal<Project | null>(null);
+  form = viewChild(FormProjectComponent);
+  update = output<object>();
+  isCurrentUser = input<boolean>(false);
   projects = input<Project[]>();
   showCaption = false;
 
   toggleCaption() {
     this.showCaption = true;
+  }
+
+  setCurrentProject(education: Project) {
+    this.currentProject.set(education);
+    this.form()?.openProjectModal();
+  }
+
+  deleteProject(id: string | number) {
+    this.delete.emit(id);
   }
 }

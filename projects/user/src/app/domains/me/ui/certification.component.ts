@@ -15,14 +15,14 @@ import { FormCertificationComponent } from "./form-certification.component";
     <div class="mfe-user-px-4 mfe-user-py-4 mfe-user-space-y-2">
       <h1 class="mfe-user-font-semibold mfe-user-tracking-wide sm:mfe-user-text-xl mfe-user-mb-7 mfe-user-flex mfe-user-justify-between">Licenses & certifications
       @if(isCurrentUser()) {
-        <i class="fa-solid fa-plus mfe-user-cursor-pointer hover:mfe-user-scale-105" (click)="form()?.openEducationModal()"></i>
+        <i class="fa-solid fa-plus mfe-user-cursor-pointer hover:mfe-user-scale-105" (click)="form()?.openCertificationModal()"></i>
       }
       </h1>
         @for (certification of certifications(); track $index) {
             <div class="mfe-user-flex mfe-user-space-x-4 mfe-user-mt-4 mfe-user-relative">
               @if(isCurrentUser()) {
-                <i (click)="deleteEducation(certification.id)" class="fa-solid fa-trash mfe-user-cursor-pointer mfe-user-absolute mfe-user-top-0 mfe-user-right-0 hover:mfe-user-scale-105"></i>
-                <i (click)="setCurrentEducation(certification)" class="fa-solid fa-pencil mfe-user-cursor-pointer mfe-user-absolute mfe-user-top-0 mfe-user-right-10 hover:mfe-user-scale-105"></i>
+                <i (click)="deleteCertification(certification.id)" class="fa-solid fa-trash mfe-user-cursor-pointer mfe-user-absolute mfe-user-top-0 mfe-user-right-0 hover:mfe-user-scale-105"></i>
+                <i (click)="setCurrentCertification(certification)" class="fa-solid fa-pencil mfe-user-cursor-pointer mfe-user-absolute mfe-user-top-0 mfe-user-right-10 hover:mfe-user-scale-105"></i>
               }
               <img class="mfe-user-w-14 mfe-user-h-14" src="https://cdn-icons-png.flaticon.com/512/7238/7238706.png" alt="">
               <div>
@@ -85,13 +85,13 @@ import { FormCertificationComponent } from "./form-certification.component";
     </div>
 </div>
   @if(isCurrentUser()) {
-    <mfe-user-form-certification (onSubmit)="update.emit($event)" [initialData]="currentEducation()" ></mfe-user-form-certification>
+    <mfe-user-form-certification (onSubmit)="update.emit($event)" [initialData]="currentCertification()" ></mfe-user-form-certification>
   }
   `
 })
 export class CertificationComponent {
   delete = output<string | number>();
-  currentEducation = signal<Certification | null>(null);
+  currentCertification = signal<Certification | null>(null);
   form = viewChild(FormCertificationComponent);
   update = output<object>();
   isCurrentUser = input<boolean>(false);
@@ -102,12 +102,12 @@ export class CertificationComponent {
     this.showCaption = true;
   }
 
-  setCurrentEducation(education: Certification) {
-    this.currentEducation.set(education);
-    this.form()?.openEducationModal();
+  setCurrentCertification(education: Certification) {
+    this.currentCertification.set(education);
+    this.form()?.openCertificationModal();
   }
 
-  deleteEducation(id: string | number) {
+  deleteCertification(id: string | number) {
     this.delete.emit(id);
   }
 }

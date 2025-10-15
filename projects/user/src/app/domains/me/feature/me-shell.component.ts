@@ -37,7 +37,7 @@ import { ActivatedRoute } from '@angular/router';
 
             <mfe-user-certification (delete)="deleteCertification($event)" (update)="updateCertification($event)" [certifications]="user.certifications" [isCurrentUser]="isCurrentUser"></mfe-user-certification>
 
-            <mfe-user-project [projects]="user.projects"></mfe-user-project>
+            <mfe-user-project (delete)="deleteProject($event)" (update)="updateProject($event)" [isCurrentUser]="isCurrentUser" [projects]="user.projects"></mfe-user-project>
 
             <mfe-user-skill [skills]="user.skills"></mfe-user-skill>
 
@@ -99,10 +99,20 @@ export class MeShellComponent implements OnInit {
   deleteExperience(id: string | number) {
     this.userStore.deleteExperience(id);
   }
+
   updateCertification(certification: object) {
     this.userStore.updateCertification(certification as any);
   }
+
   deleteCertification(id: string | number) {
     this.userStore.deleteCertification(id);
+  }
+
+  deleteProject(id: string | number) {
+    this.userStore.deleteProject(id);
+  }
+
+  updateProject(project: object) {
+    this.userStore.updateProject(project as any);
   }
 }

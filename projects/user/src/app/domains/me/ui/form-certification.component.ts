@@ -9,7 +9,7 @@ import { Certification } from '../data-access/certification';
       [config]="certificationFormConfig"
       [initialData]="initialData() || {}"
       [isOpen]="iscertificationModalOpen"
-      (submitted)="onEducationSubmit($event)"
+      (submitted)="onCertificationSubmit($event)"
       (closed)="onModalClosed()"
     >
     </mfe-user-dynamic-form>
@@ -99,11 +99,11 @@ export class FormCertificationComponent {
     cancelText: 'Cancel'
   };
 
-  openEducationModal() {
+  openCertificationModal() {
     this.iscertificationModalOpen = true;
   }
 
-  onEducationSubmit(certificationData: any) {
+  onCertificationSubmit(certificationData: any) {
     this.onSubmit.emit(certificationData);
   }
 

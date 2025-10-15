@@ -5,6 +5,7 @@ import { AlertService } from "@shared/commun/alert.service";
 import { Education } from "./education";
 import { Experience } from "./experience";
 import { Certification } from "./certification";
+import { Project } from "./project";
 
 
 
@@ -211,6 +212,48 @@ export class UserStore {
       },
       ()=> {
         this.alert.show("We couldn't update certification", 'error');
+      });
+    }
+
+    updateProject(project: Project) {
+      this.http.put<any>(`${this.baseUrl}/projects`, project).subscribe((updatedProject) => {
+        const current = this.userSignal();
+        if (!current) return;
+
+        let projects:any;
+        const projectExists = current.projects.find((proj: { id: any; }) => proj.id === updatedProject.id);
+        
+        if(projectExists){
+          projects = current.projects.map((proj: { id: any; }) =>
+            proj.id === updatedProject.id ? updatedProject : proj
+          );
+        }else {
+          projects = [...current.projects, updatedProject];
+        }
+    
+        this.userSignal.set({
+          ...current,
+          projects,
+        });
+        this.alert.show('Project updated successfully', 'success');
+      },
+      ()=> {
+        this.alert.show("We couldn't update project", 'error');
+      });
+    }
+    deleteProject(id: string | number) {
+      this.http.delete<void>(`${this.baseUrl}/projects/${id}`).subscribe(() => {
+        const current = this.userSignal();
+        if (!current) return;
+    
+        this.userSignal.set({
+          ...current,
+          projects: current.projects.filter(proj => proj.id !== id),
+        });
+        this.alert.show('Project deleted successfully', 'success');
+      },
+      ()=> {
+        this.alert.show("We couldn't delete project", 'error');
       });
     }
 
