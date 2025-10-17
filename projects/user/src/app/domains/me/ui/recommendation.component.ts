@@ -1,15 +1,21 @@
 
-import { Component, Input, input } from '@angular/core';
+import { Component, Input, input, output, signal, viewChild } from '@angular/core';
 import { DescriptionComponent } from "./description.component";
 import { Recommendation } from '../data-access/recommendation';
 import { CommonModule } from '@angular/common';
+import { FormRecommendationComponent } from './form-recommendation.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'mfe-user-recommendation',
   template: `
 <div class="mfe-user-border mfe-user-rounded-lg mfe-user-bg-white">
   <div class="mfe-user-px-4 mfe-user-py-4 mfe-user-space-y-2">
-    <h1 class="mfe-user-font-semibold mfe-user-tracking-wide sm:mfe-user-text-xl mfe-user-mb-7">Recommendations</h1>
+    <h1 class="mfe-user-font-semibold mfe-user-tracking-wide sm:mfe-user-text-xl mfe-user-mb-7 mfe-user-flex mfe-user-justify-between">Recommendations
+      @if(isCurrentUser()) {
+        <i class="fa-solid fa-plus mfe-user-cursor-pointer hover:mfe-user-scale-105" (click)="form()?.openRecommendationModal();this.currentRecommendation.set(null)"></i>
+      }
+    </h1>
     
     <!-- Tab Headers -->
     <div class="mfe-user-border-b mfe-user-border-gray-200">
@@ -34,7 +40,10 @@ import { CommonModule } from '@angular/common';
               <!-- Received Recommendations Content -->
               @for (recommendation of receivedRecommendations(); track $index) {
                 <div class="mfe-user-border mfe-user-rounded-lg mfe-user-p-4 mfe-user-bg-gray-50">
-                  <div class="mfe-user-flex mfe-user-space-x-4 mfe-user-mt-4">
+                  <div class="mfe-user-flex mfe-user-space-x-4 mfe-user-mt-4 mfe-user-relative">
+                  @if(isCurrentUser()) {
+                    <i (click)="deleteRecommendation(recommendation.id)" class="fa-solid fa-trash mfe-user-cursor-pointer mfe-user-absolute mfe-user-top-0 mfe-user-right-0 hover:mfe-user-scale-105"></i>
+                  }
                   <img class="mfe-user-w-14 mfe-user-h-14 mfe-user-rounded-full" [src]="recommendation.user.avatar" alt="">
                     <div>
                       <h3 class="mfe-user-font-medium mfe-user-text-gray-900">{{ recommendation.user.name }}</h3>
@@ -60,7 +69,11 @@ import { CommonModule } from '@angular/common';
                <!-- Given Recommendations Content -->
                 @for (recommendation of givenRecommendations(); track $index) {
                   <div class="mfe-user-border mfe-user-rounded-lg mfe-user-p-4 mfe-user-bg-gray-50">
-                    <div class="mfe-user-flex mfe-user-space-x-4 mfe-user-mt-4">
+                    <div class="mfe-user-flex mfe-user-space-x-4 mfe-user-mt-4 mfe-user-relative">
+                    @if(isCurrentUser()) {
+                    <i (click)="deleteRecommendation(recommendation.id)" class="fa-solid fa-trash mfe-user-cursor-pointer mfe-user-absolute mfe-user-top-0 mfe-user-right-0 hover:mfe-user-scale-105"></i>
+                    <i (click)="setCurrentRecommendation(recommendation)" class="fa-solid fa-pencil mfe-user-cursor-pointer mfe-user-absolute mfe-user-top-0 mfe-user-right-10 hover:mfe-user-scale-105"></i>
+                    }
                     <img class="mfe-user-w-14 mfe-user-h-14 mfe-user-rounded-full" [src]="recommendation.relationship.avatar" alt="">
                       <div>
                         <h3 class="mfe-user-font-medium mfe-user-text-gray-900">{{ recommendation.relationship.name }}</h3>
@@ -86,14 +99,31 @@ import { CommonModule } from '@angular/common';
   </div>
 </div>
   
-  
-  
-  
+  @if(isCurrentUser()) {
+    <mfe-user-form-recommendation
+      (onSubmit)="update.emit($event)" 
+      [fetchUserOptions]="fetchUserFunction"
+      [initialData]="currentRecommendation()"
+    ></mfe-user-form-recommendation>
+  }
   
   `,
-  imports: [DescriptionComponent, CommonModule]
+  imports: [DescriptionComponent, CommonModule, FormRecommendationComponent]
 })
 export class RecommendationsTabComponent {
+  delete = output<string | number>();
+
+  currentRecommendation = signal<Recommendation | null>(null);
+  update = output<object>();
+  fetchUserOptions = input<(username: string) => Observable<any[]>>();
+  fetchUserFunction = (username: string): Observable<any[]> => {
+    const fn = this.fetchUserOptions?.();
+    return fn ? fn(username) : new Observable<any[]>();
+  }
+  
+  form = viewChild(FormRecommendationComponent);
+  isCurrentUser = input<boolean>(false);
+
   givenRecommendations =  input<Recommendation[]>();
   receivedRecommendations =  input<Recommendation[]>();
   activeTab: string = 'received';
@@ -111,6 +141,12 @@ export class RecommendationsTabComponent {
       return `${baseClasses} mfe-user-border-b-2 mfe-user-border-transparent mfe-user-text-gray-500 hover:mfe-user-text-gray-700 hover:mfe-user-border-gray-300`;
     }
   }
+  setCurrentRecommendation(recommendation: Recommendation) {
+    this.currentRecommendation.set(recommendation);
+    this.form()?.openRecommendationModal();
+  }
 
-  description = `A highly motivated and skilled software engineer with a strong foundation in computer science and a passion for developing innovative solutions. Experienced in full-stack development, cloud computing, and agile methodologies. Proven ability to work collaboratively in team environments and deliver high-quality software products. Seeking to leverage my technical expertise and problem-solving skills to contribute to cutting-edge projects in a dynamic organization.`
+  deleteRecommendation(id: string | number) {
+    this.delete.emit(id);
+  }
 }

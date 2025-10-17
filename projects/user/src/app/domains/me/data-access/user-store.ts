@@ -7,6 +7,7 @@ import { Experience } from "./experience";
 import { Certification } from "./certification";
 import { Project } from "./project";
 import { Skill } from "./skill";
+import { Recommendation } from "./recommendation";
 
 
 
@@ -300,5 +301,52 @@ export class UserStore {
         this.alert.show("We couldn't update skill", 'error');
       });
       
+    }
+
+    fetchUserOptions(username: string) {
+      return this.http.get<any[]>(`${this.baseUrl}/users/overview`, { params: { search:username } });
+    }
+
+    updateRecommendation(recommendation: Recommendation) {
+      this.http.put<any>(`${this.baseUrl}/recommendations`, recommendation).subscribe((updatedRecommendation) => {
+        const current = this.userSignal();
+        if (!current) return;
+
+        let recommendations:any;
+        const recommendationExists = current.recommendations.find((rec: { id: any; }) => rec.id === updatedRecommendation.id);
+        
+        if(recommendationExists){
+          recommendations = current.recommendations.map((rec: { id: any; }) =>
+            rec.id === updatedRecommendation.id ? updatedRecommendation : rec
+          );
+        }else {
+          recommendations = [...current.recommendations, updatedRecommendation];
+        }
+    
+        this.userSignal.set({
+          ...current,
+          recommendations,
+        });
+        this.alert.show('Recommendation updated successfully', 'success');
+      },
+      ()=> {
+        this.alert.show("We couldn't update recommendation", 'error');
+      });
+    }
+  
+    deleteRecommendation(id: string | number) {
+      this.http.delete<void>(`${this.baseUrl}/recommendations/${id}`).subscribe(() => {
+        const current = this.userSignal();
+        if (!current) return;
+    
+        this.userSignal.set({
+          ...current,
+          recommendations: current.recommendations.filter(rec => rec.id !== id),
+        });
+        this.alert.show('Recommendation deleted successfully', 'success');
+      },
+      ()=> {
+        this.alert.show("We couldn't delete recommendation", 'error');
+      });
     }
 }

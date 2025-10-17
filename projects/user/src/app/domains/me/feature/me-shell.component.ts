@@ -12,6 +12,7 @@ import { ProjectComponent } from "../ui/project.component";
 import { SkillComponent } from "../ui/skill.component";
 import { RecommendationsTabComponent } from "../ui/recommendation.component";
 import { ActivatedRoute } from '@angular/router';
+import { Observable, of } from 'rxjs';
 
 
 @Component({
@@ -41,7 +42,7 @@ import { ActivatedRoute } from '@angular/router';
 
             <mfe-user-skill (delete)="deleteSkill($event)" (update)="updateSkill($event)" [isCurrentUser]="isCurrentUser" [skills]="user.skills"></mfe-user-skill>
 
-            <mfe-user-recommendation [givenRecommendations]="recommendation('given')" [receivedRecommendations]="recommendation('received')"></mfe-user-recommendation>
+            <mfe-user-recommendation (delete)="deleteRecommendation($event)" (update)="updateRecommendation($event)" [fetchUserOptions]="fetchUserOptions" [isCurrentUser]="isCurrentUser" [givenRecommendations]="recommendation('given')" [receivedRecommendations]="recommendation('received')"></mfe-user-recommendation>
           }
           </div>
         </div>
@@ -122,5 +123,17 @@ export class MeShellComponent implements OnInit {
 
   deleteSkill(id: string | number) {
     this.userStore.deleteSkill(id);
+  }
+
+  fetchUserOptions = (username: string): Observable<any[]> => {
+    return this.userStore.fetchUserOptions(username);
+  }
+
+  updateRecommendation(recommendation: object) {
+    this.userStore.updateRecommendation(recommendation as any);
+  }
+
+  deleteRecommendation(id: string | number) {
+    this.userStore.deleteRecommendation(id);
   }
 }

@@ -23,12 +23,12 @@ import { FormSkillComponent } from './form-skill.component';
       @if (showCaption) {
               <div class="mfe-user-flex mfe-user-flex-wrap mfe-user-gap-2">
                 @for (skill of skills(); track $index) {
-                  <p class="mfe-user-tracking-wide mfe-user-text-sm mfe-user-text-gray-900 mfe-user-rounded-3xl mfe-user-border mfe-user-border-black mfe-user-p-1.5 mfe-user-relative">
+                  <p class="mfe-user-tracking-wide mfe-user-text-sm mfe-user-text-gray-900 mfe-user-rounded-3xl mfe-user-border mfe-user-border-black mfe-user-p-1.5">
+                    {{ skill.label }}  
                     @if(isCurrentUser()) {
-                      <i (click)="deleteSkill(skill.value)" class="fa-solid fa-trash mfe-user-cursor-pointer mfe-user-absolute -mfe-user-top-1 -mfe-user-right-1 hover:mfe-user-scale-105"></i>  
+                      <i (click)="deleteSkill(skill.value)" class="fa-solid fa-trash mfe-user-cursor-pointer hover:mfe-user-scale-105"></i>  
                     }
-                    {{ skill.label }}
-                    </p>
+                  </p>
                 }@empty {
                   <div class="mfe-user-text-center mfe-user-py-8 mfe-user-text-gray-500 mfe-user-w-full">
                     <p>No skills details available.</p>
@@ -40,11 +40,11 @@ import { FormSkillComponent } from './form-skill.component';
               <div class="mfe-user-line-clamp-3">
                 <div class="mfe-user-flex mfe-user-flex-wrap mfe-user-gap-2 mfe-user-m-4">
                   @for (skill of (skills() | slice: 0:6); track $index) {
-                    <p class="mfe-user-tracking-wide mfe-user-text-sm mfe-user-text-gray-900 mfe-user-rounded-3xl mfe-user-border mfe-user-border-black mfe-user-p-1.5 mfe-user-relative">
-                    @if(isCurrentUser()) {
-                      <i (click)="deleteSkill(skill.value)" class="fa-solid fa-trash mfe-user-cursor-pointer mfe-user-absolute -mfe-user-top-1 -mfe-user-right-1 hover:mfe-user-scale-105"></i>  
-                    }
-                    {{ skill.label }}
+                    <p class="mfe-user-tracking-wide mfe-user-text-sm mfe-user-text-gray-900 mfe-user-rounded-3xl mfe-user-border mfe-user-border-black mfe-user-p-1.5">
+                      {{ skill.label }}  
+                      @if(isCurrentUser()) {
+                        <i (click)="deleteSkill(skill.value)" class="fa-solid fa-trash mfe-user-cursor-pointer hover:mfe-user-scale-105"></i>  
+                      }
                     </p>
                   }@empty {
                     <div class="mfe-user-text-center mfe-user-py-8 mfe-user-text-gray-500 mfe-user-w-full">

@@ -8,6 +8,8 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MultiSelectComponent } from './multi-select.component';
+import { UserOption, UserSearchSelectComponent } from "./user-search-select.component";
+import { Observable } from 'rxjs';
 
 // Interfaces
 export interface FormFieldConfig {
@@ -26,10 +28,12 @@ export interface FormFieldConfig {
     | 'number'
     | 'url'
     | 'hidden'
-    | 'multiselect'; // Add 'multiselect'
+    | 'multiselect'
+    | 'userselect';
   required?: boolean;
   placeholder?: string;
   options?: { value: any; label: string, selected?: boolean }[];
+  fetchOptions?: ( username:string ) => Observable<UserOption[]>;
   validation?: {
     minLength?: number;
     maxLength?: number;
@@ -62,7 +66,7 @@ export interface FormConfig {
 @Component({
   selector: 'mfe-user-dynamic-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MultiSelectComponent],
+  imports: [CommonModule, ReactiveFormsModule, MultiSelectComponent, UserSearchSelectComponent],
   template: `
     <!-- Modal Backdrop -->
     <div
@@ -153,6 +157,17 @@ export interface FormConfig {
                         {{ getFieldError(field) }}
                       </div>
                     </div>
+                    <!-- user select-->
+                   
+                    @if(field.type === 'userselect'){
+                      <mfe-user-search-select
+                        [formControlName]="field.key"
+                        [fetchUsers]="field.fetchOptions!"
+                        [placeholder]="field.placeholder || 'Select user...'"
+                      ></mfe-user-search-select>
+                    }
+
+
                     <!-- Text, Email, Password -->
                     <div
                       *ngIf="
@@ -377,6 +392,7 @@ export interface FormConfig {
                         {{ getFieldError(field) }}
                       </div>
                     </div>
+
                   </div>
                 </div>
               </div>
