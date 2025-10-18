@@ -1,12 +1,14 @@
-import { Component, input } from '@angular/core';
+import { Component, Input, ViewChild, output, viewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SkillsComponent } from './skills.component';
 import { UserHeader } from '../data-access/user';
+import { FormsModule } from '@angular/forms';
+import { FormHeaderComponent } from "./form-header.component";
 
 @Component({
   selector: 'mfe-user-header',
   standalone: true,
-  imports: [CommonModule, SkillsComponent],
+  imports: [CommonModule, SkillsComponent, FormsModule, FormHeaderComponent],
   host: {
     class: 'mfe-user-w-full',
   },
@@ -16,7 +18,7 @@ import { UserHeader } from '../data-access/user';
       <div class="mfe-user-relative">
         <img
           class="mfe-user-w-full mfe-user-bg-cover mfe-user-bg-center mfe-user-max-h-[201px] mfe-user-border-t-4 mfe-user-rounded-t-md mfe-user-border-[#F8C77D]"
-          [src]="user()?.bg"
+          [src]="user.bg"
           alt="bg"
         />
         <p
@@ -24,31 +26,119 @@ import { UserHeader } from '../data-access/user';
         >
           premium
         </p>
+
+        <!-- Edit background -->
+        <span
+          *ngIf="isCurrentUser"
+          (click)="loadImageFromDriveConvertToBase64('bg')"
+          class="mfe-user-cursor-pointer mfe-user-absolute mfe-user-top-0 mfe-user-right-[0.5rem] hover:mfe-user-scale-105 mfe-user-w-10 mfe-user-h-10 mfe-user-rounded-full mfe-user-bg-white mfe-user-flex mfe-user-items-center mfe-user-justify-center mfe-user-shadow-md mfe-user-mt-3 mfe-user-ml-3"
+        >
+          <i class="fa-solid fa-pencil"></i>
+        </span>
+
+      
       </div>
 
       <!-- Avatar -->
       <div
-        class="mfe-user-flex mfe-user-items-center mfe-user-justify-center max-sm:-mfe-user-mt-[2.5rem] -mfe-user-mt-[6rem] mfe-user-ml-[2rem] max-sm:mfe-user-w-[5rem] max-sm:mfe-user-h-[5rem] mfe-user-h-[150px] mfe-user-w-[150px] mfe-user-rounded-full"
+        class="mfe-user-relative mfe-user-flex mfe-user-items-center mfe-user-justify-center max-sm:-mfe-user-mt-[2.5rem] -mfe-user-mt-[6rem] mfe-user-ml-[2rem] max-sm:mfe-user-w-[5rem] max-sm:mfe-user-h-[5rem] mfe-user-h-[150px] mfe-user-w-[150px] mfe-user-rounded-full"
       >
+        <!-- Edit avatar -->
+        <span
+            *ngIf="isCurrentUser"
+            (click)="loadImageFromDriveConvertToBase64('avatar')"
+            class="mfe-user-z-20 mfe-user-cursor-pointer mfe-user-absolute mfe-user-top-0 mfe-user-right-[-0.5rem] hover:mfe-user-scale-105 mfe-user-w-10 mfe-user-h-10 mfe-user-rounded-full mfe-user-bg-white mfe-user-flex mfe-user-items-center mfe-user-justify-center mfe-user-shadow-md mfe-user-mt-3 mfe-user-mr-3"
+          >
+            <i class="fa-solid fa-pencil"></i>
+        </span>
         <img
-          class="mfe-user-z-10  mfe-user-w-full mfe-user-h-full mfe-user-border-white mfe-user-border-4 mfe-user-rounded-full"
-          [src]="user()?.avatar"
+          class="mfe-user-z-10 mfe-user-w-full mfe-user-h-full mfe-user-border-white mfe-user-border-4 mfe-user-rounded-full"
+          [src]="user.avatar"
           alt="Me"
         />
       </div>
 
-      <!-- Name + Skills -->
-      <div class="mfe-user-flex mfe-user-flex-col mfe-user-px-4 mfe-user-py-3">
-        <h1
-          class="mfe-user-font-semibold mfe-user-tracking-wide sm:mfe-user-text-2xl"
-        >
-          {{ user()?.name }}
-        </h1>
-        <mfe-user-skills>{{ user()?.headline ?? 'No headline details available.' }}</mfe-user-skills>
+      <!-- Name + Headline + Skills -->
+      <div class="mfe-user-flex mfe-user-flex-col mfe-user-px-4 mfe-user-py-3 mfe-user-relative">
+        <span
+            *ngIf="isCurrentUser"
+            (click)="from()?.openHeaderModal()"
+            class="mfe-user-z-20 mfe-user-cursor-pointer mfe-user-absolute mfe-user-top-[-4rem] mfe-user-right-[-.25rem] hover:mfe-user-scale-105 mfe-user-w-10 mfe-user-h-10 mfe-user-rounded-full mfe-user-bg-white mfe-user-flex mfe-user-items-center mfe-user-justify-center mfe-user-shadow-md mfe-user-mt-3 mfe-user-mr-3"
+          >
+            <i class="fa-solid fa-pencil"></i>
+        </span>
+          <h1
+            class="mfe-user-font-semibold mfe-user-tracking-wide sm:mfe-user-text-2xl"
+          >
+            {{ user.name }}
+          </h1>
+
+        <!-- Headline -->
+          <mfe-user-skills>
+            {{ user.headline }}
+          </mfe-user-skills>
       </div>
     </div>
+    @if (isCurrentUser) {
+      <mfe-user-form-header
+        (onSubmit)="updateHeader($event)" 
+        [initialData]="{
+          name: user.name,
+          headline: user.headline
+        }"
+      >
+      </mfe-user-form-header>
+    }
   `,
 })
 export class HeaderComponent {
-  user = input<UserHeader>();
+  from = viewChild(FormHeaderComponent);
+  update = output<{
+    name?: string;
+    headline?: string;
+    avatar?:string;
+    bg?:string;
+    action:string;
+  }>();
+  @Input() isCurrentUser: boolean = false;
+  @Input() user!: UserHeader;
+
+  updateHeader(data: { name: string; headline: string }) {
+    const dataWithAction = { ...data, action: 'name&headline' };
+    this.update.emit(dataWithAction);
+  }
+
+  updateBg(imageBase64: { bg: string }) {
+    const dataWithAction = { ...imageBase64, action: 'bg' };
+    this.update.emit(dataWithAction);
+  }
+
+  updateAvatar(data: { avatar: string }) {
+    const dataWithAction = { ...data, action: 'avatar' };
+    this.update.emit(dataWithAction);
+  }
+
+  loadImageFromDriveConvertToBase64(type: 'avatar' | 'bg') {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.click();
+
+    input.onchange = () => {
+      if (input.files && input.files[0]) {
+        const file = input.files[0];
+
+        const reader = new FileReader();
+        reader.onload = () => {
+          const base64String = reader.result as string;
+          if (type === 'avatar') {
+            this.updateAvatar({ avatar: base64String });
+          } else {
+            this.updateBg({ bg: base64String });
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+  }
 }

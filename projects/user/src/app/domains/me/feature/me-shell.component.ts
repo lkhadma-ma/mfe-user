@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, inject, WritableSignal } from '@angular/core';
+import { Component, OnInit, signal, inject, WritableSignal, computed } from '@angular/core';
 import { SectionComponent } from '@shared/ui/section/section.component';
 import { UserComplated } from '../data-access/user';
 import { UserStore } from '../data-access/user-store';
@@ -12,7 +12,7 @@ import { ProjectComponent } from "../ui/project.component";
 import { SkillComponent } from "../ui/skill.component";
 import { RecommendationsTabComponent } from "../ui/recommendation.component";
 import { ActivatedRoute } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -26,7 +26,7 @@ import { Observable, of } from 'rxjs';
           @let user = userInStore();
           @let isCurrentUser = isCurrentUserInStore();
           @if(user){
-            <mfe-user-header [user]="user"></mfe-user-header>
+            <mfe-user-header [isCurrentUser]="isCurrentUser" [user]="user" (update)="updateHeader($event)"></mfe-user-header>
             
             <mfe-user-about [description]="user.about" [isCurrentUser]="isCurrentUser" (update)="updateAbout($event)"></mfe-user-about>
 
@@ -42,7 +42,7 @@ import { Observable, of } from 'rxjs';
 
             <mfe-user-skill (delete)="deleteSkill($event)" (update)="updateSkill($event)" [isCurrentUser]="isCurrentUser" [skills]="user.skills"></mfe-user-skill>
 
-            <mfe-user-recommendation (delete)="deleteRecommendation($event)" (update)="updateRecommendation($event)" [fetchUserOptions]="fetchUserOptions" [isCurrentUser]="isCurrentUser" [givenRecommendations]="recommendation('given')" [receivedRecommendations]="recommendation('received')"></mfe-user-recommendation>
+            <mfe-user-recommendation (delete)="deleteRecommendation($event)" (update)="updateRecommendation($event)" [fetchUserOptions]="fetchUserOptions" [isCurrentUser]="isCurrentUser" [givenRecommendations]="recommendations().given" [receivedRecommendations]="recommendations().received"></mfe-user-recommendation>
           }
           </div>
         </div>
@@ -66,16 +66,15 @@ export class MeShellComponent implements OnInit {
     });
   }
 
-  recommendation(type: 'given' | 'received') {
-    switch (type) {
-      case 'given':
-        return this.userInStore()?.recommendations.filter(rec => rec.user.username === this.userInStore()?.username) || [];
-      case 'received':
-        return this.userInStore()?.recommendations.filter(rec => rec.relationship.username === this.userInStore()?.username) || [];
-      default:
-        return [];
-    }
-  }
+  recommendations = computed(() => {
+    const user = this.userInStore();
+    if (!user) return { given: [], received: [] };
+  
+    const given = user.recommendations.filter(rec => rec.user.username === user.username);
+    const received = user.recommendations.filter(rec => rec.relationship.username === user.username);
+  
+    return { given, received };
+  });
 
   updateAbout(about: string) {
     this.userStore.updateAbout(about);
@@ -135,5 +134,9 @@ export class MeShellComponent implements OnInit {
 
   deleteRecommendation(id: string | number) {
     this.userStore.deleteRecommendation(id);
+  }
+
+  updateHeader(data: { name?: string; headline?: string; avatar?:string; bg?:string; action:string; }) {
+    this.userStore.updateHeader(data);
   }
 }

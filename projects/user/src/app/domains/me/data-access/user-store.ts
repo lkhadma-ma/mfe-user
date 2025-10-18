@@ -322,7 +322,6 @@ export class UserStore {
         }else {
           recommendations = [...current.recommendations, updatedRecommendation];
         }
-    
         this.userSignal.set({
           ...current,
           recommendations,
@@ -348,5 +347,70 @@ export class UserStore {
       ()=> {
         this.alert.show("We couldn't delete recommendation", 'error');
       });
+    }
+
+    updateHeader(data: {
+      name?: string;
+      headline?: string;
+      avatar?:string;
+      bg?:string;
+      action:string;
+    }) {
+
+      switch(data.action) {
+        case 'name&headline':
+          this.http.put<{ name: string; headline: string }>(`${this.baseUrl}/users/header`, { name: data.name, headline: data.headline }).subscribe(({ name, headline }) => {
+            const current = this.userSignal();
+            if (!current) return;
+        
+            this.userSignal.set({
+              ...current,
+              name,
+              headline,
+            });
+            this.alert.show('Header information updated successfully', 'success');
+          },
+          () => {
+            this.alert.show("We couldn't update header information", 'error');
+          }
+          );
+          break;
+        case 'avatar':
+          this.http.put<{ avatar: string }>(`${this.baseUrl}/users/avatar`, { avatar: data.avatar }).subscribe(({ avatar }) => {
+            const current = this.userSignal();
+            if (!current) return;
+        
+            this.userSignal.set({
+              ...current,
+              avatar,
+            });
+            this.alert.show('Avatar updated successfully', 'success');
+          },
+          () => {
+            this.alert.show("We couldn't update avatar", 'error');
+          }
+          );
+          break;
+        case 'bg':
+          this.http.put<{ bg: string }>(`${this.baseUrl}/users/bg`, { bg: data.bg }).subscribe(({ bg }) => {
+            const current = this.userSignal();
+            if (!current) return;
+        
+            this.userSignal.set({
+              ...current,
+              bg,
+            });
+            this.alert.show('Background image updated successfully', 'success');
+          },
+          () => {
+            this.alert.show("We couldn't update background image", 'error');
+          }
+          );
+          break;
+        default:
+          this.alert.show("Invalid action for updating header", 'error');
+          return;
+      }
+      
     }
 }
