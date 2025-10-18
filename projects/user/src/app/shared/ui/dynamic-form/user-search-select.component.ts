@@ -111,7 +111,6 @@ export class UserSearchSelectComponent implements ControlValueAccessor, OnInit {
       debounceTime(300),
       distinctUntilChanged(),
       switchMap(term => {
-        console.log('Searching for users with term:', term, this.fetchUsers);
         if (!term || !this.fetchUsers) return of([]);
         this.loading = true;
         return this.fetchUsers(term).pipe(
@@ -119,7 +118,6 @@ export class UserSearchSelectComponent implements ControlValueAccessor, OnInit {
         );
       })
     ).subscribe(users => {
-        console.log('Fetched users:', users);
       this.filteredUsers = users;
       this.loading = false;
     });
