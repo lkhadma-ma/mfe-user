@@ -136,7 +136,7 @@ export class MeShellComponent implements OnInit {
     this.userStore.deleteRecommendation(id);
   }
 
-  updateHeader(data: { name?: string; headline?: string; avatar?:string; bg?:string; action:string; }) {
+  updateHeader(data: { name?: string; headline?: string; avatar?:File; bg?:File; action:string; }) {
     this.userStore.updateHeader(data);
   }
 }

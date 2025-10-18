@@ -30,7 +30,7 @@ import { FormHeaderComponent } from "./form-header.component";
         <!-- Edit background -->
         <span
           *ngIf="isCurrentUser"
-          (click)="loadImageFromDriveConvertToBase64('bg')"
+          (click)="loadImageFromDrive('bg')"
           class="mfe-user-cursor-pointer mfe-user-absolute mfe-user-top-0 mfe-user-right-[0.5rem] hover:mfe-user-scale-105 mfe-user-w-10 mfe-user-h-10 mfe-user-rounded-full mfe-user-bg-white mfe-user-flex mfe-user-items-center mfe-user-justify-center mfe-user-shadow-md mfe-user-mt-3 mfe-user-ml-3"
         >
           <i class="fa-solid fa-pencil"></i>
@@ -46,7 +46,7 @@ import { FormHeaderComponent } from "./form-header.component";
         <!-- Edit avatar -->
         <span
             *ngIf="isCurrentUser"
-            (click)="loadImageFromDriveConvertToBase64('avatar')"
+            (click)="loadImageFromDrive('avatar')"
             class="mfe-user-z-20 mfe-user-cursor-pointer mfe-user-absolute mfe-user-top-0 mfe-user-right-[-0.5rem] hover:mfe-user-scale-105 mfe-user-w-10 mfe-user-h-10 mfe-user-rounded-full mfe-user-bg-white mfe-user-flex mfe-user-items-center mfe-user-justify-center mfe-user-shadow-md mfe-user-mt-3 mfe-user-mr-3"
           >
             <i class="fa-solid fa-pencil"></i>
@@ -96,8 +96,8 @@ export class HeaderComponent {
   update = output<{
     name?: string;
     headline?: string;
-    avatar?:string;
-    bg?:string;
+    avatar?:File;
+    bg?:File;
     action:string;
   }>();
   @Input() isCurrentUser: boolean = false;
@@ -108,17 +108,17 @@ export class HeaderComponent {
     this.update.emit(dataWithAction);
   }
 
-  updateBg(imageBase64: { bg: string }) {
+  updateBg(imageBase64: { bg: File }) {
     const dataWithAction = { ...imageBase64, action: 'bg' };
     this.update.emit(dataWithAction);
   }
 
-  updateAvatar(data: { avatar: string }) {
+  updateAvatar(data: { avatar: File }) {
     const dataWithAction = { ...data, action: 'avatar' };
     this.update.emit(dataWithAction);
   }
 
-  loadImageFromDriveConvertToBase64(type: 'avatar' | 'bg') {
+  loadImageFromDrive(type: 'avatar' | 'bg') {
     const input = document.createElement('input');
     input.type = 'file';
     input.accept = 'image/*';
@@ -127,17 +127,11 @@ export class HeaderComponent {
     input.onchange = () => {
       if (input.files && input.files[0]) {
         const file = input.files[0];
-
-        const reader = new FileReader();
-        reader.onload = () => {
-          const base64String = reader.result as string;
-          if (type === 'avatar') {
-            this.updateAvatar({ avatar: base64String });
-          } else {
-            this.updateBg({ bg: base64String });
-          }
-        };
-        reader.readAsDataURL(file);
+        if (type === 'avatar') {
+          this.updateAvatar({ avatar: file });
+        } else {
+          this.updateBg({ bg: file });
+        }
       }
     };
   }

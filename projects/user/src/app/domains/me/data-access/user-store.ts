@@ -352,8 +352,8 @@ export class UserStore {
     updateHeader(data: {
       name?: string;
       headline?: string;
-      avatar?:string;
-      bg?:string;
+      avatar?:File;
+      bg?:File;
       action:string;
     }) {
 
@@ -376,7 +376,9 @@ export class UserStore {
           );
           break;
         case 'avatar':
-          this.http.put<{ avatar: string }>(`${this.baseUrl}/users/avatar`, { avatar: data.avatar }).subscribe(({ avatar }) => {
+          const formDatAavatar = new FormData();
+          formDatAavatar.append('file', data.avatar!);
+          this.http.put<{ avatar: string }>(`${this.baseUrl}/users/avatar`, formDatAavatar ).subscribe(({ avatar }) => {
             const current = this.userSignal();
             if (!current) return;
         
@@ -392,7 +394,9 @@ export class UserStore {
           );
           break;
         case 'bg':
-          this.http.put<{ bg: string }>(`${this.baseUrl}/users/bg`, { bg: data.bg }).subscribe(({ bg }) => {
+          const formDataBg = new FormData();
+          formDataBg.append('file', data.bg!);
+          this.http.put<{ bg: string }>(`${this.baseUrl}/users/bg`, formDataBg).subscribe(({ bg }) => {
             const current = this.userSignal();
             if (!current) return;
         
