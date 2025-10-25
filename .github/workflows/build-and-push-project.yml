@@ -1,0 +1,98 @@
+name: Build Angular Project and Push to GHCR + Update Config Repo
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_project:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+
+    steps:
+      - name: Checkout Angular source code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # ---------------------------------------------
+      # Checkout config repo for image.yml
+      # ---------------------------------------------
+      - name: Checkout deploy/config repo
+        uses: actions/checkout@v4
+        with:
+          repository: lkhadma-ma/mfe-user-deploy
+          ref: main
+          token: ${{ secrets.PAT_GITHUB_TOKEN }}
+          path: deploy-repo
+
+      # ---------------------------------------------
+      # Determine next semantic version from image.yml
+      # ---------------------------------------------
+      - name: Determine next semantic version
+        id: semver
+        run: |
+          CONFIG_FILE="deploy-repo/image.yml"
+          if [ ! -f "$CONFIG_FILE" ]; then
+            LAST_VERSION="v1.0.0"
+          else
+            LAST_VERSION=$(grep 'version:' "$CONFIG_FILE" | awk '{print $2}' | tr -d '"')
+            [ -z "$LAST_VERSION" ] && LAST_VERSION="v1.0.0"
+          fi
+
+          VERSION_NUM=${LAST_VERSION#v}
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION_NUM"
+          PATCH=$((PATCH + 1))
+          NEW_VERSION="v${MAJOR}.${MINOR}.${PATCH}"
+          echo "VERSION=$NEW_VERSION" >> $GITHUB_ENV
+
+      # ---------------------------------------------
+      # Build & push Docker image (without assets)
+      # ---------------------------------------------
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        env:
+          IMAGE_NAME: ghcr.io/${{ github.repository }}
+        run: |
+          IMAGE=$IMAGE_NAME:${{ env.VERSION }}
+          LATEST=$IMAGE_NAME:latest
+          export DOCKER_BUILDKIT=1
+          docker build \
+            --file ci/Dockerfile.build \
+            --tag $IMAGE \
+            --tag $LATEST \
+            --ignore-file ci/.dockerignore \
+            ci/
+          docker push $IMAGE
+          docker push $LATEST
+
+      # ---------------------------------------------
+      # Update image.yml in config repo
+      # ---------------------------------------------
+      - name: Update image.yml
+        run: |
+          cat > deploy-repo/image.yml <<EOF
+          app:
+            version: "${{ env.VERSION }}"
+            name: mfe-user
+            registry: ghcr.io/${{ github.repository }}
+          EOF
+
+      - name: Commit & push image.yml
+        working-directory: deploy-repo
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add image.yml
+          git commit -m "chore: update image version to ${{ env.VERSION }}"
+          git push origin main
+
