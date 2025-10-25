@@ -98,7 +98,7 @@ jobs:
           echo "Building image $IMAGE"
 
           export DOCKER_BUILDKIT=1
-          docker build -t $IMAGE -t $LATEST -f Dockerfile.build .
+          docker build -t $IMAGE -t $LATEST -f ci/Dockerfile.build .
           docker push $IMAGE
           docker push $LATEST
 
