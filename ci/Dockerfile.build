@@ -5,7 +5,7 @@ WORKDIR /app
 
 # Copy dependency files first for caching
 COPY ../package*.json ./
-RUN ls -la /app
+RUN ls -la ../
 RUN npm ci
 
 # Copy all source files
