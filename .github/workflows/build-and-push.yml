@@ -130,7 +130,7 @@ jobs:
 
           git add image.yml
           git commit -m "chore: update image version to ${{ env.VERSION }}"
-          git push origin master
+          git push origin main
 
       - name: Tag deploy repo with version
         working-directory: deploy-repo
