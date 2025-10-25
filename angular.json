@@ -19,14 +19,14 @@
 					"options": {},
 					"configurations": {
 						"production": {
-							"target": "user:esbuild:production"
+							"target": "user:esbuild-without-assets:production"
 						},
 						"development": {
 							"target": "user:esbuild:development",
 							"dev": true
 						}
 					},
-					"defaultConfiguration": "production"
+					"defaultConfiguration": "development"
 				},
 				"serve": {
 					"builder": "@angular-architects/native-federation:build",
@@ -76,6 +76,44 @@
 								"input": "projects/user/public"
 							}
 						],
+						"styles": [
+							"projects/user/src/styles.scss"
+						]
+					},
+					"configurations": {
+						"production": {
+							"budgets": [
+								{
+									"type": "initial",
+									"maximumWarning": "500kB",
+									"maximumError": "1MB"
+								},
+								{
+									"type": "anyComponentStyle",
+									"maximumWarning": "4kB",
+									"maximumError": "8kB"
+								}
+							],
+							"outputHashing": "all"
+						},
+						"development": {
+							"optimization": false,
+							"extractLicenses": false,
+							"sourceMap": true
+						}
+					},
+					"defaultConfiguration": "production"
+				},
+				"esbuild-without-assets": {
+					"builder": "@angular/build:application",
+					"options": {
+						"browser": "projects/user/src/main.ts",
+						"polyfills": [
+							"zone.js",
+							"es-module-shims"
+						],
+						"tsConfig": "projects/user/tsconfig.app.json",
+						"inlineStyleLanguage": "scss",
 						"styles": [
 							"projects/user/src/styles.scss"
 						]
