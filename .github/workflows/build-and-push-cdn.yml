@@ -1,12 +1,14 @@
-name: Build Angular Project and Push to GHCR + Update Config Repo
+name: Build User Project CDN & Update Config Repo
 
 on:
   push:
+    paths:
+      - 'projects/user/public/**'
     branches:
       - main
 
 jobs:
-  build_project:
+  build_cdn:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -15,11 +17,9 @@ jobs:
     steps:
       - name: Checkout Angular source code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       # ---------------------------------------------
-      # Checkout config repo for image.yml
+      # Checkout deploy/config repo
       # ---------------------------------------------
       - name: Checkout deploy/config repo
         uses: actions/checkout@v4
@@ -30,12 +30,12 @@ jobs:
           path: deploy-repo
 
       # ---------------------------------------------
-      # Determine next semantic version from image.yml
+      # Determine next semantic version from cdn.yml
       # ---------------------------------------------
       - name: Determine next semantic version
         id: semver
         run: |
-          CONFIG_FILE="deploy-repo/image.yml"
+          CONFIG_FILE="deploy-repo/cdn.yml"
           if [ ! -f "$CONFIG_FILE" ]; then
             LAST_VERSION="v1.0.0"
           else
@@ -50,7 +50,7 @@ jobs:
           echo "VERSION=$NEW_VERSION" >> $GITHUB_ENV
 
       # ---------------------------------------------
-      # Build & push Docker image (without assets)
+      # Build & push Docker image (assets)
       # ---------------------------------------------
       - name: Log in to GHCR
         uses: docker/login-action@v3
@@ -66,28 +66,27 @@ jobs:
           IMAGE=$IMAGE_NAME:${{ env.VERSION }}
           LATEST=$IMAGE_NAME:latest
           export DOCKER_BUILDKIT=1
-          docker build -f Dockerfile.build -t $IMAGE -t $LATEST  --build-arg MODE=prod .
+          docker build -f Dockerfile.build -t $IMAGE -t $LATEST  --build-arg MODE=cdn .
           docker push $IMAGE
           docker push $LATEST
 
       # ---------------------------------------------
-      # Update image.yml in config repo
+      # Update cdn.yml
       # ---------------------------------------------
-      - name: Update image.yml
+      - name: Update cdn.yml
         run: |
-          cat > deploy-repo/image.yml <<EOF
+          cat > deploy-repo/cdn.yml <<EOF
           app:
             version: "${{ env.VERSION }}"
             name: mfe-user
             registry: ghcr.io/${{ github.repository }}
           EOF
 
-      - name: Commit & push image.yml
+      - name: Commit & push cdn.yml and assets
         working-directory: deploy-repo
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add image.yml
-          git commit -m "chore: update image version to ${{ env.VERSION }}"
+          git add cdn.yml assets
+          git commit -m "chore: update cdn version to ${{ env.VERSION }}"
           git push origin main
-

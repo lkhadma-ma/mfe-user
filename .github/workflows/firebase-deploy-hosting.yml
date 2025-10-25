@@ -28,7 +28,7 @@ jobs:
         run: npm ci
 
       - name: Build Angular project with base-href
-        run: npm run build -- --base-href /mfe-user/
+        run: npm run build:dev
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4

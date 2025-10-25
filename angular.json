@@ -22,8 +22,7 @@
 							"target": "user:esbuild-prod:prod"
 						},
 						"dev": {
-							"target": "user:esbuild-dev:dev",
-							"dev": true
+							"target": "user:esbuild-dev:dev"
 						}
 					},
 					"defaultConfiguration": "dev"
@@ -52,7 +51,8 @@
 						"assets": [
 							{
 								"glob": "**/*",
-								"input": "projects/user/public"
+								"input": "projects/user/public",
+								"output": "/assets"
 							}
 						],
 						"styles": [
@@ -82,28 +82,13 @@
 						]
 					},
 					"configurations": {
-						"prod": {
-							"budgets": [
-								{
-									"type": "initial",
-									"maximumWarning": "500kB",
-									"maximumError": "1MB"
-								},
-								{
-									"type": "anyComponentStyle",
-									"maximumWarning": "4kB",
-									"maximumError": "8kB"
-								}
-							],
-							"outputHashing": "all"
-						},
 						"dev": {
 							"optimization": false,
 							"extractLicenses": false,
 							"sourceMap": true
 						}
 					},
-					"defaultConfiguration": "prod"
+					"defaultConfiguration": "dev"
 				},			  
 				"esbuild-prod": {
 					"builder": "@angular/build:application",
@@ -134,11 +119,6 @@
 								}
 							],
 							"outputHashing": "all"
-						},
-						"dev": {
-							"optimization": false,
-							"extractLicenses": false,
-							"sourceMap": true
 						}
 					},
 					"defaultConfiguration": "prod"
