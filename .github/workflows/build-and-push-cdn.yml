@@ -79,7 +79,7 @@ jobs:
           app:
             version: "${{ env.VERSION }}"
             name: mfe-user
-            registry: ghcr.io/${{ github.repository }}
+            registry: ghcr.io/${{ github.repository }}-cdn
           EOF
 
       - name: Commit & push cdn.yml and assets
