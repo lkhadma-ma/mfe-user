@@ -13,33 +13,74 @@ jobs:
       packages: write
 
     steps:
-      - name: Checkout code
+      - name: Checkout Angular source code
+        uses: actions/checkout@v4
+
+      # ---------------------------------------------
+      # READ CURRENT VERSION FROM CONFIG REPO
+      # ---------------------------------------------
+      - name: Checkout deploy/config repo
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0   # Needed to read existing tags
+          repository: lkhadma-ma/mfe-user-deploy
+          ref: master
+          token: ${{ secrets.PAT_GITHUB_TOKEN }}
+          path: deploy-repo
 
-      - name: Get next semantic version
+      - name: Determine next semantic version
         id: semver
         run: |
-          # Get latest tag (defaults to v1.0.0 if none)
-          LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v1.0.0")
-
-          echo "Last tag: $LAST_TAG"
-
-          # Strip the leading 'v'
-          VERSION_NUM=${LAST_TAG#v}
-
-          # Split version
-          IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION_NUM"
-
-          # Increment PATCH
-          PATCH=$((PATCH + 1))
-
-          NEW_VERSION="v${MAJOR}.${MINOR}.${PATCH}"
-          echo "New version: $NEW_VERSION"
-
-          echo "VERSION=$NEW_VERSION" >> $GITHUB_ENV
-
+            CONFIG_FILE="deploy-repo/image.yml"
+        
+            # Default version if none exists
+            if [ ! -f "$CONFIG_FILE" ]; then
+              LAST_VERSION="v1.0.0"
+            else
+              LAST_VERSION=$(grep 'version:' "$CONFIG_FILE" | awk '{print $2}' | tr -d '"')
+              [ -z "$LAST_VERSION" ] && LAST_VERSION="v1.0.0"
+            fi
+        
+            echo "Last version: $LAST_VERSION"
+        
+            # Remove leading 'v'
+            VERSION_NUM=${LAST_VERSION#v}
+        
+            # Split into MAJOR.MINOR.PATCH
+            IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION_NUM"
+        
+            # Determine bump type (default: patch)
+            # Optional: parse commit message or input to decide major/minor/patch
+            BUMP_TYPE="${{ github.event.inputs.bump || 'patch' }}"  
+        
+            case $BUMP_TYPE in
+              major)
+                MAJOR=$((MAJOR + 1))
+                MINOR=0
+                PATCH=0
+                ;;
+              minor)
+                MINOR=$((MINOR + 1))
+                PATCH=0
+                ;;
+              patch)
+                PATCH=$((PATCH + 1))
+                ;;
+              *)
+                echo "Unknown bump type: $BUMP_TYPE"
+                exit 1
+                ;;
+            esac
+        
+            # Build new version string
+            NEW_VERSION="v${MAJOR}.${MINOR}.${PATCH}"
+            echo "New version: $NEW_VERSION"
+        
+            # Export to GitHub Actions environment
+            echo "VERSION=$NEW_VERSION" >> $GITHUB_ENV
+        
+      # ---------------------------------------------
+      # BUILD & PUSH DOCKER IMAGE
+      # ---------------------------------------------
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
         with:
@@ -61,22 +102,17 @@ jobs:
           docker push $IMAGE
           docker push $LATEST
 
-      - name: Create and push new tag
+      - name: Create and push new tag in source repo
         run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
           git tag ${{ env.VERSION }}
           git push origin ${{ env.VERSION }}
 
       # ---------------------------------------------
       # UPDATE CONFIG REPO WITH NEW IMAGE VERSION
       # ---------------------------------------------
-      - name: Checkout config/deploy repo
-        uses: actions/checkout@v4
-        with:
-          repository: lkhadma-ma/mfe-user-deploy
-          ref: master
-          token: ${{ secrets.PAT_GITHUB_TOKEN }}
-          path: deploy-repo
-
       - name: Update image.yml with new version
         run: |
           cat > deploy-repo/image.yml <<EOF
@@ -86,7 +122,7 @@ jobs:
             registry: ghcr.io/${{ github.repository }}
           EOF
 
-      - name: Commit and push change
+      - name: Commit and push updated image.yml
         working-directory: deploy-repo
         run: |
           git config user.name "github-actions[bot]"
