@@ -6,7 +6,7 @@
     
     "build:dev": "ng build --configuration dev --base-href /mfe-user/ && npm run build:styles-manifest",
     "build:prod": "ng build --configuration prod --base-href /mfe-user/ && npm run build:styles-manifest",
-    "build:cdn": "mkdir -p dist/user/browser && cp -R projects/user/public/* dist/user/browser/assets",
+    "build:cdn": "mkdir -p dist/user/browser/assets && cp -R projects/user/public/* dist/user/browser/assets",
 
     "build:styles-manifest": "node ./scripts/generate-styles-manifest.js",
     "watch:styles-manifest": "chokidar \"dist/user/browser/styles*.css\" -c \"node ./scripts/generate-styles-manifest.js\"",
