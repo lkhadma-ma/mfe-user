@@ -11,7 +11,7 @@ RUN npm ci
 RUN npm run build:prod
 
 # Optional: verify build output
-RUN ls -la /app/dist/user
+RUN ls -la /app/dist/user/browser 
 
 # Stage 2: Runtime (Nginx) image
 FROM nginx:alpine
