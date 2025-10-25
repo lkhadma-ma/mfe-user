@@ -99,6 +99,5 @@ jobs:
             git pull --rebase origin main
           )
 
-          # Finally push
           git push origin main
 

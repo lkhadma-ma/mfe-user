@@ -88,25 +88,15 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Stage changes
           git add cdn.yml
+          git commit -m "chore: update cdn version to ${{ env.VERSION }}"
 
-          # Commit if there are actual changes
-          if git diff --cached --quiet; then
-            echo "No changes to commit."
-          else
-            git commit -m "chore: update cdn version to ${{ env.VERSION }}"
-          fi
-
-          # Always fetch latest main before pushing
           git fetch origin main
 
-          # Try to rebase with latest changes
           git rebase origin/main || (
             echo "Rebase failed, attempting auto-resolve via merge"
             git rebase --abort
             git pull --rebase origin main
           )
 
-          # Finally push
           git push origin main
