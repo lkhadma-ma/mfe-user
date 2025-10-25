@@ -61,7 +61,7 @@ jobs:
 
       - name: Build and push Docker image
         env:
-          IMAGE_NAME: ghcr.io/${{ github.repository }}
+          IMAGE_NAME: ghcr.io/${{ github.repository }}-cdn
         run: |
           IMAGE=$IMAGE_NAME:${{ env.VERSION }}
           LATEST=$IMAGE_NAME:latest
