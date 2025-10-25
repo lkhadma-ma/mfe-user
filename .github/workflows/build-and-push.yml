@@ -55,7 +55,7 @@ jobs:
           cat > deploy-repo/image.yml <<EOF
           app:
             version: "${{ env.VERSION }}"
-            name: angular-app
+            name: mfe-user
             registry: ghcr.io/${{ github.repository }}
           EOF
 
