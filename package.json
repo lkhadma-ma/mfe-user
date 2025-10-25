@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "build:styles-manifest": "node ./scripts/generate-styles-manifest.js",
+    "build:prod": "ng build --configuration production --base-href /mfe-user/ && npm run build:styles-manifest",
     "build": "ng build && npm run build:styles-manifest",
     "watch:styles-manifest": "chokidar \"dist/user/browser/styles*.css\" -c \"node ./scripts/generate-styles-manifest.js\"",
     "watch": "concurrently \"ng build user --watch\" \"npm run watch:styles-manifest\"",
