@@ -1,17 +1,26 @@
 const fs = require('fs');
 const path = require('path');
 
-const distPath = 'dist/user/browser'; // Replace with your actual output path
+const distPath = 'dist/user/browser';
 const manifestPath = path.join(distPath, 'styles-manifest.json');
 
-// This function finds the styles file, regardless of its name
+/**
+ * 
+ * @param {string} directory 
+ * @returns file name of styles file
+ * 
+ */
 function findStylesFile(directory) {
   const files = fs.readdirSync(directory);
   const stylesFile = files.find(file => file.startsWith('styles') && file.endsWith('.css'));
   return stylesFile;
 }
 
-// Generate the manifest
+/**
+ * this function generates a styles-manifest.json file in the dist directory
+ * by finding the styles file and writing its name to the manifest.
+ * @returns void
+ */
 function generateStylesManifest() {
   const stylesFileName = findStylesFile(distPath);
 
@@ -21,8 +30,7 @@ function generateStylesManifest() {
   }
 
   const manifestData = {
-    styles: stylesFileName,
-    // Add other properties if needed
+    styles: stylesFileName
   };
 
   fs.writeFileSync(manifestPath, JSON.stringify(manifestData, null, 2), 'utf-8');

@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, output, viewChild } from '@angular/core';
+import { Component, Input, output, viewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SkillsComponent } from './skills.component';
 import { UserHeader } from '../data-access/user';
