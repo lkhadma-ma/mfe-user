@@ -69,7 +69,7 @@ jobs:
           git commit -m "chore: update image version to ${{ env.VERSION }}"
           git push origin main
 
-      # Optional: create a tag in deploy repo
+      # Optional: create a tag in deploy repo 
       - name: Tag deploy repo with version
         working-directory: deploy-repo
         run: |
