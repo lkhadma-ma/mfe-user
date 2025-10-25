@@ -3,9 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    
+    "build:dev": "ng build --configuration dev --base-href /mfe-user/ && npm run build:styles-manifest",
+    "build:prod": "ng build --configuration prod --base-href /mfe-user/ && npm run build:styles-manifest",
+    "build:cdn": "mkdir -p dist/user/browser && cp -R projects/user/public/* dist/user/browser/",
+
     "build:styles-manifest": "node ./scripts/generate-styles-manifest.js",
-    "build:prod": "ng build --configuration production --base-href /mfe-user/ && npm run build:styles-manifest",
-    "build": "ng build && npm run build:styles-manifest",
     "watch:styles-manifest": "chokidar \"dist/user/browser/styles*.css\" -c \"node ./scripts/generate-styles-manifest.js\"",
     "watch": "concurrently \"ng build user --watch\" \"npm run watch:styles-manifest\"",
     "serve": "concurrently \"npm run watch\" \"browser-sync start --server dist/user/browser --files dist/user/browser --port 4204 --no-open\""

@@ -18,20 +18,20 @@
 					"builder": "@angular-architects/native-federation:build",
 					"options": {},
 					"configurations": {
-						"production": {
-							"target": "user:esbuild-without-assets:production"
+						"prod": {
+							"target": "user:esbuild-prod:prod"
 						},
-						"development": {
-							"target": "user:esbuild:development",
+						"dev": {
+							"target": "user:esbuild-dev:dev",
 							"dev": true
 						}
 					},
-					"defaultConfiguration": "development"
+					"defaultConfiguration": "dev"
 				},
 				"serve": {
 					"builder": "@angular-architects/native-federation:build",
 					"options": {
-						"target": "user:serve-original:development",
+						"target": "user:serve-original:dev",
 						"rebuildDelay": 0,
 						"dev": true,
 						"port": 0
@@ -60,7 +60,7 @@
 						]
 					}
 				},
-				"esbuild": {
+				"esbuild-dev": {
 					"builder": "@angular/build:application",
 					"options": {
 						"browser": "projects/user/src/main.ts",
@@ -73,7 +73,8 @@
 						"assets": [
 							{
 								"glob": "**/*",
-								"input": "projects/user/public"
+								"input": "projects/user/public",
+								"output": "/assets"
 							}
 						],
 						"styles": [
@@ -81,7 +82,7 @@
 						]
 					},
 					"configurations": {
-						"production": {
+						"prod": {
 							"budgets": [
 								{
 									"type": "initial",
@@ -96,15 +97,15 @@
 							],
 							"outputHashing": "all"
 						},
-						"development": {
+						"dev": {
 							"optimization": false,
 							"extractLicenses": false,
 							"sourceMap": true
 						}
 					},
-					"defaultConfiguration": "production"
-				},
-				"esbuild-without-assets": {
+					"defaultConfiguration": "prod"
+				},			  
+				"esbuild-prod": {
 					"builder": "@angular/build:application",
 					"options": {
 						"browser": "projects/user/src/main.ts",
@@ -119,7 +120,7 @@
 						]
 					},
 					"configurations": {
-						"production": {
+						"prod": {
 							"budgets": [
 								{
 									"type": "initial",
@@ -134,25 +135,25 @@
 							],
 							"outputHashing": "all"
 						},
-						"development": {
+						"dev": {
 							"optimization": false,
 							"extractLicenses": false,
 							"sourceMap": true
 						}
 					},
-					"defaultConfiguration": "production"
+					"defaultConfiguration": "prod"
 				},
 				"serve-original": {
 					"builder": "@angular/build:dev-server",
 					"configurations": {
-						"production": {
-							"buildTarget": "user:esbuild:production"
+						"prod": {
+							"buildTarget": "user:esbuild-prod:prod"
 						},
-						"development": {
-							"buildTarget": "user:esbuild:development"
+						"dev": {
+							"buildTarget": "user:esbuild-dev:dev"
 						}
 					},
-					"defaultConfiguration": "development",
+					"defaultConfiguration": "dev",
 					"options": {
 						"port": 4204
 					}
