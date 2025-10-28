@@ -1,0 +1,1 @@
+import{a as e}from"./chunk-2VMXMS7J.js";var o=[e({path:"",loadComponent:()=>import("./me-shell.component-2LLTVZEH.js").then(n=>n.MeShellComponent),title:"Me"},typeof ngServerMode<"u"&&ngServerMode?{\u0275entryName:"src/app/domains/me/feature/me-shell.component.ts"}:{})];export{o as ME_ROUTES};
