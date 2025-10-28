@@ -16,7 +16,7 @@ import { FormHeaderComponent } from "./form-header.component";
     <div class="mfe-user-border mfe-user-rounded-xl mfe-user-bg-white">
       <!-- Header background -->
       <div class="mfe-user-relative">
-        <img
+        <img loading="lazy"
           class="mfe-user-w-full mfe-user-bg-cover mfe-user-bg-center mfe-user-max-h-[201px] mfe-user-border-t-4 mfe-user-rounded-t-md mfe-user-border-[#F8C77D]"
           [src]="user.bg"
           alt="bg"
@@ -55,6 +55,7 @@ import { FormHeaderComponent } from "./form-header.component";
           class="mfe-user-z-10 mfe-user-w-full mfe-user-h-full mfe-user-border-white mfe-user-border-4 mfe-user-rounded-full"
           [src]="user.avatar"
           alt="Me"
+          loading="lazy"
         />
       </div>
 
