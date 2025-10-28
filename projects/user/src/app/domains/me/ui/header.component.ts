@@ -15,7 +15,7 @@ import { FormHeaderComponent } from "./form-header.component";
   template: `
     <div class="mfe-user-border mfe-user-rounded-xl mfe-user-bg-white">
       <!-- Header background -->
-      <div class="mfe-user-relative">
+      <div class="mfe-user-relative mfe-user-aspect-[16/4]">
         <img loading="lazy"
           class="mfe-user-w-full mfe-user-bg-cover mfe-user-bg-center mfe-user-max-h-[201px] mfe-user-border-t-4 mfe-user-rounded-t-md mfe-user-border-[#F8C77D]"
           [src]="user.bg"
