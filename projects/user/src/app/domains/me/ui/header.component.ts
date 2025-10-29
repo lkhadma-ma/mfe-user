@@ -1,6 +1,6 @@
 import { Component, Input, output, viewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SkillsComponent } from './skills.component';
+import { UserHeadlineComponent } from './user-headline.component';
 import { UserHeader } from '../data-access/user';
 import { FormsModule } from '@angular/forms';
 import { FormHeaderComponent } from "./form-header.component";
@@ -8,7 +8,7 @@ import { FormHeaderComponent } from "./form-header.component";
 @Component({
   selector: 'mfe-user-header',
   standalone: true,
-  imports: [CommonModule, SkillsComponent, FormsModule, FormHeaderComponent],
+  imports: [CommonModule, UserHeadlineComponent, FormsModule, FormHeaderComponent],
   host: {
     class: 'mfe-user-w-full',
   },
