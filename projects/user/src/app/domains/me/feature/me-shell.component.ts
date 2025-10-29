@@ -16,7 +16,7 @@ import { Observable } from 'rxjs';
 
 
 @Component({
-  selector: 'mfe-user-post-shell',
+  selector: 'mfe-user-me-shell',
   imports: [SectionComponent, HeaderComponent, AboutComponent, ServiceComponent, ExperienceComponent, EducationComponent, CertificationComponent, ProjectComponent, SkillComponent, RecommendationsTabComponent],
   template: `
     <app-section ngxClass="md:mfe-user-pt-[5rem] mfe-user-min-h-screen" >
