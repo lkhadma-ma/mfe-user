@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'mfe-user-skills',
+  selector: 'mfe-user-headline',
   standalone: true,
   imports: [CommonModule],
   template: `

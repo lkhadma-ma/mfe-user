@@ -75,9 +75,9 @@ import { FormHeaderComponent } from "./form-header.component";
           </h1>
 
         <!-- Headline -->
-          <mfe-user-skills>
+          <mfe-user-headline>
             {{ user.headline }}
-          </mfe-user-skills>
+          </mfe-user-headline>
       </div>
     </div>
     @if (isCurrentUser) {
