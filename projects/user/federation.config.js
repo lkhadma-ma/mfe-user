@@ -10,7 +10,7 @@ module.exports = withNativeFederation({
     './MeShellComponent': './projects/user/src/app/domains/me/feature/me-shell.component.ts',
 
     // routes
-    './ME_ROUTES':'./projects/user/src/app/domains/me/feature/me.routes.ts'
+    //'./ME_ROUTES':'./projects/user/src/app/domains/me/feature/me.routes.ts'
   },
 
   shared: {
