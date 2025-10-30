@@ -7,6 +7,7 @@ module.exports = withNativeFederation({
   exposes: {
     // components
     './meRecent': './projects/user/src/app/domains/resume/feature/resume-shell.component.ts',
+    './MeShellComponent': './projects/user/src/app/domains/me/feature/me-shell.component.ts',
 
     // routes
     './ME_ROUTES':'./projects/user/src/app/domains/me/feature/me.routes.ts'
