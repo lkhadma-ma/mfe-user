@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, inject, WritableSignal, computed } from '@angular/core';
+import { Component, OnInit, signal, inject, WritableSignal, computed, ViewChild, ViewContainerRef, effect, Injector } from '@angular/core';
 import { SectionComponent } from '@shared/ui/section/section.component';
 import { UserComplated } from '../data-access/user';
 import { UserStore } from '../data-access/user-store';
@@ -13,6 +13,7 @@ import { SkillComponent } from "../ui/skill.component";
 import { RecommendationsTabComponent } from "../ui/recommendation.component";
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { loadRemoteModule } from '@angular-architects/native-federation';
 
 
 @Component({
@@ -47,7 +48,7 @@ import { Observable } from 'rxjs';
           </div>
         </div>
         <div class="mfe-user-hidden mfe-user-w-[400px] lg:mfe-user-block">
-
+          <ng-template #switchAccount></ng-template>
         </div>
       </div>
     </app-section>
@@ -56,6 +57,11 @@ import { Observable } from 'rxjs';
 export class MeShellComponent implements OnInit {
   private userStore = inject(UserStore);
   private route = inject(ActivatedRoute);
+  private injector = inject(Injector);
+
+  @ViewChild('switchAccount', { read: ViewContainerRef, static: true })
+  switchAccountContainer!: ViewContainerRef;
+  
   userInStore = this.userStore.user;
   isCurrentUserInStore  = this.userStore.isCurrentUser;
 
@@ -64,6 +70,28 @@ export class MeShellComponent implements OnInit {
       const username = params.get('username')!;
       this.userStore.loadUser(username);
     });
+  }
+
+  
+  constructor() {
+    effect(() => {
+      if (this.isCurrentUserInStore()) {
+        this.loadsSwitchAccountComponent();
+      } else {
+        this.switchAccountContainer.clear();
+      }
+    });
+  }
+
+  async loadsSwitchAccountComponent() {
+    const switchAccountModule = await loadRemoteModule({
+      remoteName: 'shared', 
+      exposedModule: './ShellSwitchAccountComponent'
+    });
+
+    const shellSwitchAccountComponent = switchAccountModule.ShellSwitchAccountComponent;
+
+    this.switchAccountContainer.createComponent(shellSwitchAccountComponent, { injector: this.injector });
   }
 
   recommendations = computed(() => {
