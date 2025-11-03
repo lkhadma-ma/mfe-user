@@ -36,8 +36,8 @@ export class FormExperienceComponent {
             required: false,
           },
           {
-            key: 'title',
-            label: 'Title',
+            key: 'position',
+            label: 'Position',
             type: 'text',
             required: true,
             placeholder: 'e.g. Software Engineer'

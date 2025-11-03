@@ -4,7 +4,7 @@ import { Skill } from "./skill";
 
 export interface Experience {
     id: string;
-    title: string;
+    position: string;
     company: string;
     employmentType: EmploymentType;
     startDate: Date;

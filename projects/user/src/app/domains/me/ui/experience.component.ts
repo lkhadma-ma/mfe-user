@@ -27,7 +27,7 @@ import { FormExperienceComponent } from "./form-experience.component";
                 }  
               <img class="mfe-user-w-14 mfe-user-h-14" src="https://media.licdn.com/dms/image/v2/D4D0BAQEmsC7uLFcGtw/company-logo_100_100/company-logo_100_100/0/1734610939743/satec_logo?e=1761177600&v=beta&t=Gqr6mDGfjQucih24uZRMxPd4zxDjcOv89e-IoEh1CqE" alt="">
               <div>
-                <h2 class="mfe-user-font-semibold mfe-user-tracking-wide">{{ experience.title }}</h2>
+                <h2 class="mfe-user-font-semibold mfe-user-tracking-wide">{{ experience.position }}</h2>
                 <h3 class="mfe-user-tracking-wide mfe-user-text-sm">{{ experience.company }} . {{ getValueOptionEmploymentType(experience.employmentType) }}</h3>
                 <p class="mfe-user-tracking-wide mfe-user-text-sm mfe-user-text-gray-700">{{ experience.startDate | date:'MMM yyyy' }} - {{ experience.endDate ? (experience.endDate | date:'MMM yyyy') : 'Present' }}</p>
                 <p class="mfe-user-tracking-wide mfe-user-text-sm mfe-user-pb-3 mfe-user-text-gray-700">{{ experience.location }} . {{ getValueOptionLocalType(experience.locationType) }}</p>
