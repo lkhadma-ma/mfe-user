@@ -20,7 +20,7 @@ import { loadRemoteModule } from '@angular-architects/native-federation';
   selector: 'mfe-user-me-shell',
   imports: [SectionComponent, HeaderComponent, AboutComponent, ServiceComponent, ExperienceComponent, EducationComponent, CertificationComponent, ProjectComponent, SkillComponent, RecommendationsTabComponent],
   template: `
-    <app-section ngxClass="md:mfe-user-pt-[5rem] mfe-user-min-h-screen" >
+    <app-section ngxClass="md:mfe-user-pt-[5rem]" >
       <div class="mfe-user-w-full mfe-user-mb-40 md:mfe-user-space-x-6 md:mfe-user-flex ">
         <div class="mfe-user-w-full">
           <div class="mfe-user-w-full mfe-user-flex mfe-user-flex-col mfe-user-space-y-4">
