@@ -40,7 +40,6 @@ export class UserStore {
         () => {
             this.userSignal.set(null);
             this.isCurrentUserSignal.set(false);
-            this.alert.show("We couldn't load user", 'error');
         }
         );
     }
