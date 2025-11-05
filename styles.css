@@ -207,9 +207,6 @@
 .mfe-user-min-h-\[44px\] {
   min-height: 44px;
 }
-.mfe-user-min-h-screen {
-  min-height: 100vh;
-}
 .mfe-user-w-10 {
   width: 2.5rem;
 }
