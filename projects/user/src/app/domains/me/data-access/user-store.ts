@@ -351,14 +351,15 @@ export class UserStore {
     updateHeader(data: {
       name?: string;
       headline?: string;
+      address?: string;
       avatar?:File;
       bg?:File;
       action:string;
     }) {
 
       switch(data.action) {
-        case 'name&headline':
-          this.http.put<{ name: string; headline: string }>(`${this.baseUrl}/users/header`, { name: data.name, headline: data.headline }).subscribe(({ name, headline }) => {
+        case 'info':
+          this.http.put<{ name: string; headline: string, address: string }>(`${this.baseUrl}/users/header`, { name: data.name, headline: data.headline, address: data.address }).subscribe(({ name, headline, address }) => {
             const current = this.userSignal();
             if (!current) return;
         
@@ -366,6 +367,7 @@ export class UserStore {
               ...current,
               name,
               headline,
+              address
             });
             this.alert.show('Header information updated successfully', 'success');
           },

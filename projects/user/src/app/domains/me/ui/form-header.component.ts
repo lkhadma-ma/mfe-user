@@ -20,6 +20,7 @@ export class FormHeaderComponent {
   initialData = input<{
     name: string;
     headline: string;
+    address: string;
   } | null>();
   onSubmit = output<any>();
 
@@ -33,10 +34,17 @@ export class FormHeaderComponent {
         fields: [
           {
             key: 'name',
-            label: 'Fullname',
+            label: 'Full Name',
             type: 'text',
             required: true,
             placeholder: 'e.g. Oussama Yaagoub'
+          },
+          {
+            key: 'address',
+            label: 'Address',
+            type: 'text',
+            required: true,
+            placeholder: 'e.g. Marrakech, Morocco'
           },
           {
             key: 'headline',

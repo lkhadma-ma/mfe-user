@@ -68,16 +68,21 @@ import { FormHeaderComponent } from "./form-header.component";
           >
             <i class="fa-solid fa-pencil"></i>
         </span>
-          <h1
+          <span
             class="mfe-user-font-semibold mfe-user-tracking-wide sm:mfe-user-text-2xl"
           >
             {{ user.name }}
-          </h1>
+          </span>
 
         <!-- Headline -->
           <mfe-user-headline>
             {{ user.headline }}
           </mfe-user-headline>
+          <span
+            class="mfe-user-text-xs sm:mfe-user-text-sm mfe-user-text-gray-500 mfe-user-mt-2"
+          >
+            {{ user.address }}
+          </span>
       </div>
     </div>
     @if (isCurrentUser) {
@@ -85,7 +90,8 @@ import { FormHeaderComponent } from "./form-header.component";
         (onSubmit)="updateHeader($event)" 
         [initialData]="{
           name: user.name,
-          headline: user.headline
+          headline: user.headline,
+          address: user.address
         }"
       >
       </mfe-user-form-header>
@@ -97,6 +103,7 @@ export class HeaderComponent {
   update = output<{
     name?: string;
     headline?: string;
+    address?: string;
     avatar?:File;
     bg?:File;
     action:string;
@@ -104,8 +111,8 @@ export class HeaderComponent {
   @Input() isCurrentUser: boolean = false;
   @Input() user!: UserHeader;
 
-  updateHeader(data: { name: string; headline: string }) {
-    const dataWithAction = { ...data, action: 'name&headline' };
+  updateHeader(data: { name: string; headline: string, address:string, phone:string }) {
+    const dataWithAction = { ...data, action: 'info' };
     this.update.emit(dataWithAction);
   }
 

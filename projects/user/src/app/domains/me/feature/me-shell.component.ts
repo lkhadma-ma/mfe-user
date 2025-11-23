@@ -14,11 +14,25 @@ import { RecommendationsTabComponent } from "../ui/recommendation.component";
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { loadRemoteModule } from '@angular-architects/native-federation';
+import { PhoneComponent } from "../ui/phone.component";
+import { PhoneStore } from '../data-access/phone.store';
 
 
 @Component({
   selector: 'mfe-user-me-shell',
-  imports: [SectionComponent, HeaderComponent, AboutComponent, ServiceComponent, ExperienceComponent, EducationComponent, CertificationComponent, ProjectComponent, SkillComponent, RecommendationsTabComponent],
+  imports: [
+    SectionComponent,
+    HeaderComponent,
+    AboutComponent, 
+    ServiceComponent, 
+    ExperienceComponent, 
+    EducationComponent, 
+    CertificationComponent, 
+    ProjectComponent, 
+    SkillComponent, 
+    RecommendationsTabComponent, 
+    PhoneComponent
+  ],
   template: `
     <app-section ngxClass="md:mfe-user-pt-[5rem]" >
       <div class="mfe-user-w-full mfe-user-mb-40 md:mfe-user-space-x-6 md:mfe-user-flex ">
@@ -47,8 +61,14 @@ import { loadRemoteModule } from '@angular-architects/native-federation';
           }
           </div>
         </div>
-        <div class="mfe-user-hidden mfe-user-w-[400px] lg:mfe-user-block">
+        <div class="mfe-user-hidden mfe-user-w-[400px] lg:mfe-user-flex mfe-user-flex-col mfe-user-space-y-4">
           <ng-template #switchAccount></ng-template>
+          @if(isCurrentUserInStore()){
+            <mfe-user-phone 
+              (update)="updatePhoneNumber($event)"
+              [phoneNumber]="phoneNumberInStore()"
+            />
+          }
         </div>
       </div>
     </app-section>
@@ -56,6 +76,7 @@ import { loadRemoteModule } from '@angular-architects/native-federation';
 })
 export class MeShellComponent implements OnInit {
   private userStore = inject(UserStore);
+  private phoneStore = inject(PhoneStore);
   private route = inject(ActivatedRoute);
   private injector = inject(Injector);
 
@@ -64,12 +85,17 @@ export class MeShellComponent implements OnInit {
   
   userInStore = this.userStore.user;
   isCurrentUserInStore  = this.userStore.isCurrentUser;
+  phoneNumberInStore = this.phoneStore.phoneNumber;
 
   ngOnInit() {
+
+    this.phoneStore.loadPhoneNumber();
+
     this.route.paramMap.subscribe(params => {
       const username = params.get('username')!;
       this.userStore.loadUser(username);
     });
+    
   }
 
   
@@ -166,5 +192,9 @@ export class MeShellComponent implements OnInit {
 
   updateHeader(data: { name?: string; headline?: string; avatar?:File; bg?:File; action:string; }) {
     this.userStore.updateHeader(data);
+  }
+
+  updatePhoneNumber(phoneNumber: string) {
+    this.phoneStore.updatePhoneNumber(phoneNumber);
   }
 }

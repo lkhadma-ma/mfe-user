@@ -28,4 +28,4 @@ export interface UserComplated {
 }
 
 export type UserRecomandation = Pick<UserComplated, 'name' | 'headline' | 'avatar' | 'username'>;
-export type UserHeader = Pick<UserComplated, 'name' | 'headline' | 'avatar' | 'bg'>;
+export type UserHeader = Pick<UserComplated, 'name' | 'headline' | 'avatar' | 'bg' | 'address'>;
