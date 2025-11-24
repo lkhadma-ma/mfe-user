@@ -10,6 +10,7 @@ module.exports = withNativeFederation({
     './ShellMeComponent': './projects/user/src/app/domains/me/feature/shell-me.component.ts',
 
     // routes
+    './APPLIED_JOBS_ROUTES':'./projects/user/src/app/domains/applied-jobs/feature/shell-applied-jobs.routes.ts',
     //'./ME_ROUTES':'./projects/user/src/app/domains/me/feature/me.routes.ts'
   },
 

@@ -16,6 +16,7 @@ import { Observable } from 'rxjs';
 import { loadRemoteModule } from '@angular-architects/native-federation';
 import { PhoneComponent } from "../ui/phone.component";
 import { PhoneStore } from '../data-access/phone.store';
+import { SidebarLinksComponent } from "../ui/sidebar-links.component";
 
 
 @Component({
@@ -23,16 +24,17 @@ import { PhoneStore } from '../data-access/phone.store';
   imports: [
     SectionComponent,
     HeaderComponent,
-    AboutComponent, 
-    ServiceComponent, 
-    ExperienceComponent, 
-    EducationComponent, 
-    CertificationComponent, 
-    ProjectComponent, 
-    SkillComponent, 
-    RecommendationsTabComponent, 
-    PhoneComponent
-  ],
+    AboutComponent,
+    ServiceComponent,
+    ExperienceComponent,
+    EducationComponent,
+    CertificationComponent,
+    ProjectComponent,
+    SkillComponent,
+    RecommendationsTabComponent,
+    PhoneComponent,
+    SidebarLinksComponent
+],
   template: `
     <app-section ngxClass="md:mfe-user-pt-[5rem]" >
       <div class="mfe-user-w-full mfe-user-mb-40 md:mfe-user-space-x-6 md:mfe-user-flex ">
@@ -68,6 +70,7 @@ import { PhoneStore } from '../data-access/phone.store';
               (update)="updatePhoneNumber($event)"
               [phoneNumber]="phoneNumberInStore()"
             />
+            <mfe-user-sidebar-links />
           }
         </div>
       </div>
