@@ -42,7 +42,7 @@ import { PhoneStore } from '../data-access/phone.store';
           @let isCurrentUser = isCurrentUserInStore();
           @if(user){
             <mfe-user-header [isCurrentUser]="isCurrentUser" [user]="user" (update)="updateHeader($event)"></mfe-user-header>
-            
+        
             <mfe-user-about [description]="user.about" [isCurrentUser]="isCurrentUser" (update)="updateAbout($event)"></mfe-user-about>
 
             <mfe-user-service (update)="updateServicesHeadline($event)" [isCurrentUser]="isCurrentUser" [service]="user?.service?.headline"></mfe-user-service>
@@ -74,12 +74,12 @@ import { PhoneStore } from '../data-access/phone.store';
     </app-section>
   `,
 })
-export class MeShellComponent implements OnInit {
+export class ShellMeComponent implements OnInit {
   private userStore = inject(UserStore);
   private phoneStore = inject(PhoneStore);
   private route = inject(ActivatedRoute);
   private injector = inject(Injector);
-
+  
   @ViewChild('switchAccount', { read: ViewContainerRef, static: true })
   switchAccountContainer!: ViewContainerRef;
   

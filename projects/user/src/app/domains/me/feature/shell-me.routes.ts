@@ -5,9 +5,8 @@ export const ME_ROUTES: Routes = [
   {
     path: '',
     loadComponent: () =>
-      import('./me-shell.component').then((c) => c.MeShellComponent),
+      import('./shell-me.component').then((c) => c.ShellMeComponent),
     title: 'Me'
   },
   
 ];
-
