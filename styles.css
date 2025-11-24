@@ -314,6 +314,9 @@
 .mfe-user-items-center {
   align-items: center;
 }
+.mfe-user-justify-start {
+  justify-content: flex-start;
+}
 .mfe-user-justify-end {
   justify-content: flex-end;
 }
