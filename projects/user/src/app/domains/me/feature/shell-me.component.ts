@@ -36,7 +36,7 @@ import { SidebarLinksComponent } from "../ui/sidebar-links.component";
     SidebarLinksComponent
 ],
   template: `
-    <app-section ngxClass="md:mfe-user-pt-[5rem]" >
+    <mfe-user-section ngxClass="md:mfe-user-pt-[5rem]" >
       <div class="mfe-user-w-full mfe-user-mb-40 md:mfe-user-space-x-6 md:mfe-user-flex ">
         <div class="mfe-user-w-full">
           <div class="mfe-user-w-full mfe-user-flex mfe-user-flex-col mfe-user-space-y-4">
@@ -74,7 +74,7 @@ import { SidebarLinksComponent } from "../ui/sidebar-links.component";
           }
         </div>
       </div>
-    </app-section>
+    </mfe-user-section>
   `,
 })
 export class ShellMeComponent implements OnInit {

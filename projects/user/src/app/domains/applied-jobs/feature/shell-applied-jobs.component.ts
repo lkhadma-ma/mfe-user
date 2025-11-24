@@ -12,7 +12,7 @@ import { loadRemoteModule } from '@angular-architects/native-federation';
     SectionComponent,
   ],
   template: `
-    <app-section ngxClass="md:mfe-user-pt-[5rem]" >
+    <mfe-user-section ngxClass="md:mfe-user-pt-[5rem]" >
       <div class="mfe-user-w-full mfe-user-mb-40 md:mfe-user-space-x-6 md:mfe-user-flex ">
         <div class="mfe-user-w-full">
           <div class="mfe-user-w-full mfe-user-flex mfe-user-flex-col mfe-user-space-y-4">
@@ -23,15 +23,12 @@ import { loadRemoteModule } from '@angular-architects/native-federation';
 
         </div>
       </div>
-    </app-section>
+    </mfe-user-section>
   `,
 })
 export class ShellAppliedJobsComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private injector = inject(Injector);
-  
-  @ViewChild('switchAccount', { read: ViewContainerRef, static: true })
-  switchAccountContainer!: ViewContainerRef;
   
 
   ngOnInit() {
