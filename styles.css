@@ -105,6 +105,9 @@
 .mfe-user-mb-5 {
   margin-bottom: 1.25rem;
 }
+.mfe-user-mb-6 {
+  margin-bottom: 1.5rem;
+}
 .mfe-user-mb-7 {
   margin-bottom: 1.75rem;
 }
@@ -174,6 +177,9 @@
 .mfe-user-h-14 {
   height: 3.5rem;
 }
+.mfe-user-h-16 {
+  height: 4rem;
+}
 .mfe-user-h-3\.5 {
   height: 0.875rem;
 }
@@ -216,6 +222,9 @@
 .mfe-user-min-h-\[44px\] {
   min-height: 44px;
 }
+.mfe-user-min-h-full {
+  min-height: 100%;
+}
 .mfe-user-w-10 {
   width: 2.5rem;
 }
@@ -224,6 +233,9 @@
 }
 .mfe-user-w-14 {
   width: 3.5rem;
+}
+.mfe-user-w-16 {
+  width: 4rem;
 }
 .mfe-user-w-3\.5 {
   width: 0.875rem;
@@ -252,11 +264,17 @@
 .mfe-user-w-screen {
   width: 100vw;
 }
+.mfe-user-min-w-24 {
+  min-width: 6rem;
+}
 .mfe-user-min-w-\[120px\] {
   min-width: 120px;
 }
 .mfe-user-max-w-2xl {
   max-width: 42rem;
+}
+.mfe-user-max-w-md {
+  max-width: 28rem;
 }
 .mfe-user-flex-1 {
   flex: 1 1 0%;
@@ -491,9 +509,17 @@
   --tw-bg-opacity: 1;
   background-color: rgb(220 252 231 / var(--tw-bg-opacity, 1));
 }
+.mfe-user-bg-green-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(22 163 74 / var(--tw-bg-opacity, 1));
+}
 .mfe-user-bg-red-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(254 226 226 / var(--tw-bg-opacity, 1));
+}
+.mfe-user-bg-red-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 38 38 / var(--tw-bg-opacity, 1));
 }
 .mfe-user-bg-transparent {
   background-color: transparent;
@@ -501,6 +527,14 @@
 .mfe-user-bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+}
+.mfe-user-bg-yellow-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 249 195 / var(--tw-bg-opacity, 1));
+}
+.mfe-user-bg-yellow-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(202 138 4 / var(--tw-bg-opacity, 1));
 }
 .mfe-user-bg-opacity-50 {
   --tw-bg-opacity: 0.5 ;
@@ -538,6 +572,10 @@
   padding-left: 1rem;
   padding-right: 1rem;
 }
+.mfe-user-px-6 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
 .mfe-user-py-1 {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
@@ -572,6 +610,9 @@
 }
 .mfe-user-pb-3 {
   padding-bottom: 0.75rem;
+}
+.mfe-user-pb-6 {
+  padding-bottom: 1.5rem;
 }
 .mfe-user-pl-10 {
   padding-left: 2.5rem;
@@ -682,6 +723,10 @@
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
 }
+.mfe-user-text-yellow-600 {
+  --tw-text-opacity: 1;
+  color: rgb(202 138 4 / var(--tw-text-opacity, 1));
+}
 .mfe-user-placeholder-gray-400::placeholder {
   --tw-placeholder-opacity: 1;
   color: rgb(156 163 175 / var(--tw-placeholder-opacity, 1));
@@ -745,6 +790,11 @@
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
+.mfe-user-transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
 .mfe-user-transition-colors {
   transition-property:
     color,
@@ -753,6 +803,11 @@
     text-decoration-color,
     fill,
     stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+.mfe-user-transition-opacity {
+  transition-property: opacity;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
@@ -796,6 +851,18 @@
   --tw-bg-opacity: 1;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1));
 }
+.hover\:mfe-user-bg-green-700:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(21 128 61 / var(--tw-bg-opacity, 1));
+}
+.hover\:mfe-user-bg-red-700:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(185 28 28 / var(--tw-bg-opacity, 1));
+}
+.hover\:mfe-user-bg-yellow-700:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(161 98 7 / var(--tw-bg-opacity, 1));
+}
 .hover\:mfe-user-text-blue-500:hover {
   --tw-text-opacity: 1;
   color: rgb(59 130 246 / var(--tw-text-opacity, 1));
@@ -833,6 +900,21 @@
 .focus\:mfe-user-ring-blue-500:focus {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(59 130 246 / var(--tw-ring-opacity, 1)) ;
+}
+.focus\:mfe-user-ring-green-500:focus {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(34 197 94 / var(--tw-ring-opacity, 1)) ;
+}
+.focus\:mfe-user-ring-red-500:focus {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(239 68 68 / var(--tw-ring-opacity, 1)) ;
+}
+.focus\:mfe-user-ring-yellow-500:focus {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(234 179 8 / var(--tw-ring-opacity, 1)) ;
+}
+.focus\:mfe-user-ring-offset-2:focus {
+  --tw-ring-offset-width: 2px ;
 }
 .disabled\:mfe-user-bg-blue-300:disabled {
   --tw-bg-opacity: 1;
