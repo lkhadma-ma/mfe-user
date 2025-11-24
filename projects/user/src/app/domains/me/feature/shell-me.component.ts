@@ -89,8 +89,6 @@ export class ShellMeComponent implements OnInit {
 
   ngOnInit() {
 
-    this.phoneStore.loadPhoneNumber();
-
     this.route.paramMap.subscribe(params => {
       const username = params.get('username')!;
       this.userStore.loadUser(username);
@@ -102,6 +100,7 @@ export class ShellMeComponent implements OnInit {
   constructor() {
     effect(() => {
       if (this.isCurrentUserInStore()) {
+        this.phoneStore.loadPhoneNumber();
         this.loadsSwitchAccountComponent();
       } else {
         this.switchAccountContainer.clear();

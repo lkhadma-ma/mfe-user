@@ -1,4 +1,5 @@
 import { Injectable, inject, signal } from "@angular/core";
+import { ConfirmationService } from "@shared/commun/confirmation/confirmation.service";
 import { UserComplated } from "./user";
 import { AuthHttpService } from "@shared/auth/auth-http.service";
 import { AlertService } from "@shared/commun/alert.service";
@@ -15,6 +16,7 @@ import { Recommendation } from "./recommendation";
 export class UserStore {
     // Inject
     private http = inject(AuthHttpService);
+    private confirmationService = inject(ConfirmationService);
     private alert = inject(AlertService);
 
     // Constants
@@ -112,21 +114,33 @@ export class UserStore {
     }
     
     deleteEducation(id: string | number) {
-        this.http.delete<void>(`${this.baseUrl}/educations/${id}`).subscribe(() => {
-          const current = this.userSignal();
-          if (!current) return;
+      this.confirmationService
+        .confirmDelete('this education', 'education')
+        .subscribe((confirmed) => {
+          if (confirmed) {
+            this._deleteEducation(id);
+          }
+        });
+      }
       
-          this.userSignal.set({
-            ...current,
-            educations: current.educations.filter(edu => edu.id !== id),
-          });
-          this.alert.show('Education deleted successfully', 'success');
+    private _deleteEducation(id: string | number) {
+      this.http.delete<void>(`${this.baseUrl}/educations/${id}`).subscribe(() => {
+        const current = this.userSignal();
+        if (!current) return;
+    
+        this.userSignal.set({
+          ...current,
+          educations: current.educations.filter(edu => edu.id !== id),
+        });
+        this.alert.show('Education deleted successfully', 'success');
         },
         ()=> {
           this.alert.show("We couldn't delete education", 'error');
         }
-        );
+      );
+
     }
+
 
     updateExperience(experience: Experience) {
         this.http.put<Experience>(`${this.baseUrl}/experiences`, experience).subscribe((updatedExperience) => {
@@ -158,6 +172,16 @@ export class UserStore {
     }
 
     deleteExperience(id: string | number) {
+      this.confirmationService
+        .confirmDelete('this experience', 'experience')
+        .subscribe((confirmed) => {
+          if (confirmed) {
+            this._deleteExperience(id);
+          }
+        });
+    }
+
+    private _deleteExperience(id: string | number) {
         this.http.delete<void>(`${this.baseUrl}/experiences/${id}`).subscribe(() => {
           const current = this.userSignal();
           if (!current) return;
@@ -174,6 +198,16 @@ export class UserStore {
     }
 
     deleteCertification(id: string | number) {
+      this.confirmationService
+        .confirmDelete('this certification', 'certification')
+        .subscribe((confirmed) => {
+          if (confirmed) {
+            this._deleteCertification(id);
+          }
+        });
+    }
+
+    private _deleteCertification(id: string | number) {
       this.http.delete<void>(`${this.baseUrl}/certifications/${id}`).subscribe(() => {
         const current = this.userSignal();
         if (!current) return;
@@ -244,6 +278,16 @@ export class UserStore {
     }
 
     deleteProject(id: string | number) {
+      this.confirmationService
+        .confirmDelete('this project', 'project')
+        .subscribe((confirmed) => {
+          if (confirmed) {
+            this._deleteProject(id);
+          }
+        });
+    }
+
+    private _deleteProject(id: string | number) {
       this.http.delete<void>(`${this.baseUrl}/projects/${id}`).subscribe(() => {
         const current = this.userSignal();
         if (!current) return;
@@ -274,6 +318,7 @@ export class UserStore {
         this.alert.show(error.error.error, 'error');
       });
     }
+
     updateSkill(skill: Skill) {
       this.http.put<any>(`${this.baseUrl}/skills`, skill).subscribe((updatedSkill) => {
         const current = this.userSignal();
@@ -331,8 +376,18 @@ export class UserStore {
         this.alert.show("We couldn't update recommendation", 'error');
       });
     }
-  
+
     deleteRecommendation(id: string | number) {
+      this.confirmationService
+        .confirmDelete('this recommendation', 'recommendation')
+        .subscribe((confirmed) => {
+          if (confirmed) {
+            this._deleteRecommendation(id);
+          }
+        });
+    }
+
+    private _deleteRecommendation(id: string | number) {
       this.http.delete<void>(`${this.baseUrl}/recommendations/${id}`).subscribe(() => {
         const current = this.userSignal();
         if (!current) return;
