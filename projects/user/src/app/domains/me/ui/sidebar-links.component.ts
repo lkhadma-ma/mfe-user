@@ -44,7 +44,7 @@ export class SidebarLinksComponent {
   imports: [ReactiveFormsModule],
   template: `
   <div class="mfe-user-w-full mfe-user-justify-between mfe-user-items-center mfe-user-flex">
-    <div class="mfe-user-text-lg mfe-user-font-semibold mfe-user-flex mfe-user-flex-col mfe-user-justify-start mfe-user-items-center">
+    <div class="mfe-user-text-base mfe-user-font-semibold mfe-user-flex mfe-user-flex-col mfe-user-justify-start mfe-user-items-center">
       <div class="mfe-user-font-semibold mfe-user-flex mfe-user-justify-start mfe-user-items-center">
         {{ link()?.title }}
         <span 
