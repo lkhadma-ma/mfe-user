@@ -267,9 +267,6 @@
 .mfe-user-w-full {
   width: 100%;
 }
-.mfe-user-w-max {
-  width: max-content;
-}
 .mfe-user-w-screen {
   width: 100vw;
 }
@@ -381,6 +378,9 @@
 }
 .mfe-user-overflow-hidden {
   overflow: hidden;
+}
+.mfe-user-overflow-x-auto {
+  overflow-x: auto;
 }
 .mfe-user-overflow-y-auto {
   overflow-y: auto;
@@ -545,6 +545,10 @@
   --tw-bg-opacity: 1;
   background-color: rgb(254 226 226 / var(--tw-bg-opacity, 1));
 }
+.mfe-user-bg-red-50 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 242 242 / var(--tw-bg-opacity, 1));
+}
 .mfe-user-bg-red-600 {
   --tw-bg-opacity: 1;
   background-color: rgb(220 38 38 / var(--tw-bg-opacity, 1));
@@ -642,6 +646,9 @@
 .mfe-user-py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;
+}
+.mfe-user-pb-2 {
+  padding-bottom: 0.5rem;
 }
 .mfe-user-pb-3 {
   padding-bottom: 0.75rem;
@@ -796,6 +803,9 @@
 }
 .mfe-user-opacity-50 {
   opacity: 0.5;
+}
+.mfe-user-opacity-70 {
+  opacity: 0.7;
 }
 .mfe-user-shadow-md {
   --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
@@ -984,6 +994,9 @@
   background-color: rgb(147 197 253 / var(--tw-bg-opacity, 1));
 }
 @media (min-width: 640px) {
+  .sm\:mfe-user-w-max {
+    width: max-content;
+  }
   .sm\:mfe-user-text-2xl {
     font-size: 1.5rem;
     line-height: 2rem;
@@ -991,6 +1004,10 @@
   .sm\:mfe-user-text-base {
     font-size: 1rem;
     line-height: 1.5rem;
+  }
+  .sm\:mfe-user-text-lg {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
   }
   .sm\:mfe-user-text-sm {
     font-size: 0.875rem;
@@ -1005,6 +1022,9 @@
   .md\:mfe-user-flex {
     display: flex;
   }
+  .md\:mfe-user-w-\[400px\] {
+    width: 400px;
+  }
   .md\:mfe-user-grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1015,6 +1035,11 @@
     --tw-space-x-reverse: 0;
     margin-right: calc(1.5rem * var(--tw-space-x-reverse));
     margin-left: calc(1.5rem * calc(1 - var(--tw-space-x-reverse)));
+  }
+  .md\:mfe-user-space-y-0 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-y-reverse: 0;
+    margin-top: calc(0px * calc(1 - var(--tw-space-y-reverse)));
+    margin-bottom: calc(0px * var(--tw-space-y-reverse));
   }
   .md\:mfe-user-pt-\[5rem\] {
     padding-top: 5rem;

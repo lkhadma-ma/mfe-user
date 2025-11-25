@@ -1,1 +1,0 @@
-import{a as e}from"./chunk-2VMXMS7J.js";var p=[e({path:"",loadComponent:()=>import("./shell-applied-jobs.component-XDU4EIJ2.js").then(o=>o.ShellAppliedJobsComponent),title:"Applied Jobs"},typeof ngServerMode<"u"&&ngServerMode?{\u0275entryName:"src/app/domains/applied-jobs/feature/shell-applied-jobs.component.ts"}:{})];export{p as APPLIED_JOBS_ROUTES};
