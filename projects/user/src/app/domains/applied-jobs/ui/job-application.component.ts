@@ -82,7 +82,7 @@ import { RouterLink } from '@angular/router';
                       </div>
                       <div class="mfe-user-flex-1 mfe-user-pb-6">
                         <p class="mfe-user-font-medium mfe-user-text-gray-900">Interview</p>
-                        <p class="mfe-user-text-sm mfe-user-text-gray-500 mfe-user-mt-1">You will be contacted shortly with the interview details.</p>
+                        <p class="mfe-user-text-sm mfe-user-text-gray-500 mfe-user-mt-1">You will be contacted if you are shortlisted for the interview.</p>
                       </div>
                     </div>
                     
