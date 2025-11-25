@@ -83,7 +83,7 @@ export class ShellAppliedJobsComponent implements OnInit {
       company: { name: 'Satec', avatar: 'https://media.licdn.com/dms/image/v2/D4D0BAQEmsC7uLFcGtw/company-logo_100_100/company-logo_100_100/0/1734610939743/satec_logo?e=1765411200&v=beta&t=rhB5UlZy2Pt1dvbJhfEjqlUYgT_7ZBcpXiSWjjPIzj4' },
       },
       status: 'INTERVIEW',
-      notes: 'Prepare for the technical interview focusing on Angular and TypeScript.'
+      note: 'Prepare for the technical interview focusing on Angular and TypeScript.'
     },
     {
       job: { id: 10, position: 'Backend Developer',
@@ -108,7 +108,7 @@ export class ShellAppliedJobsComponent implements OnInit {
       company: { name: 'Digital Agency', avatar: 'https://via.placeholder.com/100' },
       },
       status: 'REJECTED',
-      notes: 'Focus on improving your React skills and understanding of Redux.'
+      note: 'Focus on improving your React skills and understanding of Redux.'
     }
   ]);
 

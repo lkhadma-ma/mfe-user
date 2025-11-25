@@ -8,7 +8,7 @@ export type JobApplication = {
       };
     };
     status: JobApplicationStatus;
-    notes?: string;
+    note?: string;
 }
 
 export type JobApplicationStatus = 'SUBMITTED' | 'VIEWED' | 'INTERVIEW' | 'ACCEPTED' | 'REJECTED'

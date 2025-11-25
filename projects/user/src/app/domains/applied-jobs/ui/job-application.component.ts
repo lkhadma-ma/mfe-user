@@ -120,10 +120,10 @@ import { RouterLink } from '@angular/router';
               </div>
               
               <!-- Notes Section -->
-              @if(app.notes) {
+              @if(app.note) {
                 <div class="mfe-user-px-6 mfe-user-pb-6">
                   <div class="mfe-user-bg-blue-50 mfe-user-border mfe-user-border-blue-200 mfe-user-rounded-lg mfe-user-p-4">
-                    <p class="mfe-user-text-sm mfe-user-text-blue-800">{{ app.notes }}</p>
+                    <p class="mfe-user-text-sm mfe-user-text-blue-800">{{ app.note }}</p>
                   </div>
                 </div>
               }
