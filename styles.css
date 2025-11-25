@@ -26,6 +26,9 @@
 .mfe-user-left-3 {
   left: 0.75rem;
 }
+.mfe-user-left-4 {
+  left: 1rem;
+}
 .mfe-user-right-0 {
   right: 0px;
 }
@@ -225,6 +228,9 @@
 .mfe-user-min-h-full {
   min-height: 100%;
 }
+.mfe-user-w-0\.5 {
+  width: 0.125rem;
+}
 .mfe-user-w-10 {
   width: 2.5rem;
 }
@@ -260,6 +266,9 @@
 }
 .mfe-user-w-full {
   width: 100%;
+}
+.mfe-user-w-max {
+  width: max-content;
 }
 .mfe-user-w-screen {
   width: 100vw;
@@ -457,6 +466,10 @@
   --tw-border-opacity: 1;
   border-color: rgb(209 213 219 / var(--tw-border-opacity, 1));
 }
+.mfe-user-border-green-500 {
+  --tw-border-opacity: 1;
+  border-color: rgb(34 197 94 / var(--tw-border-opacity, 1));
+}
 .mfe-user-border-red-300 {
   --tw-border-opacity: 1;
   border-color: rgb(252 165 165 / var(--tw-border-opacity, 1));
@@ -500,6 +513,10 @@
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));
 }
+.mfe-user-bg-gray-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(229 231 235 / var(--tw-bg-opacity, 1));
+}
 .mfe-user-bg-gray-300 {
   --tw-bg-opacity: 1;
   background-color: rgb(209 213 219 / var(--tw-bg-opacity, 1));
@@ -512,9 +529,17 @@
   --tw-bg-opacity: 1;
   background-color: rgb(220 252 231 / var(--tw-bg-opacity, 1));
 }
+.mfe-user-bg-green-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(34 197 94 / var(--tw-bg-opacity, 1));
+}
 .mfe-user-bg-green-600 {
   --tw-bg-opacity: 1;
   background-color: rgb(22 163 74 / var(--tw-bg-opacity, 1));
+}
+.mfe-user-bg-purple-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(243 232 255 / var(--tw-bg-opacity, 1));
 }
 .mfe-user-bg-red-100 {
   --tw-bg-opacity: 1;
@@ -547,6 +572,9 @@
 }
 .mfe-user-bg-center {
   background-position: center;
+}
+.mfe-user-object-cover {
+  object-fit: cover;
 }
 .mfe-user-p-1\.5 {
   padding: 0.375rem;
@@ -586,6 +614,10 @@
 .mfe-user-py-1\.5 {
   padding-top: 0.375rem;
   padding-bottom: 0.375rem;
+}
+.mfe-user-py-12 {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 .mfe-user-py-2 {
   padding-top: 0.5rem;
@@ -632,6 +664,10 @@
 .mfe-user-text-2xl {
   font-size: 1.5rem;
   line-height: 2rem;
+}
+.mfe-user-text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
 }
 .mfe-user-text-base {
   font-size: 1rem;
@@ -686,6 +722,10 @@
   --tw-text-opacity: 1;
   color: rgb(29 78 216 / var(--tw-text-opacity, 1));
 }
+.mfe-user-text-blue-800 {
+  --tw-text-opacity: 1;
+  color: rgb(30 64 175 / var(--tw-text-opacity, 1));
+}
 .mfe-user-text-gray-300 {
   --tw-text-opacity: 1;
   color: rgb(209 213 219 / var(--tw-text-opacity, 1));
@@ -710,9 +750,21 @@
   --tw-text-opacity: 1;
   color: rgb(17 24 39 / var(--tw-text-opacity, 1));
 }
+.mfe-user-text-green-500 {
+  --tw-text-opacity: 1;
+  color: rgb(34 197 94 / var(--tw-text-opacity, 1));
+}
 .mfe-user-text-green-600 {
   --tw-text-opacity: 1;
   color: rgb(22 163 74 / var(--tw-text-opacity, 1));
+}
+.mfe-user-text-green-800 {
+  --tw-text-opacity: 1;
+  color: rgb(22 101 52 / var(--tw-text-opacity, 1));
+}
+.mfe-user-text-purple-800 {
+  --tw-text-opacity: 1;
+  color: rgb(107 33 168 / var(--tw-text-opacity, 1));
 }
 .mfe-user-text-red-500 {
   --tw-text-opacity: 1;
@@ -722,6 +774,10 @@
   --tw-text-opacity: 1;
   color: rgb(220 38 38 / var(--tw-text-opacity, 1));
 }
+.mfe-user-text-red-800 {
+  --tw-text-opacity: 1;
+  color: rgb(153 27 27 / var(--tw-text-opacity, 1));
+}
 .mfe-user-text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
@@ -729,6 +785,10 @@
 .mfe-user-text-yellow-600 {
   --tw-text-opacity: 1;
   color: rgb(202 138 4 / var(--tw-text-opacity, 1));
+}
+.mfe-user-text-yellow-800 {
+  --tw-text-opacity: 1;
+  color: rgb(133 77 14 / var(--tw-text-opacity, 1));
 }
 .mfe-user-placeholder-gray-400::placeholder {
   --tw-placeholder-opacity: 1;
@@ -923,17 +983,6 @@
   --tw-bg-opacity: 1;
   background-color: rgb(147 197 253 / var(--tw-bg-opacity, 1));
 }
-@media not all and (min-width: 640px) {
-  .max-sm\:-mfe-user-mt-\[2\.5rem\] {
-    margin-top: -2.5rem;
-  }
-  .max-sm\:mfe-user-h-\[5rem\] {
-    height: 5rem;
-  }
-  .max-sm\:mfe-user-w-\[5rem\] {
-    width: 5rem;
-  }
-}
 @media (min-width: 640px) {
   .sm\:mfe-user-text-2xl {
     font-size: 1.5rem;
@@ -974,6 +1023,11 @@
 @media (min-width: 1024px) {
   .lg\:mfe-user-flex {
     display: flex;
+  }
+}
+@media (max-width: 424px) {
+  .max-424\:mfe-user-hidden {
+    display: none;
   }
 }
 
