@@ -37,7 +37,7 @@ import { SidebarLinksComponent } from "../ui/sidebar-links.component";
 ],
   template: `
     <mfe-user-section ngxClass="md:mfe-user-pt-[5rem]" >
-      <div class="mfe-user-w-full mfe-user-mb-40 md:mfe-user-space-x-6 md:mfe-user-flex ">
+      <div class="mfe-user-w-full mfe-user-mb-40 mfe-user-space-y-4 md:mfe-user-space-y-0 md:mfe-user-space-x-6 md:mfe-user-flex ">
         <div class="mfe-user-w-full">
           <div class="mfe-user-w-full mfe-user-flex mfe-user-flex-col mfe-user-space-y-4">
           @let user = userInStore();
@@ -63,7 +63,7 @@ import { SidebarLinksComponent } from "../ui/sidebar-links.component";
           }
           </div>
         </div>
-        <div class="mfe-user-hidden mfe-user-w-[400px] lg:mfe-user-flex mfe-user-flex-col mfe-user-space-y-4">
+        <div class="mfe-user-w-full md:mfe-user-w-[400px] mfe-user-flex mfe-user-flex-col mfe-user-space-y-4">
           <ng-template #switchAccount></ng-template>
           @if(isCurrentUserInStore()){
             <mfe-user-phone 

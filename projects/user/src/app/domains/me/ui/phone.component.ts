@@ -12,12 +12,6 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, ɵInternalForm
           <span class="mfe-user-text-xl mfe-user-font-semibold mfe-user-flex mfe-user-justify-between mfe-user-items-center">
             <span>
               Your phone 
-              <span 
-                class="mfe-user-relative mfe-user-inline-block mfe-user-ml-1"
-                (click)="showTooltip = !showTooltip"
-              >
-                <i class="fa-solid fa-info-circle mfe-user-cursor-pointer mfe-user-text-gray-500"></i>
-              </span>
             </span>
             
             <!-- Edit/Save/Cancel icons -->
@@ -48,12 +42,10 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, ɵInternalForm
             </div>
           </span>
           
-          @if(showTooltip) {
             <div class="mfe-user-text-sm mfe-user-px-3 mfe-user-py-2">
               <p>Your phone number is visible only to you. It helps companies contact you regarding your job applications.</p>
             </div>
-          }
-          
+
           <div class="mfe-user-flex mfe-user-items-center mfe-user-gap-3 mfe-user-mt-2">
             <i class="fa-solid fa-phone mfe-user-text-gray-400"></i>
             
@@ -93,8 +85,7 @@ export class PhoneComponent {
 
     update = output<string>();
     phoneNumber = input<string | null>(null);
-  
-    showTooltip: boolean = true;
+
     isEditing: boolean = false;
     phoneForm: FormGroup;
   

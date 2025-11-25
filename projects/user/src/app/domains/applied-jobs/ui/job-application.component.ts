@@ -26,10 +26,10 @@ import { RouterLink } from '@angular/router';
               <!-- Job Info -->
               <div class="mfe-user-flex-1">
                 <h3 [routerLink]="['/lk/jobs']"
-                    [queryParams]="{ currentId: app.job.id }" class="mfe-user-cursor-pointer max-sm:mfe-user-text-base mfe-user-text-lg mfe-user-font-semibold hover:mfe-user-underline mfe-user-text-gray-900 mfe-user-w-max">
+                    [queryParams]="{ currentId: app.job.id }" class="mfe-user-cursor-pointer mfe-user-text-sm sm:mfe-user-text-lg mfe-user-font-semibold hover:mfe-user-underline mfe-user-text-gray-900 sm:mfe-user-w-max">
                   {{ app.job.position }}
                 </h3>
-                <p class="mfe-user-text-gray-600 mfe-user-mt-1">
+                <p class="mfe-user-text-gray-600 mfe-user-mt-1 mfe-user-text-xs sm:mfe-user-text-md">
                   {{ app.company.name }}
                 </p>
               </div>
@@ -58,7 +58,7 @@ import { RouterLink } from '@angular/router';
                       </div>
                       <div class="mfe-user-flex-1 mfe-user-pb-6">
                         <p class="mfe-user-font-medium mfe-user-text-gray-900">Application Submitted</p>
-                        <p class="mfe-user-text-sm mfe-user-text-gray-500 mfe-user-mt-1">Your application has been sent to the company</p>
+                        <p class="mfe-user-text-sm mfe-user-text-gray-500 mfe-user-mt-1">Your application has been sent</p>
                       </div>
                     </div>
                     
@@ -82,21 +82,38 @@ import { RouterLink } from '@angular/router';
                       </div>
                       <div class="mfe-user-flex-1 mfe-user-pb-6">
                         <p class="mfe-user-font-medium mfe-user-text-gray-900">Interview</p>
-                        <p class="mfe-user-text-sm mfe-user-text-gray-500 mfe-user-mt-1">You've been invited for an interview</p>
+                        <p class="mfe-user-text-sm mfe-user-text-gray-500 mfe-user-mt-1">You will be contacted shortly with the interview details.</p>
                       </div>
                     </div>
                     
                     <!-- Accepted Step -->
-                    <div class="mfe-user-relative mfe-user-flex mfe-user-gap-4">
-                      <div [class]="getStepClasses('accepted', app.status)" 
-                           class="mfe-user-w-8 mfe-user-h-8 mfe-user-rounded-full mfe-user-flex mfe-user-items-center mfe-user-justify-center mfe-user-z-10 mfe-user-border-2">
-                        <i class="fa-solid fa-check mfe-user-text-xs"></i>
-                      </div>
-                      <div class="mfe-user-flex-1">
-                        <p class="mfe-user-font-medium mfe-user-text-gray-900">Accepted</p>
-                        <p class="mfe-user-text-sm mfe-user-text-gray-500 mfe-user-mt-1">Congratulations! Your application has been accepted</p>
-                      </div>
-                    </div>
+                    @if(app.status == 'accepted'){
+                        <div class="mfe-user-relative mfe-user-flex mfe-user-gap-4">
+                          <div [class]="getStepClasses('accepted', app.status)" 
+                               class="mfe-user-w-8 mfe-user-h-8 mfe-user-rounded-full mfe-user-flex mfe-user-items-center mfe-user-justify-center mfe-user-z-10 mfe-user-border-2">
+                            <i class="fa-solid fa-check mfe-user-text-xs"></i>
+                          </div>
+                          <div class="mfe-user-flex-1">
+                            <p class="mfe-user-font-medium mfe-user-text-gray-900">Accepted</p>
+                            <p class="mfe-user-text-sm mfe-user-text-gray-500 mfe-user-mt-1">Congratulations! Your application has been accepted</p>
+                          </div>
+                        </div>
+                    }
+
+                    <!-- rejected Step -->
+                    @if(app.status == 'rejected'){
+                        <div class="mfe-user-relative mfe-user-flex mfe-user-gap-4">
+                          <div [class]="getStepClasses('rejected', app.status)" 
+                               class="mfe-user-w-8 mfe-user-h-8 mfe-user-rounded-full mfe-user-flex mfe-user-items-center mfe-user-justify-center mfe-user-z-10 mfe-user-border-2 mfe-user-border-red-500 mfe-user-bg-red-50">
+                            <i class="fa-solid fa-times mfe-user-text-xs"></i>
+                          </div>
+                          <div class="mfe-user-flex-1">
+                            <p class="mfe-user-font-medium mfe-user-text-gray-900">Rejected</p>
+                            <p class="mfe-user-text-sm mfe-user-text-gray-500 mfe-user-mt-1">Unfortunately, your application was not selected</p>
+                          </div>
+                        </div>
+                    }
+
                     
                   </div>
                 </div>
