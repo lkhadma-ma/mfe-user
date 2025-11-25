@@ -79,29 +79,34 @@ export class ShellAppliedJobsComponent implements OnInit {
 
   applications = signal<JobApplication[]>([
     {
-      job: { id: 11, position: 'Frontend Developer' },
+      job: { id: 11, position: 'Frontend Developer',
       company: { name: 'Satec', avatar: 'https://media.licdn.com/dms/image/v2/D4D0BAQEmsC7uLFcGtw/company-logo_100_100/company-logo_100_100/0/1734610939743/satec_logo?e=1765411200&v=beta&t=rhB5UlZy2Pt1dvbJhfEjqlUYgT_7ZBcpXiSWjjPIzj4' },
+      },
       status: JobApplicationStatus.INTERVIEW,
       notes: 'Prepare for the technical interview focusing on Angular and TypeScript.'
     },
     {
-      job: { id: 10, position: 'Backend Developer' },
+      job: { id: 10, position: 'Backend Developer',
       company: { name: 'Satec', avatar: 'https://media.licdn.com/dms/image/v2/D4D0BAQEmsC7uLFcGtw/company-logo_100_100/company-logo_100_100/0/1734610939743/satec_logo?e=1765411200&v=beta&t=rhB5UlZy2Pt1dvbJhfEjqlUYgT_7ZBcpXiSWjjPIzj4' },
+      },
       status: JobApplicationStatus.VIEWED
     },
     {
-      job: { id: 12, position: 'Full Stack Developer' },
+      job: { id: 12, position: 'Full Stack Developer',
       company: { name: 'Tech Corp', avatar: 'https://via.placeholder.com/100' },
+      },
       status: JobApplicationStatus.SUBMITTED
     },
     {
-      job: { id: 13, position: 'Senior Angular Developer Senior Angular Developer' },
+      job: { id: 13, position: 'Senior Angular Developer Senior Angular Developer',
       company: { name: 'Web Solutions', avatar: 'https://via.placeholder.com/100' },
+      },
       status: JobApplicationStatus.ACCEPTED
     },
     {
-      job: { id: 14, position: 'React Developer' },
+      job: { id: 14, position: 'React Developer' ,
       company: { name: 'Digital Agency', avatar: 'https://via.placeholder.com/100' },
+      },
       status: JobApplicationStatus.REJECTED,
       notes: 'Focus on improving your React skills and understanding of Redux.'
     }
