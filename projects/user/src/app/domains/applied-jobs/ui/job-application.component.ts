@@ -18,8 +18,8 @@ import { RouterLink } from '@angular/router';
             <div class="mfe-user-flex mfe-user-items-center mfe-user-gap-4">
               <!-- Company Avatar -->
               <img 
-                [src]="app.company.avatar" 
-                [alt]="app.company.name"
+                [src]="app.job.company.avatar" 
+                [alt]="app.job.company.name"
                 class="max-sm:mfe-user-w-8 max-sm:mfe-user-h-8 mfe-user-w-12 mfe-user-h-12 mfe-user-rounded-lg mfe-user-object-cover mfe-user-border mfe-user-border-gray-200"
               >
               
@@ -30,7 +30,7 @@ import { RouterLink } from '@angular/router';
                   {{ app.job.position }}
                 </h3>
                 <p class="mfe-user-text-gray-600 mfe-user-mt-1 mfe-user-text-xs sm:mfe-user-text-md">
-                  {{ app.company.name }}
+                  {{ app.job.company.name }}
                 </p>
               </div>
               
