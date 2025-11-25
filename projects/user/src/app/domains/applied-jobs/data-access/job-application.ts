@@ -11,10 +11,4 @@ export type JobApplication = {
     notes?: string;
 }
 
-export enum JobApplicationStatus {
-    SUBMITTED = 'submitted',
-    VIEWED = 'viewed',
-    INTERVIEW = 'interview',
-    ACCEPTED = 'accepted',
-    REJECTED = 'rejected'
-}
+export type JobApplicationStatus = 'SUBMITTED' | 'VIEWED' | 'INTERVIEW' | 'ACCEPTED' | 'REJECTED'

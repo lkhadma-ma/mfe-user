@@ -52,7 +52,7 @@ import { RouterLink } from '@angular/router';
                     
                     <!-- Submitted Step -->
                     <div class="mfe-user-relative mfe-user-flex mfe-user-gap-4">
-                      <div [class]="getStepClasses('submitted', app.status)" 
+                      <div [class]="getStepClasses('SUBMITTED', app.status)" 
                            class="mfe-user-w-8 mfe-user-h-8 mfe-user-rounded-full mfe-user-flex mfe-user-items-center mfe-user-justify-center mfe-user-z-10 mfe-user-border-2">
                         <i class="fa-solid fa-paper-plane mfe-user-text-xs"></i>
                       </div>
@@ -64,7 +64,7 @@ import { RouterLink } from '@angular/router';
                     
                     <!-- Viewed Step -->
                     <div class="mfe-user-relative mfe-user-flex mfe-user-gap-4">
-                      <div [class]="getStepClasses('viewed', app.status)" 
+                      <div [class]="getStepClasses('VIEWED', app.status)" 
                            class="mfe-user-w-8 mfe-user-h-8 mfe-user-rounded-full mfe-user-flex mfe-user-items-center mfe-user-justify-center mfe-user-z-10 mfe-user-border-2">
                         <i class="fa-solid fa-eye mfe-user-text-xs"></i>
                       </div>
@@ -76,7 +76,7 @@ import { RouterLink } from '@angular/router';
                     
                     <!-- Interview Step -->
                     <div class="mfe-user-relative mfe-user-flex mfe-user-gap-4">
-                      <div [class]="getStepClasses('interview', app.status)" 
+                      <div [class]="getStepClasses('INTERVIEW', app.status)" 
                            class="mfe-user-w-8 mfe-user-h-8 mfe-user-rounded-full mfe-user-flex mfe-user-items-center mfe-user-justify-center mfe-user-z-10 mfe-user-border-2">
                         <i class="fa-solid fa-calendar mfe-user-text-xs"></i>
                       </div>
@@ -87,9 +87,9 @@ import { RouterLink } from '@angular/router';
                     </div>
                     
                     <!-- Accepted Step -->
-                    @if(app.status == 'accepted'){
+                    @if(app.status == 'ACCEPTED'){
                         <div class="mfe-user-relative mfe-user-flex mfe-user-gap-4">
-                          <div [class]="getStepClasses('accepted', app.status)" 
+                          <div [class]="getStepClasses('ACCEPTED', app.status)" 
                                class="mfe-user-w-8 mfe-user-h-8 mfe-user-rounded-full mfe-user-flex mfe-user-items-center mfe-user-justify-center mfe-user-z-10 mfe-user-border-2">
                             <i class="fa-solid fa-check mfe-user-text-xs"></i>
                           </div>
@@ -101,9 +101,9 @@ import { RouterLink } from '@angular/router';
                     }
 
                     <!-- rejected Step -->
-                    @if(app.status == 'rejected'){
+                    @if(app.status == 'REJECTED'){
                         <div class="mfe-user-relative mfe-user-flex mfe-user-gap-4">
-                          <div [class]="getStepClasses('rejected', app.status)" 
+                          <div [class]="getStepClasses('REJECTED', app.status)" 
                                class="mfe-user-w-8 mfe-user-h-8 mfe-user-rounded-full mfe-user-flex mfe-user-items-center mfe-user-justify-center mfe-user-z-10 mfe-user-border-2 mfe-user-border-red-500 mfe-user-bg-red-50">
                             <i class="fa-solid fa-times mfe-user-text-xs"></i>
                           </div>
@@ -138,11 +138,11 @@ export class JobApplicationComponent {
 
   getStatusText(status: JobApplicationStatus): string {
     const statusMap = {
-      submitted: 'Submitted',
-      viewed: 'Viewed',
-      interview: 'Interview',
-      accepted: 'Accepted',
-      rejected: 'Rejected'
+        SUBMITTED: 'Submitted',
+        VIEWED: 'Viewed',
+        INTERVIEW: 'Interview',
+        ACCEPTED: 'Accepted',
+        REJECTED: 'Rejected'
     };
     return statusMap[status];
   }
@@ -151,23 +151,26 @@ export class JobApplicationComponent {
     const baseClasses = 'mfe-user-px-3 mfe-user-py-1 mfe-user-rounded-full mfe-user-text-sm mfe-user-font-medium';
     
     const statusClasses = {
-      submitted: 'mfe-user-bg-blue-100 mfe-user-text-blue-800',
-      viewed: 'mfe-user-bg-purple-100 mfe-user-text-purple-800',
-      interview: 'mfe-user-bg-yellow-100 mfe-user-text-yellow-800',
-      accepted: 'mfe-user-bg-green-100 mfe-user-text-green-800',
-      rejected: 'mfe-user-bg-red-100 mfe-user-text-red-800'
+        SUBMITTED: 'mfe-user-bg-blue-100 mfe-user-text-blue-800',
+        VIEWED: 'mfe-user-bg-purple-100 mfe-user-text-purple-800',
+        INTERVIEW: 'mfe-user-bg-yellow-100 mfe-user-text-yellow-800',
+        ACCEPTED: 'mfe-user-bg-green-100 mfe-user-text-green-800',
+        REJECTED: 'mfe-user-bg-red-100 mfe-user-text-red-800'
     };
     
     return `${baseClasses} ${statusClasses[status]}`;
   }
 
-  getStepClasses(step: any, currentStatus: JobApplicationStatus): string {
+  getStepClasses(
+        step: JobApplicationStatus,
+        currentStatus: JobApplicationStatus
+    ): string {
     const stepOrder: JobApplicationStatus[] = [
-        JobApplicationStatus.SUBMITTED, 
-        JobApplicationStatus.VIEWED,
-        JobApplicationStatus.INTERVIEW,
-        JobApplicationStatus.ACCEPTED,
-        JobApplicationStatus.REJECTED
+        'SUBMITTED', 
+        'VIEWED',
+        'INTERVIEW',
+        'ACCEPTED',
+        'REJECTED'
     ];
     const currentStepIndex = stepOrder.indexOf(currentStatus);
     const stepIndex = stepOrder.indexOf(step);

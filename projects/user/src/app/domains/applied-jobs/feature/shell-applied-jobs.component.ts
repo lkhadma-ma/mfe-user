@@ -82,32 +82,32 @@ export class ShellAppliedJobsComponent implements OnInit {
       job: { id: 11, position: 'Frontend Developer',
       company: { name: 'Satec', avatar: 'https://media.licdn.com/dms/image/v2/D4D0BAQEmsC7uLFcGtw/company-logo_100_100/company-logo_100_100/0/1734610939743/satec_logo?e=1765411200&v=beta&t=rhB5UlZy2Pt1dvbJhfEjqlUYgT_7ZBcpXiSWjjPIzj4' },
       },
-      status: JobApplicationStatus.INTERVIEW,
+      status: 'INTERVIEW',
       notes: 'Prepare for the technical interview focusing on Angular and TypeScript.'
     },
     {
       job: { id: 10, position: 'Backend Developer',
       company: { name: 'Satec', avatar: 'https://media.licdn.com/dms/image/v2/D4D0BAQEmsC7uLFcGtw/company-logo_100_100/company-logo_100_100/0/1734610939743/satec_logo?e=1765411200&v=beta&t=rhB5UlZy2Pt1dvbJhfEjqlUYgT_7ZBcpXiSWjjPIzj4' },
       },
-      status: JobApplicationStatus.VIEWED
+      status: 'VIEWED'
     },
     {
       job: { id: 12, position: 'Full Stack Developer',
       company: { name: 'Tech Corp', avatar: 'https://via.placeholder.com/100' },
       },
-      status: JobApplicationStatus.SUBMITTED
+      status: 'SUBMITTED'
     },
     {
       job: { id: 13, position: 'Senior Angular Developer Senior Angular Developer',
       company: { name: 'Web Solutions', avatar: 'https://via.placeholder.com/100' },
       },
-      status: JobApplicationStatus.ACCEPTED
+      status: 'ACCEPTED'
     },
     {
       job: { id: 14, position: 'React Developer' ,
       company: { name: 'Digital Agency', avatar: 'https://via.placeholder.com/100' },
       },
-      status: JobApplicationStatus.REJECTED,
+      status: 'REJECTED',
       notes: 'Focus on improving your React skills and understanding of Redux.'
     }
   ]);
@@ -118,11 +118,11 @@ export class ShellAppliedJobsComponent implements OnInit {
   // Status filter options
   statusFilters = [
     { value: 'all' as const, label: 'All Applications' },
-    { value: JobApplicationStatus.SUBMITTED, label: 'Submitted' },
-    { value: JobApplicationStatus.VIEWED, label: 'Viewed' },
-    { value: JobApplicationStatus.INTERVIEW, label: 'Interview' },
-    { value: JobApplicationStatus.ACCEPTED, label: 'Accepted' },
-    { value: JobApplicationStatus.REJECTED, label: 'Rejected' }
+    { value: 'SUBMITTED', label: 'Submitted' },
+    { value: 'VIEWED', label: 'Viewed' },
+    { value: 'INTERVIEW', label: 'Interview' },
+    { value: 'ACCEPTED', label: 'Accepted' },
+    { value: 'REJECTED', label: 'Rejected' }
   ];
 
   // Computed filtered applications
@@ -142,21 +142,21 @@ export class ShellAppliedJobsComponent implements OnInit {
   }
 
   // Set status filter
-  setStatusFilter(filter: JobApplicationStatus | 'all'): void {
-    this.statusFilter.set(filter);
+  setStatusFilter(filter: any): void {
+    this.statusFilter.set(filter as JobApplicationStatus | 'all');
   }
 
   // Get application count for each filter
-  getApplicationCount(filter: JobApplicationStatus | 'all'): number {
-    if (filter === 'all') {
+  getApplicationCount(filter: any): number {
+    if ((filter as JobApplicationStatus | 'all') === 'all') {
       return this.applications().length;
     }
     return this.applications().filter(app => app.status === filter).length;
   }
 
   // Get filter button classes
-  getFilterButtonClasses(filter: JobApplicationStatus | 'all'): string {
-    const isActive = this.statusFilter() === filter;
+  getFilterButtonClasses(filter: any): string {
+    const isActive = this.statusFilter() === filter as JobApplicationStatus | 'all';
     const baseClasses = 'mfe-user-px-4 mfe-user-py-2 mfe-user-rounded-lg mfe-user-text-sm mfe-user-font-medium mfe-user-transition mfe-user-duration-200 mfe-user-whitespace-nowrap';
     
     if (isActive) {
@@ -176,11 +176,11 @@ export class ShellAppliedJobsComponent implements OnInit {
     
     const filterMap: Record<JobApplicationStatus | 'all', string> = {
       'all': 'No job applications yet',
-      [JobApplicationStatus.SUBMITTED]: 'No submitted applications',
-      [JobApplicationStatus.VIEWED]: 'No applications viewed yet',
-      [JobApplicationStatus.INTERVIEW]: 'No interview invitations',
-      [JobApplicationStatus.ACCEPTED]: 'No accepted applications',
-      [JobApplicationStatus.REJECTED]: 'No rejected applications'
+      ['SUBMITTED']: 'No submitted applications',
+      ['VIEWED']: 'No applications viewed yet',
+      ['INTERVIEW']: 'No interview invitations',
+      ['ACCEPTED']: 'No accepted applications',
+      ['REJECTED']: 'No rejected applications'
     };
     
     return filterMap[filter];
