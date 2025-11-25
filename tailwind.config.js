@@ -3,7 +3,11 @@ module.exports = {
   prefix: 'mfe-user-',
   content: ["./projects/user/src/**/*.{html,ts}"],
   theme: {
-    extend: {},
+    extend: {
+      screens: {
+        'max-424': { 'max': '424px' },
+      },
+    },
   },
   plugins: [
     require('@tailwindcss/typography')
