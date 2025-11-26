@@ -26,8 +26,8 @@
 .mfe-user-left-3 {
   left: 0.75rem;
 }
-.mfe-user-left-4 {
-  left: 1rem;
+.mfe-user-left-\[\.95rem\] {
+  left: .95rem;
 }
 .mfe-user-right-0 {
   right: 0px;
@@ -566,13 +566,13 @@
   --tw-bg-opacity: 1;
   background-color: rgb(254 226 226 / var(--tw-bg-opacity, 1));
 }
-.mfe-user-bg-red-50 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(254 242 242 / var(--tw-bg-opacity, 1));
-}
 .mfe-user-bg-red-600 {
   --tw-bg-opacity: 1;
   background-color: rgb(220 38 38 / var(--tw-bg-opacity, 1));
+}
+.mfe-user-bg-teal-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(204 251 241 / var(--tw-bg-opacity, 1));
 }
 .mfe-user-bg-transparent {
   background-color: transparent;
@@ -805,6 +805,10 @@
 .mfe-user-text-red-800 {
   --tw-text-opacity: 1;
   color: rgb(153 27 27 / var(--tw-text-opacity, 1));
+}
+.mfe-user-text-teal-800 {
+  --tw-text-opacity: 1;
+  color: rgb(17 94 89 / var(--tw-text-opacity, 1));
 }
 .mfe-user-text-white {
   --tw-text-opacity: 1;
