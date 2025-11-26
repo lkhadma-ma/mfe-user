@@ -67,7 +67,7 @@ import { RouterLink } from '@angular/router';
                   <div class="mfe-user-relative mfe-user-flex mfe-user-gap-4">
 
                     <!-- Circle / Icon -->
-                    <div [class]="getStepClasses(index, latestIndexValue)"
+                    <div [class]="getStepClasses(index, latestIndexValue)" [class]="statusBadgeClasses(stage.status)"
                          class="mfe-user-w-8 mfe-user-h-8 mfe-user-rounded-full mfe-user-flex mfe-user-items-center mfe-user-justify-center mfe-user-z-10 mfe-user-border-2">
                       <i class="{{ getIcon(stage.status) }} mfe-user-text-xs"></i>
                     </div>
