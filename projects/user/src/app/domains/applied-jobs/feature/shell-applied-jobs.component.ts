@@ -21,7 +21,7 @@ import { LoadingComponent } from "../ui/loading.component";
         <div class="mfe-user-w-full">
           <div class="mfe-user-w-full mfe-user-flex mfe-user-flex-col mfe-user-space-y-4">
           <!-- start -->
-          <div class="max-sm:mfe-user-h-[90vh] max-sm:mfe-user-border max-sm:mfe-user-rounded-lg mfe-user-bg-white">
+          <div class="max-sm:mfe-user-h-[90vh] max-sm:mfe-user-border sm:mfe-user-rounded-lg mfe-user-bg-white">
             <div class="mfe-user-px-4 mfe-user-py-4 mfe-user-space-y-4">
               <!-- Header -->
               <div class="mfe-user-space-y-2">
