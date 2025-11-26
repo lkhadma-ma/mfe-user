@@ -8,7 +8,7 @@ import { AppliedJobsStore } from '../data-access/applied-jobs.store';
 import { LoadingComponent } from "../ui/loading.component";
 
 @Component({
-  selector: 'mfe-user-me-shell',
+  selector: 'mfe-user-applied-jobs',
   imports: [
     CommonModule,
     SectionComponent,
