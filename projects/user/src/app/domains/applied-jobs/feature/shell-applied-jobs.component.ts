@@ -4,14 +4,17 @@ import { SectionComponent } from '@shared/ui/section/section.component';
 import { ActivatedRoute } from '@angular/router';
 import { JobApplicationComponent } from "../ui/job-application.component";
 import { JobApplication, JobApplicationStatus } from '../data-access/job-application';
+import { AppliedJobsStore } from '../data-access/applied-jobs.store';
+import { LoadingComponent } from "../ui/loading.component";
 
 @Component({
   selector: 'mfe-user-me-shell',
   imports: [
     CommonModule,
     SectionComponent,
-    JobApplicationComponent
-  ],
+    JobApplicationComponent,
+    LoadingComponent
+],
   template: `
     <mfe-user-section ngxClass="md:mfe-user-pt-[5rem]" >
       <div class="mfe-user-w-full mfe-user-mb-40 md:mfe-user-space-x-6 md:mfe-user-flex ">
@@ -47,18 +50,31 @@ import { JobApplication, JobApplicationStatus } from '../data-access/job-applica
 
               <!-- Applications List -->
               <div class="mfe-user-w-full mfe-user-flex mfe-user-flex-col mfe-user-space-y-4">
-                @for(app of filteredApplications(); track app.job.id) {
-                  <mfe-user-job-application [application]="app" />
-                }
-                @empty {
+                @if(applications() === null) {
+                  <mfe-user-loading />
+                } @else if (applications()!.length > 0) {
+                  @for(app of filteredApplications(); track app.job.id) {
+                    <mfe-user-job-application [application]="app" />
+                  } @empty {
+                    <div class="mfe-user-text-center mfe-user-py-12 mfe-user-text-gray-500">
+                      <i class="fa-solid fa-briefcase mfe-user-text-4xl mfe-user-mb-4 mfe-user-text-gray-300"></i>
+                      <p class="mfe-user-text-lg">
+                        {{ getEmptyStateMessage() }}
+                      </p>
+                      <p class="mfe-user-text-sm mfe-user-mt-1">
+                        {{ getEmptyStateSubMessage() }}
+                      </p>
+                  </div>
+                  }
+                } @else {
                   <div class="mfe-user-text-center mfe-user-py-12 mfe-user-text-gray-500">
-                    <i class="fa-solid fa-briefcase mfe-user-text-4xl mfe-user-mb-4 mfe-user-text-gray-300"></i>
-                    <p class="mfe-user-text-lg">
-                      {{ getEmptyStateMessage() }}
-                    </p>
-                    <p class="mfe-user-text-sm mfe-user-mt-1">
-                      {{ getEmptyStateSubMessage() }}
-                    </p>
+                      <i class="fa-solid fa-briefcase mfe-user-text-4xl mfe-user-mb-4 mfe-user-text-gray-300"></i>
+                      <p class="mfe-user-text-lg">
+                        {{ getEmptyStateMessage() }}
+                      </p>
+                      <p class="mfe-user-text-sm mfe-user-mt-1">
+                        {{ getEmptyStateSubMessage() }}
+                      </p>
                   </div>
                 }
               </div>
@@ -75,47 +91,12 @@ import { JobApplication, JobApplicationStatus } from '../data-access/job-applica
   `,
 })
 export class ShellAppliedJobsComponent implements OnInit {
-  private route = inject(ActivatedRoute);
+  private appliedJobsStore = inject(AppliedJobsStore);
 
-  applications = signal<JobApplication[]>([
-    {
-      job: { id: 11, position: 'Frontend Developer',
-      company: { name: 'Satec', avatar: 'https://media.licdn.com/dms/image/v2/D4D0BAQEmsC7uLFcGtw/company-logo_100_100/company-logo_100_100/0/1734610939743/satec_logo?e=1765411200&v=beta&t=rhB5UlZy2Pt1dvbJhfEjqlUYgT_7ZBcpXiSWjjPIzj4' },
-      },
-      status: 'INTERVIEW',
-      note: 'Prepare for the technical interview focusing on Angular and TypeScript.'
-    },
-    {
-      job: { id: 10, position: 'Backend Developer',
-      company: { name: 'Satec', avatar: 'https://media.licdn.com/dms/image/v2/D4D0BAQEmsC7uLFcGtw/company-logo_100_100/company-logo_100_100/0/1734610939743/satec_logo?e=1765411200&v=beta&t=rhB5UlZy2Pt1dvbJhfEjqlUYgT_7ZBcpXiSWjjPIzj4' },
-      },
-      status: 'VIEWED'
-    },
-    {
-      job: { id: 12, position: 'Full Stack Developer',
-      company: { name: 'Tech Corp', avatar: 'https://via.placeholder.com/100' },
-      },
-      status: 'SUBMITTED'
-    },
-    {
-      job: { id: 13, position: 'Senior Angular Developer Senior Angular Developer',
-      company: { name: 'Web Solutions', avatar: 'https://via.placeholder.com/100' },
-      },
-      status: 'ACCEPTED'
-    },
-    {
-      job: { id: 14, position: 'React Developer' ,
-      company: { name: 'Digital Agency', avatar: 'https://via.placeholder.com/100' },
-      },
-      status: 'REJECTED',
-      note: 'Focus on improving your React skills and understanding of Redux.'
-    }
-  ]);
+  applications = this.appliedJobsStore.jobApplications;
 
-  // Status filter signal
   statusFilter = signal<JobApplicationStatus | 'all'>('all');
 
-  // Status filter options
   statusFilters = [
     { value: 'all' as const, label: 'All Applications' },
     { value: 'SUBMITTED', label: 'Submitted' },
@@ -125,10 +106,9 @@ export class ShellAppliedJobsComponent implements OnInit {
     { value: 'REJECTED', label: 'Rejected' }
   ];
 
-  // Computed filtered applications
   filteredApplications = computed(() => {
     const filter = this.statusFilter();
-    const allApplications = this.applications();
+    const allApplications = this.applications() ?? [];
 
     if (filter === 'all') {
       return allApplications;
@@ -138,23 +118,20 @@ export class ShellAppliedJobsComponent implements OnInit {
   });
 
   ngOnInit() {
-    // You can initialize any route-based filtering here if needed
+    this.appliedJobsStore.loadJobApplications();
   }
 
-  // Set status filter
   setStatusFilter(filter: any): void {
     this.statusFilter.set(filter as JobApplicationStatus | 'all');
   }
 
-  // Get application count for each filter
   getApplicationCount(filter: any): number {
     if ((filter as JobApplicationStatus | 'all') === 'all') {
-      return this.applications().length;
+      return (this.applications() ?? []).length;
     }
-    return this.applications().filter(app => app.status === filter).length;
+    return (this.applications() ?? []).filter(app => app.status === filter).length;
   }
 
-  // Get filter button classes
   getFilterButtonClasses(filter: any): string {
     const isActive = this.statusFilter() === filter as JobApplicationStatus | 'all';
     const baseClasses = 'mfe-user-px-4 mfe-user-py-2 mfe-user-rounded-lg mfe-user-text-sm mfe-user-font-medium mfe-user-transition mfe-user-duration-200 mfe-user-whitespace-nowrap';
@@ -166,7 +143,6 @@ export class ShellAppliedJobsComponent implements OnInit {
     return `${baseClasses} mfe-user-bg-gray-100 mfe-user-text-gray-700 mfe-user-border mfe-user-border-transparent hover:mfe-user-bg-gray-200`;
   }
 
-  // Get empty state message based on filter
   getEmptyStateMessage(): string {
     const filter = this.statusFilter();
     
@@ -186,7 +162,6 @@ export class ShellAppliedJobsComponent implements OnInit {
     return filterMap[filter];
   }
 
-  // Get empty state sub-message based on filter
   getEmptyStateSubMessage(): string {
     const filter = this.statusFilter();
     
