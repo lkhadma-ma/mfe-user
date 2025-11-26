@@ -102,9 +102,18 @@ export class ShellAppliedJobsComponent implements OnInit {
     { value: 'SUBMITTED', label: 'Submitted' },
     { value: 'VIEWED', label: 'Viewed' },
     { value: 'INTERVIEW', label: 'Interview' },
+    { value: 'PASSED', label: 'Passed' },
     { value: 'ACCEPTED', label: 'Accepted' },
-    { value: 'REJECTED', label: 'Rejected' }
+    { value: 'REJECTED', label: 'Rejected' },
   ];
+
+  private getLatestStatus(app: JobApplication): JobApplicationStatus {
+    if (!app.pipelineStage || app.pipelineStage.length === 0) {
+      return 'SUBMITTED';
+    }
+
+    return app.pipelineStage[app.pipelineStage.length - 1].status;
+  }
 
   filteredApplications = computed(() => {
     const filter = this.statusFilter();
@@ -114,7 +123,7 @@ export class ShellAppliedJobsComponent implements OnInit {
       return allApplications;
     }
 
-    return allApplications.filter(app => app.status === filter);
+    return allApplications.filter(app => this.getLatestStatus(app) === filter);
   });
 
   ngOnInit() {
@@ -126,49 +135,51 @@ export class ShellAppliedJobsComponent implements OnInit {
   }
 
   getApplicationCount(filter: any): number {
-    if ((filter as JobApplicationStatus | 'all') === 'all') {
-      return (this.applications() ?? []).length;
+    const apps = this.applications() ?? [];
+
+    if (filter === 'all') {
+      return apps.length;
     }
-    return (this.applications() ?? []).filter(app => app.status === filter).length;
+
+    return apps.filter(app => this.getLatestStatus(app) === filter).length;
   }
 
   getFilterButtonClasses(filter: any): string {
-    const isActive = this.statusFilter() === filter as JobApplicationStatus | 'all';
-    const baseClasses = 'mfe-user-px-4 mfe-user-py-2 mfe-user-rounded-lg mfe-user-text-sm mfe-user-font-medium mfe-user-transition mfe-user-duration-200 mfe-user-whitespace-nowrap';
-    
+    const isActive = this.statusFilter() === filter;
+    const baseClasses =
+      'mfe-user-px-4 mfe-user-py-2 mfe-user-rounded-lg mfe-user-text-sm mfe-user-font-medium mfe-user-transition mfe-user-duration-200 mfe-user-whitespace-nowrap';
+
     if (isActive) {
       return `${baseClasses} mfe-user-bg-blue-100 mfe-user-text-blue-700 mfe-user-border mfe-user-border-blue-200`;
     }
-    
+
     return `${baseClasses} mfe-user-bg-gray-100 mfe-user-text-gray-700 mfe-user-border mfe-user-border-transparent hover:mfe-user-bg-gray-200`;
   }
 
+
   getEmptyStateMessage(): string {
     const filter = this.statusFilter();
-    
-    if (filter === 'all') {
-      return 'No job applications yet';
-    }
-    
+
     const filterMap: Record<JobApplicationStatus | 'all', string> = {
-      'all': 'No job applications yet',
-      ['SUBMITTED']: 'No submitted applications',
-      ['VIEWED']: 'No applications viewed yet',
-      ['INTERVIEW']: 'No interview invitations',
-      ['ACCEPTED']: 'No accepted applications',
-      ['REJECTED']: 'No rejected applications'
+      all: 'No job applications yet',
+      SUBMITTED: 'No submitted applications',
+      VIEWED: 'No applications viewed yet',
+      INTERVIEW: 'No interview invitations',
+      ACCEPTED: 'No accepted applications',
+      REJECTED: 'No rejected applications',
+      PASSED: 'No passed applications',
     };
-    
+
     return filterMap[filter];
   }
 
   getEmptyStateSubMessage(): string {
     const filter = this.statusFilter();
-    
+
     if (filter === 'all') {
       return 'Start applying to jobs to see your progress here';
     }
-    
+
     return 'Applications with this status will appear here';
   }
 }

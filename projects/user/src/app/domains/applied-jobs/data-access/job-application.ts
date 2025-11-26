@@ -7,8 +7,13 @@ export type JobApplication = {
         avatar: string;
       };
     };
-    status: JobApplicationStatus;
-    note?: string;
+    pipelineStage: {
+        status: JobApplicationStatus;
+        createdAt: string;
+        note?: string;
+    }[];
 }
 
-export type JobApplicationStatus = 'SUBMITTED' | 'VIEWED' | 'INTERVIEW' | 'ACCEPTED' | 'REJECTED'
+export type JobApplicationStatus = 'SUBMITTED' | 'VIEWED' | 'INTERVIEW' | 'ACCEPTED' | 'REJECTED' | 'PASSED';
+
+export type JobApplicationMessage = 'SUBMITTED' | 'VIEWED';
