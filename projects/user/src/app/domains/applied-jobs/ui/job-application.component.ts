@@ -77,10 +77,9 @@ import { RouterLink } from '@angular/router';
                       <p class="mfe-user-font-medium mfe-user-text-gray-900">{{ getTitle(stage.status) }}</p>
                       @if(stage.status === 'SUBMITTED' || stage.status === 'VIEWED') {
                         <p class="mfe-user-text-sm mfe-user-text-gray-500 mfe-user-mt-1">
-                            Your application has been sent
+                            {{ getMessageForStatus(stage.status) }}
                         </p>
-                      } @else {
-                           
+                      } @else {  
                         @if(stage?.note) {
                             <div class="mfe-user-bg-blue-50  mfe-user-border mfe-user-border-blue-200 mfe-user-rounded-lg mfe-user-p-4 mfe-user-mt-4">
                             <p class="mfe-user-text-sm mfe-user-text-blue-800">{{ stage?.note }}</p>
@@ -192,8 +191,8 @@ export class JobApplicationComponent {
   getMessageForStatus(status: JobApplicationMessage): string {
 
     const messageMap: Record<JobApplicationMessage, string> = {
-      SUBMITTED: 'Your application has been submitted successfully.',
-      VIEWED: 'The employer has viewed your application.',
+      SUBMITTED: 'Your application has been sent.',
+      VIEWED: 'Your application has been viewed.',
     };
     
     return messageMap[status];
