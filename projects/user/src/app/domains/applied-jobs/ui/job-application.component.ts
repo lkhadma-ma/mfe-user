@@ -76,9 +76,16 @@ import { RouterLink } from '@angular/router';
                     <div class="mfe-user-flex-1 mfe-user-pb-6">
                       <p class="mfe-user-font-medium mfe-user-text-gray-900">{{ getTitle(stage.status) }}</p>
                       @if(stage.status === 'SUBMITTED' || stage.status === 'VIEWED') {
-                        <p class="mfe-user-text-sm mfe-user-text-gray-500 mfe-user-mt-1">
+                        @if(stage?.note) {
+                            <div class="mfe-user-bg-blue-50  mfe-user-border mfe-user-border-blue-200 mfe-user-rounded-lg mfe-user-p-4 mfe-user-mt-4">
+                            <p class="mfe-user-text-sm mfe-user-text-blue-800">{{ stage?.note }}</p>
+                            </div>
+                        } @else {
+                          <p class="mfe-user-text-sm mfe-user-text-gray-500 mfe-user-mt-1">
                             {{ getMessageForStatus(stage.status) }}
-                        </p>
+                          </p>
+                        }
+                        
                       } @else {  
                         @if(stage?.note) {
                             <div class="mfe-user-bg-blue-50  mfe-user-border mfe-user-border-blue-200 mfe-user-rounded-lg mfe-user-p-4 mfe-user-mt-4">
